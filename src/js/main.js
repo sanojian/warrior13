@@ -24,7 +24,10 @@ function gameInit() {
 
 	tileLayer.redraw();
 
-	const player = new EngineObject(vec2(2, 4), vec2(1), tile(1));
+	GLOBAL.units.push(
+		new Unit_Worker(vec2(2, 4)),
+		new Unit_Worker(vec2(2, 8)),
+	);
 
 	GLOBAL.townHall = new Building_TownHall(vec2(4, 4));
 
@@ -41,8 +44,37 @@ function gameInit() {
 }
 function gameUpdate() {
 	
+	let itemSelected = false;
+
 	if (mouseIsDown(0)) {
-		console.log(mousePos)
+
+
+		if (GLOBAL.townHall.isOver(mousePos.x, mousePos.y)) {
+			console.log('click');
+			itemSelected = true;
+		}
+		else {
+
+			const wereSelected = [];
+			for (let i = 0; i < GLOBAL.units.length; i++) {
+				const unit = GLOBAL.units[i];
+				
+				unit.selected && wereSelected.push(unit);
+
+				unit.isOver(mousePos.x, mousePos.y);
+				itemSelected = itemSelected || unit.selected;
+					
+			}
+
+			if (!itemSelected) {
+				// this was an order to selected units
+				for (let i = 0; i < wereSelected.length; i++) {
+					const unit = wereSelected[i];
+					unit.selected = true;
+					unit.destination = vec2(mousePos);
+				}
+			}
+		}
 	}
 }
 function gameUpdatePost() {

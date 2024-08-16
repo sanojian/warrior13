@@ -4,5 +4,6 @@
 
 const GLOBAL = {
 
-	trees: []
+	trees: [],
+	units: []
 };
