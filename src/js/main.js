@@ -83,6 +83,43 @@ function gameRender() {
 }
 function gameRenderPost() {
 	
+	let uiPos = screenToWorld(vec2(128, 64));
+
+	drawTile(
+		uiPos,
+		vec2(4, 2),
+		tile(vec2(0, 48), vec2(48, 24))
+	);
+
+	drawText(
+		'' + GLOBAL.wood,
+		uiPos.add(vec2(1.4, -0.1)),
+		1,
+		new Color(0, 0, 0),
+		undefined,
+		undefined,
+		'right'
+	);
+
+	uiPos = uiPos.add(vec2(4, 0));
+
+	drawTile(
+		uiPos,
+		vec2(4, 2),
+		tile(vec2(48, 48), vec2(48, 24))
+	);
+
+	drawText(
+		'' + GLOBAL.stone,
+		uiPos.add(vec2(1.4, -0.1)),
+		1,
+		new Color(0, 0, 0),
+		undefined,
+		undefined,
+		'right'
+	);
+
+
 }
 
 tileSizeDefault = vec2(12);

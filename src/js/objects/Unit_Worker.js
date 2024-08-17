@@ -95,8 +95,8 @@ class Unit_Worker extends EngineObject {
 					}
 					else if (tileAtPos instanceof Building_TownHall && this.intention == 'store') {
 						
-						GLOBAL.wood = this.wood;
-						GLOBAL.stone = this.stone;
+						GLOBAL.wood += this.wood;
+						GLOBAL.stone += this.stone;
 						this.wood = 0;
 						this.stone = 0;
 						this.intention = undefined;
