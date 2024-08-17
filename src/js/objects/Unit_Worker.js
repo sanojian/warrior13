@@ -14,6 +14,9 @@ class Unit_Worker extends EngineObject {
 		this.walkTile = tile(5);
 
 		this.intention = undefined;
+
+		this.wood = 0;
+		this.stone = 0;
 	}
 
 	isOver(x, y) {
@@ -46,8 +49,11 @@ class Unit_Worker extends EngineObject {
 
 				if (tileAtPos) {
 					// collision
-					console.log(tileAtPos)
-					return tileAtPos;
+					if (tileAtPos instanceof Tree) {
+						const wood = tileAtPos.chop(1);
+						this.wood += wood;
+						console.log(this.wood)
+					}
 				}
 				else {
 					// walk towards destination
