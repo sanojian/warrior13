@@ -82,6 +82,22 @@ class Unit_Worker extends EngineObject {
 
 			if (dist < this.speed) {
 				this.pos = this.destination;
+				if (this.intention == 'chop') {
+					// look for new target
+					let closest = Infinity;
+					let target = undefined;
+					for (let i = 0; i < GLOBAL.trees.length; i++) {
+						const tree = GLOBAL.trees[i];
+						const dist = tree.pos.subtract(this.pos).length();
+						if (dist < closest) {
+							target = tree;
+							closest = dist;
+						}
+					}
+					if (target) {
+						this.destination = target.pos;
+					} 
+				}
 			}
 			else {
 				const movement = vec2().setAngle(angle, this.speed);
@@ -162,7 +178,7 @@ class Unit_Worker extends EngineObject {
 				vec2(2),
 				tile(vec2(24), 24),
 				undefined,
-				-this.actionFrame / (PI*12),
+				(this.mirror ? 1 : -1) * this.actionFrame / (PI*12),
 				this.mirror
 			);
 		}
@@ -173,7 +189,7 @@ class Unit_Worker extends EngineObject {
 				vec2(2),
 				tile(vec2(48, 24), 24),
 				undefined,
-				-this.actionFrame / (PI*12),
+				(this.mirror ? 1 : -1) * this.actionFrame / (PI*12),
 				this.mirror
 			);
 		}
