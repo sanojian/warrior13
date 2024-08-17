@@ -56,8 +56,11 @@ class Unit_Worker extends EngineObject {
 					// TODO: check if tree still exists
 					const wood = this.intentionTarget.chop(1);
 					this.wood += wood;
-					console.log(this.wood)
-
+				}
+				else if (this.intention == 'mine') {
+					// TODO: check if tree still exists
+					const stone = this.intentionTarget.mine(1);
+					this.stone += stone;
 				}
 			}
 			else {
@@ -89,7 +92,13 @@ class Unit_Worker extends EngineObject {
 					// collision
 					if (tileAtPos instanceof Tree && this.intention == 'chop') {
 						
-						this.actionTimer.set(2);
+						this.actionTimer.set(1);
+						this.actionFrame = 0;
+						this.intentionTarget = tileAtPos;
+					}
+					else if (tileAtPos instanceof Stone && this.intention == 'mine') {
+						
+						this.actionTimer.set(1);
 						this.actionFrame = 0;
 						this.intentionTarget = tileAtPos;
 					}
@@ -152,6 +161,17 @@ class Unit_Worker extends EngineObject {
 				this.pos.add(vec2(0, -2/12)),
 				vec2(2),
 				tile(vec2(24), 24),
+				undefined,
+				-this.actionFrame / (PI*12),
+				this.mirror
+			);
+		}
+		else if (this.intention == 'mine') {
+			// axe
+			drawTile(
+				this.pos.add(vec2(0, -2/12)),
+				vec2(2),
+				tile(vec2(48, 24), 24),
 				undefined,
 				-this.actionFrame / (PI*12),
 				this.mirror

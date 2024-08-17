@@ -41,6 +41,10 @@ class MapManager {
 			new Tree(vec2(6, 6)),
 			new Tree(vec2(5, 7)),
 		);
+		GLOBAL.stones.push(
+			new Stone(vec2(8, 4)),
+			new Stone(vec2(7, 8)),
+		);
 		
 	}
 

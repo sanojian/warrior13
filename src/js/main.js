@@ -46,6 +46,18 @@ function gameUpdate() {
 			}
 				
 		}
+		for (let i = 0; i < GLOBAL.stones.length && !itemSelected; i++) {
+			const stone = GLOBAL.stones[i];
+			
+			if (stone.isOver(mousePos.x, mousePos.y)) {
+			
+				for (let u = 0; u < wereSelected.length; u++) {
+					wereSelected[u].takeOrder('mine', stone);
+					orderGiven = true;
+				}
+			}
+				
+		}
 
 		for (let i = 0; i < GLOBAL.buildings.length && !itemSelected; i++) {
 			const building = GLOBAL.buildings[i];
