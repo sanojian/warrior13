@@ -3,13 +3,17 @@ class Unit_Worker extends EngineObject {
 
 	constructor(pos) {
 
-		super(pos, vec2(1), tile(1));
+		super(pos, vec2(1), tile(4));
 
 		this.selected = false;
 
 		this.destination = pos;
 
 		this.speed = 1 / 48;
+		this.walkFrame = 0;
+		this.walkTile = tile(5);
+
+		this.intention = undefined;
 	}
 
 	isOver(x, y) {
@@ -19,21 +23,43 @@ class Unit_Worker extends EngineObject {
 		return this.selected;
 	}
 
+	chopTree(tree) {
+		console.log('will chop')
+
+		this.intention = 'chop';
+	}
+
 	update() {
 
 		if (this.destination.x != this.pos.x || this.destination.y != this.pos.y) {
 			
 			const angle = this.destination.subtract(this.pos).angle();
 			const dist = this.destination.distance(this.pos);
-			console.log(angle)
 
 			if (dist < this.speed) {
 				this.pos = this.destination;
 			}
 			else {
-				this.pos = this.pos.add(vec2().setAngle(angle, this.speed));
+				const movement = vec2().setAngle(angle, this.speed);
+				const newPos = this.pos.add(movement);
+				const tileAtPos = GLOBAL.mapMan.getTileAt(newPos);
+
+				if (tileAtPos) {
+					// collision
+					console.log(tileAtPos)
+					return tileAtPos;
+				}
+				else {
+					// walk towards destination
+					this.pos = newPos;
+					this.mirror = movement.x < 0;
+					this.walkFrame++;
+				}
 			}
 
+		}
+		else {
+			this.walkFrame = 0;
 		}
 
 	}
@@ -46,16 +72,33 @@ class Unit_Worker extends EngineObject {
 		drawTile(
 			this.pos,
 			vec2(1),
-			this.tileInfo
+			Math.floor(this.walkFrame / 10) % 2 ? this.walkTile : this.tileInfo,
+			undefined,
+			undefined,
+			this.mirror
 		);
 
 		// post render
 		if (this.selected) {
+			// select ring
 			drawTile(
 				this.pos,
 				vec2(16 / 12),
-				tile(3)
+				tile(3),
 			);
 		}
+
+		if (this.intention == 'chop') {
+			// axe
+			drawTile(
+				this.pos.add(vec2(this.mirror ? -4/12 : 4/12, 0)),
+				vec2(1),
+				tile(13),
+				undefined,
+				undefined,
+				this.mirror
+			);
+		}
+
 	}
 }

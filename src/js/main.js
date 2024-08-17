@@ -8,35 +8,8 @@ function doEngineInit() {
 
 function gameInit() {
 	
-	const w = 20;
-	const h = 20;
-	
-	const tileLayer = new TileLayer(vec2(0), vec2(w, h));
 
-	for (let y = 0; y < h; y++) {
-		for (let x = 0; x < w; x++) {
-
-			const info = new TileLayerData(0);
-
-			tileLayer.setData(vec2(x, y), info);
-		}
-	}
-
-	tileLayer.redraw();
-
-	GLOBAL.units.push(
-		new Unit_Worker(vec2(2, 4)),
-		new Unit_Worker(vec2(2, 8)),
-	);
-
-	GLOBAL.townHall = new Building_TownHall(vec2(4, 4));
-
-	GLOBAL.trees.push(
-		new Tree(vec2(4, 6)),
-		new Tree(vec2(5, 6)),
-		new Tree(vec2(6, 6)),
-		new Tree(vec2(5, 7)),
-	);
+	GLOBAL.mapMan = new MapManager();
 
 	cameraPos = vec2(4, 4);
 	cameraScale = 60;
@@ -45,6 +18,7 @@ function gameInit() {
 function gameUpdate() {
 	
 	let itemSelected = false;
+	let orderGiven = false;
 
 	if (mouseIsDown(0)) {
 
@@ -65,13 +39,32 @@ function gameUpdate() {
 				itemSelected = itemSelected || unit.selected;
 					
 			}
+			for (let i = 0; i < GLOBAL.trees.length; i++) {
+				const tree = GLOBAL.trees[i];
+				
+				if (tree.isOver(mousePos.x, mousePos.y)) {
+				
+					for (let u = 0; u < wereSelected.length; u++) {
 
-			if (!itemSelected) {
+						wereSelected[u].chopTree(tree);
+						orderGiven = true;
+						
+					}
+				}
+					
+			}
+
+			if (!itemSelected || orderGiven) {
 				// this was an order to selected units
 				for (let i = 0; i < wereSelected.length; i++) {
 					const unit = wereSelected[i];
 					unit.selected = true;
+
+					// move command
 					unit.destination = vec2(mousePos);
+					if (!orderGiven) {
+						unit.intention = undefined;
+					}
 				}
 			}
 		}
