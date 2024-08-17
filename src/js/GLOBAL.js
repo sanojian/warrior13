@@ -5,5 +5,9 @@
 const GLOBAL = {
 
 	trees: [],
-	units: []
+	units: [],
+	buildings: [],
+
+	wood: 0,
+	stone: 0
 };

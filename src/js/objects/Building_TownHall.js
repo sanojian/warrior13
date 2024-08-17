@@ -5,6 +5,10 @@ class Building_TownHall extends EngineObject {
 
 		super(pos, vec2(2), tile(vec2(0, 24), 24));
 
+		this.renderOrder = -pos.y;
+
+		GLOBAL.mapGrid[pos.y][pos.x] = this;
+
 	}
 
 	isOver(x, y) {

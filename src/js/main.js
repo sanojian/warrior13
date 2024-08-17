@@ -20,55 +20,60 @@ function gameUpdate() {
 	let itemSelected = false;
 	let orderGiven = false;
 
+	// TODO: turn into single click
 	if (mouseIsDown(0)) {
 
 
-		if (GLOBAL.townHall.isOver(mousePos.x, mousePos.y)) {
-			console.log('click');
-			itemSelected = true;
+		const wereSelected = [];
+		for (let i = 0; i < GLOBAL.units.length; i++) {
+			const unit = GLOBAL.units[i];
+			
+			unit.selected && wereSelected.push(unit);
+
+			unit.isOver(mousePos.x, mousePos.y);
+			itemSelected = itemSelected || unit.selected;
+				
 		}
-		else {
-
-			const wereSelected = [];
-			for (let i = 0; i < GLOBAL.units.length; i++) {
-				const unit = GLOBAL.units[i];
-				
-				unit.selected && wereSelected.push(unit);
-
-				unit.isOver(mousePos.x, mousePos.y);
-				itemSelected = itemSelected || unit.selected;
-					
-			}
-			for (let i = 0; i < GLOBAL.trees.length; i++) {
-				const tree = GLOBAL.trees[i];
-				
-				if (tree.isOver(mousePos.x, mousePos.y)) {
-				
-					for (let u = 0; u < wereSelected.length; u++) {
-
-						wereSelected[u].chopTree(tree);
-						orderGiven = true;
-						
-					}
+		for (let i = 0; i < GLOBAL.trees.length && !itemSelected; i++) {
+			const tree = GLOBAL.trees[i];
+			
+			if (tree.isOver(mousePos.x, mousePos.y)) {
+			
+				for (let u = 0; u < wereSelected.length; u++) {
+					wereSelected[u].takeOrder('chop', tree);
+					orderGiven = true;
 				}
-					
 			}
+				
+		}
 
-			if (!itemSelected || orderGiven) {
-				// this was an order to selected units
-				for (let i = 0; i < wereSelected.length; i++) {
-					const unit = wereSelected[i];
-					unit.selected = true;
+		for (let i = 0; i < GLOBAL.buildings.length && !itemSelected; i++) {
+			const building = GLOBAL.buildings[i];
 
-					// move command
-					unit.destination = vec2(mousePos);
-					if (!orderGiven) {
-						unit.intention = undefined;
-					}
+			if (building.isOver(mousePos.x, mousePos.y)) {
+
+				for (let u = 0; u < wereSelected.length; u++) {
+					wereSelected[u].takeOrder('store', building);
+					orderGiven = true;
+				}
+			}
+		}
+
+		if (!itemSelected || orderGiven) {
+			// this was an order to selected units
+			for (let i = 0; i < wereSelected.length; i++) {
+				const unit = wereSelected[i];
+				unit.selected = true;
+
+				// move command
+				unit.destination = vec2(mousePos);
+				if (!orderGiven) {
+					unit.intention = undefined;
 				}
 			}
 		}
 	}
+
 }
 function gameUpdatePost() {
 	

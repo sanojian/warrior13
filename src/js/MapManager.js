@@ -33,7 +33,7 @@ class MapManager {
 			new Unit_Worker(vec2(2, 8)),
 		);
 
-		GLOBAL.townHall = new Building_TownHall(vec2(4, 4));
+		GLOBAL.buildings.push(new Building_TownHall(vec2(4, 4)));
 
 		GLOBAL.trees.push(
 			new Tree(vec2(4, 6)),

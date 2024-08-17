@@ -21,18 +21,26 @@ class Unit_Worker extends EngineObject {
 
 		this.actionTimer = new Timer;
 		this.actionFrame = 0;
+		this.jumpHeight = 0;
 	}
 
 	isOver(x, y) {
 
 		this.selected = x > this.pos.x - this.size.x / 2 && x < this.pos.x + this.size.x / 2 && y > this.pos.y - this.size.y / 2 && y < this.pos.y + this.size.y / 2;
 
+		/*if (this.selected) {
+			const T2S = window.speechSynthesis || speechSynthesis; // Storing speechSynthesis API as variable - T2S
+		    var utter = new SpeechSynthesisUtterance('Ready for work'); // To Make The Utterance
+    		T2S.speak(utter); // To Speak The Utterance
+		}*/
+
 		return this.selected;
 	}
 
-	chopTree(tree) {
+	takeOrder(order, target) {
 
-		this.intention = 'chop';
+		this.intention = order;
+		this.inentionTarget = target;
 		this.actionFrame = 0;
 	}
 
@@ -43,6 +51,7 @@ class Unit_Worker extends EngineObject {
 
 			if (this.actionTimer.elapsed()) {
 				this.actionTimer.unset();
+				this.jumpHeight = 0;
 				if (this.intention == 'chop') {
 					// TODO: check if tree still exists
 					const wood = this.intentionTarget.chop(1);
@@ -52,8 +61,10 @@ class Unit_Worker extends EngineObject {
 				}
 			}
 			else {
-				if (this.actionTimer.getPercent() > 0.9) {
+				const percent = this.actionTimer.getPercent();
+				if (percent > 0.9) {
 					this.actionFrame -= 10;
+					this.jumpHeight += percent > 0.95 ? -1 / 32 : 1 / 32;
 				}
 				else {
 					this.actionFrame++;
@@ -82,6 +93,14 @@ class Unit_Worker extends EngineObject {
 						this.actionFrame = 0;
 						this.intentionTarget = tileAtPos;
 					}
+					else if (tileAtPos instanceof Building_TownHall && this.intention == 'store') {
+						
+						GLOBAL.wood = this.wood;
+						GLOBAL.stone = this.stone;
+						this.wood = 0;
+						this.stone = 0;
+						this.intention = undefined;
+					}
 					else {
 						// TODO: go around?
 					}
@@ -109,7 +128,7 @@ class Unit_Worker extends EngineObject {
 
 		// render
 		drawTile(
-			this.pos,
+			this.pos.add(vec2(0, this.jumpHeight)),
 			vec2(1),
 			Math.floor(this.walkFrame / 10) % 2 ? this.walkTile : this.tileInfo,
 			undefined,
