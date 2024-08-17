@@ -43,7 +43,12 @@ class Unit_Worker extends EngineObject {
 				this.actionTimer.unset();
 			}
 			else {
-				this.actionFrame++;
+				if (this.actionTimer.getPercent() > 0.8) {
+					this.actionFrame -= 4;
+				}
+				else {
+					this.actionFrame++;
+				}
 			}
 		}
 
@@ -122,7 +127,7 @@ class Unit_Worker extends EngineObject {
 				vec2(1),
 				tile(13),
 				undefined,
-				undefined,
+				-this.actionFrame / (PI*8),
 				this.mirror
 			);
 		}
