@@ -62,6 +62,14 @@ class Unit_Worker extends EngineObject {
 					const stone = this.intentionTarget.mine(1);
 					this.stone += stone;
 				}
+
+				if (this.wood + this.stone >= 3) {
+					// return to storage
+					this.prevIntention = this.intention;
+					this.prevDestination = this.destination;
+					this.intention = 'store';
+					this.destination = GLOBAL.buildings[0].pos;
+				}
 			}
 			else {
 				const percent = this.actionTimer.getPercent();
@@ -124,7 +132,8 @@ class Unit_Worker extends EngineObject {
 						GLOBAL.stone += this.stone;
 						this.wood = 0;
 						this.stone = 0;
-						this.intention = undefined;
+						this.intention = this.prevIntention;
+						this.destination = this.prevDestination;
 					}
 					else {
 						// TODO: go around?
