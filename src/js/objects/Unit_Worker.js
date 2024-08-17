@@ -55,11 +55,13 @@ class Unit_Worker extends EngineObject {
 				if (this.intention == 'chop') {
 					// TODO: check if tree still exists
 					const wood = this.intentionTarget.chop(1);
+					wood && zzfx(...[,.03,405,,,0,3,.1,8,,,,,.1,27,.4,.04,.44,.01]); 
 					this.wood += wood;
 				}
 				else if (this.intention == 'mine') {
 					// TODO: check if tree still exists
 					const stone = this.intentionTarget.mine(1);
+					stone && zzfx(...[.5,0,1793,,.05,.02,3,.7,,-1,,,,.1,,,,.63,.02,,-1400]);
 					this.stone += stone;
 				}
 

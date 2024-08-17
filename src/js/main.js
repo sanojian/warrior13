@@ -128,7 +128,8 @@ function gameRenderPost() {
 		new Color(0, 0, 0),
 		undefined,
 		undefined,
-		'right'
+		'right',
+		'Times New Roman'
 	);
 
 
