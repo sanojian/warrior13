@@ -14,6 +14,7 @@ class Unit_Worker extends EngineObject {
 		this.walkTile = tile(5);
 
 		this.intention = undefined;
+		this.intentionTarget = undefined;
 
 		this.wood = 0;
 		this.stone = 0;
@@ -32,6 +33,7 @@ class Unit_Worker extends EngineObject {
 	chopTree(tree) {
 
 		this.intention = 'chop';
+		this.actionFrame = 0;
 	}
 
 	update() {
@@ -41,10 +43,17 @@ class Unit_Worker extends EngineObject {
 
 			if (this.actionTimer.elapsed()) {
 				this.actionTimer.unset();
+				if (this.intention == 'chop') {
+					// TODO: check if tree still exists
+					const wood = this.intentionTarget.chop(1);
+					this.wood += wood;
+					console.log(this.wood)
+
+				}
 			}
 			else {
-				if (this.actionTimer.getPercent() > 0.8) {
-					this.actionFrame -= 4;
+				if (this.actionTimer.getPercent() > 0.9) {
+					this.actionFrame -= 10;
 				}
 				else {
 					this.actionFrame++;
@@ -71,9 +80,7 @@ class Unit_Worker extends EngineObject {
 						
 						this.actionTimer.set(2);
 						this.actionFrame = 0;
-						const wood = tileAtPos.chop(1);
-						this.wood += wood;
-						console.log(this.wood)
+						this.intentionTarget = tileAtPos;
 					}
 					else {
 						// TODO: go around?
@@ -123,11 +130,11 @@ class Unit_Worker extends EngineObject {
 		if (this.intention == 'chop') {
 			// axe
 			drawTile(
-				this.pos.add(vec2(this.mirror ? -4/12 : 4/12, 0)),
-				vec2(1),
-				tile(13),
+				this.pos.add(vec2(0, -2/12)),
+				vec2(2),
+				tile(vec2(24), 24),
 				undefined,
-				-this.actionFrame / (PI*8),
+				-this.actionFrame / (PI*12),
 				this.mirror
 			);
 		}
