@@ -17,6 +17,9 @@ class Unit_Worker extends EngineObject {
 
 		this.wood = 0;
 		this.stone = 0;
+
+		this.actionTimer = new Timer;
+		this.actionFrame = 0;
 	}
 
 	isOver(x, y) {
@@ -27,14 +30,24 @@ class Unit_Worker extends EngineObject {
 	}
 
 	chopTree(tree) {
-		console.log('will chop')
 
 		this.intention = 'chop';
 	}
 
 	update() {
 
-		if (this.destination.x != this.pos.x || this.destination.y != this.pos.y) {
+		if (this.actionTimer.isSet()) {
+			// performing action
+
+			if (this.actionTimer.elapsed()) {
+				this.actionTimer.unset();
+			}
+			else {
+				this.actionFrame++;
+			}
+		}
+
+		else if (this.destination.x != this.pos.x || this.destination.y != this.pos.y) {
 			
 			const angle = this.destination.subtract(this.pos).angle();
 			const dist = this.destination.distance(this.pos);
@@ -49,10 +62,16 @@ class Unit_Worker extends EngineObject {
 
 				if (tileAtPos) {
 					// collision
-					if (tileAtPos instanceof Tree) {
+					if (tileAtPos instanceof Tree && this.intention == 'chop') {
+						
+						this.actionTimer.set(2);
+						this.actionFrame = 0;
 						const wood = tileAtPos.chop(1);
 						this.wood += wood;
 						console.log(this.wood)
+					}
+					else {
+						// TODO: go around?
 					}
 				}
 				else {
@@ -60,6 +79,8 @@ class Unit_Worker extends EngineObject {
 					this.pos = newPos;
 					this.mirror = movement.x < 0;
 					this.walkFrame++;
+
+					this.renderOrder = -this.pos.y;
 				}
 			}
 

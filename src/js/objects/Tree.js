@@ -5,6 +5,8 @@ class Tree extends EngineObject {
 
 		super(pos, vec2(1), tile(2));
 
+		this.renderOrder = -pos.y;
+
 		GLOBAL.mapGrid[pos.y][pos.x] = this;
 
 		this.wood = 5;
