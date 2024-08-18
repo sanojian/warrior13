@@ -40,6 +40,7 @@ class Unit_Worker extends EngineObject {
 
 	takeOrder(order, target) {
 
+		this.actionTimer.unset();
 		this.intention = order;
 		this.destination = target.pos;
 		this.actionFrame = 0;
