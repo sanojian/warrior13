@@ -7,6 +7,8 @@ class Building_TownHall extends EngineObject {
 
 		this.renderOrder = -pos.y;
 
+		this.popSupport = 2;
+
 		GLOBAL.mapGrid[pos.y][pos.x] = this;
 
 	}

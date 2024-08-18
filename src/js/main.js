@@ -143,8 +143,12 @@ function gameRenderPost() {
 		new Color(1, 1, 1, 0.7)
 	);
 
+	let supported = 0;
+	for (let i = 0; i < GLOBAL.buildings.length; i++) {
+		supported += GLOBAL.buildings[i].popSupport;
+	}
 	GLOBAL.uiFont.drawText(
-		'' + 2 + '/3',
+		'' + GLOBAL.units.length + '/' + supported,
 		uiPos.add(vec2(0.6, 0.2)),
 		0.08,
 		true

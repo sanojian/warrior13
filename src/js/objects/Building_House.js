@@ -7,6 +7,8 @@ class Building_House extends EngineObject {
 
 		this.renderOrder = -pos.y;
 
+		this.popSupport = 1;
+
 		GLOBAL.mapGrid[pos.y][pos.x] = this;
 
 	}

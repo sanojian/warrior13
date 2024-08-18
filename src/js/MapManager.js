@@ -30,7 +30,6 @@ class MapManager {
 
 		GLOBAL.units.push(
 			new Unit_Worker(vec2(2, 4)),
-			new Unit_Worker(vec2(2, 8)),
 		);
 
 		GLOBAL.buildings.push(new Building_TownHall(vec2(4, 4)));
