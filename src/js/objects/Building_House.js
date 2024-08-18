@@ -19,13 +19,12 @@ class Building_House extends EngineObject {
 
 		for (let i = 0; i < GLOBAL.units.length; i++) {
 			const unit = GLOBAL.units[i];
-			unit.intention = 'build';
-			unit.destination = pos;
+			unit.selected && unit.takeOrder('build', this);
 		}
 	}
 
 	build(amt) {
-		this.needsBuilt -= amt;
+		this.needsBuilt = Math.max(0, this.needsBuilt - amt);
 
 		if (this.needsBuilt <= 0) {
 			this.tileInfo = tile(50);
