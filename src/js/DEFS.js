@@ -7,7 +7,8 @@ const DEFS = {
 	TILE_SIZE: 12,
 
 	STATES: {
-		NONE: 0,
-		BUILD_HOUSE: 1
+		BUILD_HOUSE: 1,
+		TOWNHALL_MENU: 2,
+		BUILD_MENU: 3
 	}
 };

@@ -38,7 +38,7 @@ class Building_House extends EngineObject {
 		
 		if (clicked && this.needsBuilt) {
 			// resume building
-			for (let i = 0; i < selectedUnits.length; i++) {
+			for (let i = 0; clicked && i < selectedUnits.length; i++) {
 				selectedUnits[i].takeOrder('build', this);
 			}
 		}

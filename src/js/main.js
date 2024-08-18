@@ -15,8 +15,13 @@ function gameInit() {
 	GLOBAL.mapMan = new MapManager();
 
 	// UI
-	GLOBAL.buttons.push(
-		new Button(128, 96, 50)
+	GLOBAL.buildMenu.push(
+		new Button_Build(128, 96, 50, () => { GLOBAL.state = DEFS.STATES.BUILD_HOUSE; })
+	);
+	GLOBAL.townHallMenu.push(
+		new Button_Upgrade(128, 96, 4, () => {
+			GLOBAL.units.push(new Unit_Worker(vec2(4, 2)));
+		})
 	);
 
 	cameraPos = vec2(4, 4);
@@ -143,29 +148,23 @@ function gameRenderPost() {
 		new Color(1, 1, 1, 0.7)
 	);
 
-	let supported = 0;
-	for (let i = 0; i < GLOBAL.buildings.length; i++) {
-		const building = GLOBAL.buildings[i];
-
-		supported += building.needsBuilt ? 0 : building.popSupport;
-	}
 	GLOBAL.uiFont.drawText(
-		'' + GLOBAL.units.length + '/' + supported,
+		'' + GLOBAL.units.length + '/' + GLOBAL.getSupportedPop(),
 		uiPos.add(vec2(0.6, 0.2)),
 		0.08,
 		true
 	);
 
 	// build menu
-	for (let i = 0; i < GLOBAL.units.length; i++) {
-		if (GLOBAL.units[i].selected) {
+	if (GLOBAL.state == DEFS.STATES.BUILD_MENU) {
+		for (let i = 0; i < GLOBAL.buildMenu.length; i++) {
+			GLOBAL.buildMenu[i].draw();
+		}
 
-			// show build menu
-			for (let i = 0; i < GLOBAL.buttons.length; i++) {
-				GLOBAL.buttons[i].draw();
-			}
-
-			break;
+	}
+	else if (GLOBAL.state == DEFS.STATES.TOWNHALL_MENU) {
+		for (let i = 0; i < GLOBAL.townHallMenu.length; i++) {
+			GLOBAL.townHallMenu[i].draw();
 		}
 	}
 

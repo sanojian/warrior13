@@ -11,8 +11,13 @@ GLOBAL.inputMan = {
 			clearInput();
 
 			// check UI
-			for (let i = 0; i < GLOBAL.buttons.length; i++) {
-				if (GLOBAL.buttons[i].isOver(mousePos.x, mousePos.y)) {
+			for (let i = 0; GLOBAL.state == DEFS.STATES.BUILD_MENU && i < GLOBAL.buildMenu.length; i++) {
+				if (GLOBAL.buildMenu[i].isOver(mousePos.x, mousePos.y)) {
+					return;
+				}
+			}
+			for (let i = 0; GLOBAL.state == DEFS.STATES.TOWNHALL_MENU && i < GLOBAL.townHallMenu.length; i++) {
+				if (GLOBAL.townHallMenu[i].isOver(mousePos.x, mousePos.y)) {
 					return;
 				}
 			}
@@ -28,6 +33,7 @@ GLOBAL.inputMan = {
 				if (unit.selected && wasSelected) {
 					// de-select unit
 					unit.selected = false;
+					GLOBAL.state = 0;
 					return;
 				}
 				itemSelected = itemSelected || unit.selected;

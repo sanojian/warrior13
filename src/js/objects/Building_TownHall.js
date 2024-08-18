@@ -17,12 +17,16 @@ class Building_TownHall extends EngineObject {
 
 		const clicked = x > this.pos.x - this.size.x / 2 && x < this.pos.x + this.size.x / 2 && y > this.pos.y - this.size.y / 2 && y < this.pos.y + this.size.y / 2;
 	
-							
-		for (let i = 0; i < selectedUnits.length; i++) {
+		if (clicked && !selectedUnits.length) {
+			GLOBAL.state = DEFS.STATES.TOWNHALL_MENU;
+		}
+
+		for (let i = 0; clicked && i < selectedUnits.length; i++) {
 			selectedUnits[i].takeOrder('store', this);
 		}
 
 		return clicked;
 	}
+
 
 }

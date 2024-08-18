@@ -28,6 +28,7 @@ class Unit_Worker extends EngineObject {
 
 		this.selected = x > this.pos.x - this.size.x / 2 && x < this.pos.x + this.size.x / 2 && y > this.pos.y - this.size.y / 2 && y < this.pos.y + this.size.y / 2;
 
+		GLOBAL.state = DEFS.STATES.BUILD_MENU;
 		/*if (this.selected) {
 			const T2S = window.speechSynthesis || speechSynthesis; // Storing speechSynthesis API as variable - T2S
 		    var utter = new SpeechSynthesisUtterance('Ready for work'); // To Make The Utterance

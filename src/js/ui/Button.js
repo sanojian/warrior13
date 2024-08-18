@@ -1,15 +1,17 @@
 
 class Button {
 
-	constructor(x, y, iconTile) {
+	constructor(x, y, iconTile, onClick) {
 		this.x = x;
 		this.y = y;
 		this.pos = vec2(x, y);
 		this.iconTile = iconTile;
 
-		this.requiresWood = 6;
-		this.requiresStone = 4;
+		this.requiresWood = 0;
+		this.requiresStone = 0;
+		this.requiresPop = 0;
 
+		this.clicked = onClick;
 	}
 
 	isOver(x, y) {
@@ -20,14 +22,13 @@ class Button {
 
 		const clicked = x > this.pos.x - 1 && x < this.pos.x + 1 && y > this.pos.y - 1 && y < this.pos.y + 1;
 
-		if (clicked) {
-			GLOBAL.state = DEFS.STATES.BUILD_HOUSE;
-		}
+		clicked && this.clicked();
+
 		return clicked;
 	}
 
 	enoughMaterial() {
-		return GLOBAL.stone >= this.requiresStone && GLOBAL.wood >= this.requiresWood;
+		return GLOBAL.stone >= this.requiresStone && GLOBAL.wood >= this.requiresWood && GLOBAL.getSupportedPop() - GLOBAL.units.length >= this.requiresPop;
 	}
 
 	draw() {
