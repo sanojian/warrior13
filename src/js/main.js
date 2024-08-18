@@ -14,6 +14,11 @@ function gameInit() {
 
 	GLOBAL.mapMan = new MapManager();
 
+	// UI
+	GLOBAL.buttons.push(
+		new Button(128, 96, 50)
+	);
+
 	cameraPos = vec2(4, 4);
 	cameraScale = 60;
 
@@ -103,6 +108,24 @@ function gameRenderPost() {
 		0.08,
 		true
 	);
+
+	// build menu
+	/*uiPos = screenToWorld(vec2(128, innerHeight - 96));
+
+	drawTile(
+		uiPos,
+		vec2(2),
+		tile(vec2(0, 72), vec2(24, 24))
+	);
+	drawTile(
+		uiPos,
+		vec2(1),
+		tile(50)
+	);*/
+	for (let i = 0; i < GLOBAL.buttons.length; i++) {
+		GLOBAL.buttons[i].draw();
+	}
+
 
 
 }

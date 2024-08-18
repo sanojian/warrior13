@@ -9,6 +9,14 @@ GLOBAL.inputMan = {
 		if (mouseIsDown(0)) {
 
 			clearInput();
+
+			// check UI
+			for (let i = 0; i < GLOBAL.buttons.length; i++) {
+				if (GLOBAL.buttons[i].isOver(mousePos.x, mousePos.y)) {
+					return;
+				}
+			}
+
 			const wereSelected = [];
 			for (let i = 0; i < GLOBAL.units.length; i++) {
 				const unit = GLOBAL.units[i];
