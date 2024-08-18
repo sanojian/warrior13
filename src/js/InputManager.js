@@ -61,13 +61,8 @@ GLOBAL.inputMan = {
 			for (let i = 0; i < GLOBAL.buildings.length && !itemSelected; i++) {
 				const building = GLOBAL.buildings[i];
 
-				if (building.isOver(mousePos.x, mousePos.y)) {
+				orderGiven = orderGiven || building.isOver(mousePos.x, mousePos.y, wereSelected) 
 
-					for (let u = 0; u < wereSelected.length; u++) {
-						wereSelected[u].takeOrder('store', building);
-						orderGiven = true;
-					}
-				}
 			}
 
 			if (!itemSelected || orderGiven) {

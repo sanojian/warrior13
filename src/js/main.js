@@ -145,7 +145,9 @@ function gameRenderPost() {
 
 	let supported = 0;
 	for (let i = 0; i < GLOBAL.buildings.length; i++) {
-		supported += GLOBAL.buildings[i].popSupport;
+		const building = GLOBAL.buildings[i];
+
+		supported += building.needsBuilt ? 0 : building.popSupport;
 	}
 	GLOBAL.uiFont.drawText(
 		'' + GLOBAL.units.length + '/' + supported,
@@ -155,22 +157,17 @@ function gameRenderPost() {
 	);
 
 	// build menu
-	/*uiPos = screenToWorld(vec2(128, innerHeight - 96));
+	for (let i = 0; i < GLOBAL.units.length; i++) {
+		if (GLOBAL.units[i].selected) {
 
-	drawTile(
-		uiPos,
-		vec2(2),
-		tile(vec2(0, 72), vec2(24, 24))
-	);
-	drawTile(
-		uiPos,
-		vec2(1),
-		tile(50)
-	);*/
-	for (let i = 0; i < GLOBAL.buttons.length; i++) {
-		GLOBAL.buttons[i].draw();
+			// show build menu
+			for (let i = 0; i < GLOBAL.buttons.length; i++) {
+				GLOBAL.buttons[i].draw();
+			}
+
+			break;
+		}
 	}
-
 
 
 }

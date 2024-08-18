@@ -40,7 +40,7 @@ class Unit_Worker extends EngineObject {
 	takeOrder(order, target) {
 
 		this.intention = order;
-		this.inentionTarget = target;
+		this.destination = target.pos;
 		this.actionFrame = 0;
 	}
 
@@ -59,10 +59,15 @@ class Unit_Worker extends EngineObject {
 					this.wood += wood;
 				}
 				else if (this.intention == 'mine') {
-					// TODO: check if tree still exists
+					// TODO: check if stone still exists
 					const stone = this.intentionTarget.mine(1);
 					stone && zzfx(...[.5,0,1793,,.05,.02,3,.7,,-1,,,,.1,,,,.63,.02,,-1400]);
 					this.stone += stone;
+				}
+				else if (this.intention == 'build') {
+					// TODO: check if building still exists
+					this.intentionTarget.build(1);
+					zzfx(...[,.03,405,,,0,3,.1,8,,,,,.1,27,.4,.04,.44,.01]);
 				}
 
 				if (this.wood + this.stone >= 3) {
@@ -123,6 +128,12 @@ class Unit_Worker extends EngineObject {
 						this.intentionTarget = tileAtPos;
 					}
 					else if (tileAtPos instanceof Stone && this.intention == 'mine') {
+						
+						this.actionTimer.set(1);
+						this.actionFrame = 0;
+						this.intentionTarget = tileAtPos;
+					}
+					else if (tileAtPos instanceof Building_House && this.intention == 'build' && tileAtPos.needsBuilt) {
 						
 						this.actionTimer.set(1);
 						this.actionFrame = 0;
@@ -199,6 +210,17 @@ class Unit_Worker extends EngineObject {
 				this.pos.add(vec2(0, -2/12)),
 				vec2(2),
 				tile(vec2(48, 24), 24),
+				undefined,
+				(this.mirror ? 1 : -1) * this.actionFrame / (PI*12),
+				this.mirror
+			);
+		}
+		else if (this.intention == 'build') {
+			// axe
+			drawTile(
+				this.pos.add(vec2(0, -2/12)),
+				vec2(2),
+				tile(vec2(72, 24), 24),
 				undefined,
 				(this.mirror ? 1 : -1) * this.actionFrame / (PI*12),
 				this.mirror

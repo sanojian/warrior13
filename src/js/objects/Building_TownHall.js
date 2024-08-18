@@ -13,8 +13,16 @@ class Building_TownHall extends EngineObject {
 
 	}
 
-	isOver(x, y) {
+	isOver(x, y, selectedUnits) {
 
-		return x > this.pos.x - this.size.x / 2 && x < this.pos.x + this.size.x / 2 && y > this.pos.y - this.size.y / 2 && y < this.pos.y + this.size.y / 2;
+		const clicked = x > this.pos.x - this.size.x / 2 && x < this.pos.x + this.size.x / 2 && y > this.pos.y - this.size.y / 2 && y < this.pos.y + this.size.y / 2;
+	
+							
+		for (let i = 0; i < selectedUnits.length; i++) {
+			selectedUnits[i].takeOrder('store', this);
+		}
+
+		return clicked;
 	}
+
 }
