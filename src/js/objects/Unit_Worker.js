@@ -85,7 +85,7 @@ class Unit_Worker extends EngineObject {
 			}
 		}
 
-		else if (this.destination.x != this.pos.x || this.destination.y != this.pos.y) {
+		else if (this.destination && (this.destination.x != this.pos.x || this.destination.y != this.pos.y)) {
 			
 			const angle = this.destination.subtract(this.pos).angle();
 			const dist = this.destination.distance(this.pos);

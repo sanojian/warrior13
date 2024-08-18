@@ -19,75 +19,8 @@ function gameInit() {
 
 }
 function gameUpdate() {
-	
-	let itemSelected = false;
-	let orderGiven = false;
 
-	// TODO: turn into single click
-	if (mouseIsDown(0)) {
-
-
-		const wereSelected = [];
-		for (let i = 0; i < GLOBAL.units.length; i++) {
-			const unit = GLOBAL.units[i];
-			
-			unit.selected && wereSelected.push(unit);
-
-			unit.isOver(mousePos.x, mousePos.y);
-			itemSelected = itemSelected || unit.selected;
-				
-		}
-		for (let i = 0; i < GLOBAL.trees.length && !itemSelected; i++) {
-			const tree = GLOBAL.trees[i];
-			
-			if (tree.isOver(mousePos.x, mousePos.y)) {
-			
-				for (let u = 0; u < wereSelected.length; u++) {
-					wereSelected[u].takeOrder('chop', tree);
-					orderGiven = true;
-				}
-			}
-				
-		}
-		for (let i = 0; i < GLOBAL.stones.length && !itemSelected; i++) {
-			const stone = GLOBAL.stones[i];
-			
-			if (stone.isOver(mousePos.x, mousePos.y)) {
-			
-				for (let u = 0; u < wereSelected.length; u++) {
-					wereSelected[u].takeOrder('mine', stone);
-					orderGiven = true;
-				}
-			}
-				
-		}
-
-		for (let i = 0; i < GLOBAL.buildings.length && !itemSelected; i++) {
-			const building = GLOBAL.buildings[i];
-
-			if (building.isOver(mousePos.x, mousePos.y)) {
-
-				for (let u = 0; u < wereSelected.length; u++) {
-					wereSelected[u].takeOrder('store', building);
-					orderGiven = true;
-				}
-			}
-		}
-
-		if (!itemSelected || orderGiven) {
-			// this was an order to selected units
-			for (let i = 0; i < wereSelected.length; i++) {
-				const unit = wereSelected[i];
-				unit.selected = true;
-
-				// move command
-				unit.destination = vec2(mousePos);
-				if (!orderGiven) {
-					unit.intention = undefined;
-				}
-			}
-		}
-	}
+	GLOBAL.inputMan.update();
 
 }
 function gameUpdatePost() {
@@ -98,12 +31,19 @@ function gameRender() {
 }
 function gameRenderPost() {
 	
+
+	// wood
 	let uiPos = screenToWorld(vec2(128, 64));
 
 	drawTile(
 		uiPos,
 		vec2(4, 2),
 		tile(vec2(0, 48), vec2(48, 24))
+	);
+	drawTile(
+		uiPos.subtract(vec2(0.8, 0)),
+		vec2(1),
+		tile(36)
 	);
 
 	/*drawText(
@@ -122,17 +62,44 @@ function gameRenderPost() {
 		true
 	);
 
+	// stone
 	uiPos = uiPos.add(vec2(4, 0));
 
 	drawTile(
 		uiPos,
 		vec2(4, 2),
-		tile(vec2(48, 48), vec2(48, 24))
+		tile(vec2(0, 48), vec2(48, 24))
+	);
+	drawTile(
+		uiPos.subtract(vec2(0.8, 0)),
+		vec2(1),
+		tile(44)
 	);
 
 	GLOBAL.uiFont.drawText(
 		'' + GLOBAL.stone,
 		uiPos.add(vec2(0.8, 0.2)),
+		0.08,
+		true
+	);
+
+	// population
+	uiPos = uiPos.add(vec2(4, 0));
+
+	drawTile(
+		uiPos,
+		vec2(4, 2),
+		tile(vec2(0, 48), vec2(48, 24))
+	);
+	drawTile(
+		uiPos.subtract(vec2(1, 0)),
+		vec2(1),
+		tile(4)
+	);
+
+	GLOBAL.uiFont.drawText(
+		'' + 2 + '/3',
+		uiPos.add(vec2(0.6, 0.2)),
 		0.08,
 		true
 	);
