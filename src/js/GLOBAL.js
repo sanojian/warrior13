@@ -10,6 +10,8 @@ const GLOBAL = {
 	buildings: [],
 	buttons: [],
 
+	state: 0,
+
 	wood: 0,
 	stone: 0
 };

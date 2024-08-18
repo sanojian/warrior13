@@ -18,7 +18,7 @@ class MapManager {
 
 			for (let x = 0; x < w; x++) {
 
-				const info = new TileLayerData(0);
+				const info = new TileLayerData(0, randInt(0, 4));
 
 				tileLayer.setData(vec2(x, y), info);
 			
@@ -50,7 +50,11 @@ class MapManager {
 
 	getTileAt(pos) {
 
-		// TODO: handle out of bounds
+		// handle out of bounds
+		if (pos.x < 0 || pos.y < 0) {
+			return 1;
+		}
+
 		return GLOBAL.mapGrid[Math.round(pos.y)][Math.round(pos.x)];
 
 	}

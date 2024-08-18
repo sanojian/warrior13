@@ -25,7 +25,27 @@ function gameInit() {
 }
 function gameUpdate() {
 
-	GLOBAL.inputMan.update();
+	if (GLOBAL.state == DEFS.STATES.BUILD_HOUSE) {
+		
+		if (mouseIsDown(0)) {
+			clearInput();
+
+			if (!GLOBAL.mapMan.getTileAt(mousePos)) {
+				// legal position
+				const x = Math.round(mousePos.x);
+				const y = Math.round(mousePos.y);
+
+				GLOBAL.buildings.push(new Building_House(vec2(x, y)));
+				
+			}
+			
+			GLOBAL.state = 0;
+		}
+	}
+	else {
+		GLOBAL.inputMan.update();
+	}
+
 
 }
 function gameUpdatePost() {
@@ -36,6 +56,26 @@ function gameRender() {
 }
 function gameRenderPost() {
 	
+	if (GLOBAL.state == DEFS.STATES.BUILD_HOUSE) {
+		// draw temp house
+
+		const x = Math.round(mousePos.x);
+		const y = Math.round(mousePos.y);
+
+		let color = new Color(1, 1, 1, 0.5);
+		if (GLOBAL.mapMan.getTileAt(mousePos)) {
+			// illegal position 
+			color = new Color(1, 0, 0, 0.5);
+		}
+
+		drawTile(
+			vec2(x, y),
+			vec2(1),
+			tile(50),
+			color
+		);
+
+	}
 
 	// wood
 	let uiPos = screenToWorld(vec2(128, 64));
@@ -99,7 +139,8 @@ function gameRenderPost() {
 	drawTile(
 		uiPos.subtract(vec2(1, 0)),
 		vec2(1),
-		tile(4)
+		tile(4),
+		new Color(1, 1, 1, 0.7)
 	);
 
 	GLOBAL.uiFont.drawText(

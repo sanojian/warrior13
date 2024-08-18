@@ -9,15 +9,17 @@ class Button {
 
 	isOver(x, y) {
 
-		const pos = screenToWorld(vec2(this.x, innerHeight - this.y));
+		const clicked = x > this.pos.x - 1 && x < this.pos.x + 1 && y > this.pos.y - 1 && y < this.pos.y + 1;
 
-		const clicked = x > pos.x - 1 && x < pos.x + 1 && y > pos.y - 1 && y < pos.y + 1;
-
-		console.log(clicked)
+		if (clicked) {
+			GLOBAL.state = DEFS.STATES.BUILD_HOUSE;
+		}
 		return clicked;
 	}
 
 	draw() {
+
+		this.pos = screenToWorld(vec2(this.x, innerHeight - this.y));
 
 		drawTile(
 			screenToWorld(vec2(this.x, innerHeight - this.y)),
