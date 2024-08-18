@@ -9,6 +9,9 @@ function doEngineInit() {
 function gameInit() {
 	
 
+	fontDefault = 'monospace';
+	GLOBAL.uiFont = new FontImage();
+
 	GLOBAL.mapMan = new MapManager();
 
 	cameraPos = vec2(4, 4);
@@ -103,7 +106,7 @@ function gameRenderPost() {
 		tile(vec2(0, 48), vec2(48, 24))
 	);
 
-	drawText(
+	/*drawText(
 		'' + GLOBAL.wood,
 		uiPos.add(vec2(1.4, -0.1)),
 		1,
@@ -111,6 +114,12 @@ function gameRenderPost() {
 		undefined,
 		undefined,
 		'right'
+	);*/
+	GLOBAL.uiFont.drawText(
+		'' + GLOBAL.wood,
+		uiPos.add(vec2(0.8, 0.2)),
+		0.08,
+		true
 	);
 
 	uiPos = uiPos.add(vec2(4, 0));
@@ -121,15 +130,11 @@ function gameRenderPost() {
 		tile(vec2(48, 48), vec2(48, 24))
 	);
 
-	drawText(
+	GLOBAL.uiFont.drawText(
 		'' + GLOBAL.stone,
-		uiPos.add(vec2(1.4, -0.1)),
-		1,
-		new Color(0, 0, 0),
-		undefined,
-		undefined,
-		'right',
-		'Times New Roman'
+		uiPos.add(vec2(0.8, 0.2)),
+		0.08,
+		true
 	);
 
 
