@@ -30,7 +30,8 @@ class Unit_Worker extends EngineObject {
 
 		GLOBAL.state = DEFS.STATES.BUILD_MENU;
 		if (this.selected) {
-			GLOBAL.speak(Math.random() > 0.5 ? 'what' : 'ready');
+			const chance = Math.random();
+			GLOBAL.speak(chance < 0.3 ? 'what' : chance < 0.6 ? 'huh?' : 'ready');
 		}
 
 		return this.selected;
@@ -46,7 +47,16 @@ class Unit_Worker extends EngineObject {
 		this.selected = false;
 		GLOBAL.state = 0;
 
-		GLOBAL.speak(Math.random() > 0.5 ? 'okay' : 'yep');
+		const possibleSpeak = {
+			chop: ['okay', 'choppa', 'yep?'],
+			mine: ['okay', 'yep?'],
+			build: ['okay', 'hammer time?', 'yep?'],
+			store: ['put away'],
+		};
+
+		if (order) {
+			GLOBAL.speak(possibleSpeak[order][Math.floor(Math.random() * possibleSpeak[order].length)]);
+		}
 	}
 
 	update() {

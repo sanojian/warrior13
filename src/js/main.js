@@ -20,7 +20,9 @@ function gameInit() {
 	);
 	GLOBAL.townHallMenu.push(
 		new Button_Upgrade(128, 96, 4, () => {
-			GLOBAL.units.push(new Unit_Worker(vec2(14, 12)));
+			const pos = GLOBAL.buildings[0].pos;
+
+			GLOBAL.units.push(new Unit_Worker(vec2(pos.x - 1 + Math.random() * 2, pos.y - 1)));
 		})
 	);
 

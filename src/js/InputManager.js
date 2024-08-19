@@ -12,7 +12,7 @@ GLOBAL.inputMan = {
 				GLOBAL.speak('Welcome');
 				GLOBAL.spoken = true;
 			}
-			
+
 			clearInput();
 
 			// check UI

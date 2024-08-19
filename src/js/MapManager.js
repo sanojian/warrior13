@@ -28,9 +28,9 @@ class MapManager {
 
 		tileLayer.redraw();
 
-		GLOBAL.units.push(
+		/*GLOBAL.units.push(
 			new Unit_Worker(vec2(12, 14)),
-		);
+		);*/
 
 		GLOBAL.buildings.push(new Building_TownHall(vec2(14, 14)));
 
