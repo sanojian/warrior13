@@ -20,11 +20,11 @@ function gameInit() {
 	);
 	GLOBAL.townHallMenu.push(
 		new Button_Upgrade(128, 96, 4, () => {
-			GLOBAL.units.push(new Unit_Worker(vec2(4, 2)));
+			GLOBAL.units.push(new Unit_Worker(vec2(14, 12)));
 		})
 	);
 
-	cameraPos = vec2(4, 4);
+	cameraPos = vec2(14, 14);
 	cameraScale = 60;
 
 }

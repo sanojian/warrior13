@@ -28,7 +28,9 @@ class Building_House extends EngineObject {
 
 		if (this.needsBuilt <= 0) {
 			this.tileInfo = tile(50);
+			return true;
 		}
+
 	}
 
 	isOver(x, y, selectedUnits) {

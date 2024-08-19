@@ -42,7 +42,7 @@ class Unit_Worker extends EngineObject {
 
 		this.actionTimer.unset();
 		this.intention = order;
-		this.destination = target.pos;
+		this.destination = target ? target.pos : this.pos;
 		this.actionFrame = 0;
 	}
 
@@ -68,8 +68,9 @@ class Unit_Worker extends EngineObject {
 				}
 				else if (this.intention == 'build') {
 					// TODO: check if building still exists
-					this.intentionTarget.build(1);
-					zzfx(...[,.03,405,,,0,3,.1,8,,,,,.1,27,.4,.04,.44,.01]);
+					const built = this.intentionTarget.build(1);
+					zzfx(...[, .03, 405, , , 0, 3, .1, 8, , , , , .1, 27, .4, .04, .44, .01]);
+					built && this.takeOrder();					
 				}
 
 				if (this.wood + this.stone >= 3) {

@@ -3,15 +3,15 @@ class MapManager {
 
 	constructor() {
 	
-		const w = 20;
-		const h = 20;
+		const w = 30;
+		const h = 30;
 		
 		this.mapWidth = w;
 		this.mapHeight = h;
 
 		GLOBAL.mapGrid = [];
 
-		const tileLayer = new TileLayer(vec2(0), vec2(w, h));
+		const tileLayer = new TileLayer(vec2(-0.5), vec2(w, h));
 
 		for (let y = 0; y < h; y++) {
 			GLOBAL.mapGrid[y] = [];
@@ -29,20 +29,28 @@ class MapManager {
 		tileLayer.redraw();
 
 		GLOBAL.units.push(
-			new Unit_Worker(vec2(2, 4)),
+			new Unit_Worker(vec2(12, 14)),
 		);
 
-		GLOBAL.buildings.push(new Building_TownHall(vec2(4, 4)));
+		GLOBAL.buildings.push(new Building_TownHall(vec2(14, 14)));
 
 		GLOBAL.trees.push(
-			new Tree(vec2(4, 6)),
-			new Tree(vec2(5, 6)),
-			new Tree(vec2(6, 6)),
-			new Tree(vec2(5, 7)),
+			new Tree(vec2(14, 16)),
+			new Tree(vec2(15, 16)),
+			new Tree(vec2(16, 16)),
+			new Tree(vec2(15, 17)),
+			
+			new Tree(vec2(10, 10)),
+			new Tree(vec2(8, 10)),
+			new Tree(vec2(9, 9)),
+			new Tree(vec2(10, 9)),
+			new Tree(vec2(11, 9)),
+			new Tree(vec2(10, 8)),
 		);
 		GLOBAL.stones.push(
-			new Stone(vec2(8, 4)),
-			new Stone(vec2(7, 8)),
+			new Stone(vec2(18, 14)),
+			new Stone(vec2(17, 18)),
+			new Stone(vec2(7, 7)),
 		);
 		
 	}
