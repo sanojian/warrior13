@@ -8,6 +8,11 @@ GLOBAL.inputMan = {
 
 		if (mouseIsDown(0)) {
 
+			if (!GLOBAL.spoken) {
+				GLOBAL.speak('Welcome');
+				GLOBAL.spoken = true;
+			}
+			
 			clearInput();
 
 			// check UI
@@ -75,7 +80,7 @@ GLOBAL.inputMan = {
 				// this was an order to selected units
 				for (let i = 0; i < wereSelected.length; i++) {
 					const unit = wereSelected[i];
-					unit.selected = true;
+					//unit.selected = true;
 
 					// move command
 					unit.destination = vec2(mousePos);

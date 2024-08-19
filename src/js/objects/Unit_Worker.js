@@ -29,11 +29,9 @@ class Unit_Worker extends EngineObject {
 		this.selected = x > this.pos.x - this.size.x / 2 && x < this.pos.x + this.size.x / 2 && y > this.pos.y - this.size.y / 2 && y < this.pos.y + this.size.y / 2;
 
 		GLOBAL.state = DEFS.STATES.BUILD_MENU;
-		/*if (this.selected) {
-			const T2S = window.speechSynthesis || speechSynthesis; // Storing speechSynthesis API as variable - T2S
-		    var utter = new SpeechSynthesisUtterance('Ready for work'); // To Make The Utterance
-    		T2S.speak(utter); // To Speak The Utterance
-		}*/
+		if (this.selected) {
+			GLOBAL.speak(Math.random() > 0.5 ? 'what' : 'ready');
+		}
 
 		return this.selected;
 	}
@@ -44,6 +42,11 @@ class Unit_Worker extends EngineObject {
 		this.intention = order;
 		this.destination = target ? target.pos : this.pos;
 		this.actionFrame = 0;
+
+		this.selected = false;
+		GLOBAL.state = 0;
+
+		GLOBAL.speak(Math.random() > 0.5 ? 'okay' : 'yep');
 	}
 
 	update() {
