@@ -62,7 +62,7 @@ module.exports = function (grunt) {
 					zopflipng: ["-m"],
 				},
 				files: {
-					"dist/t.png": "src/gfx/tiles.png",
+					"dist/tiles.png": "src/gfx/tiles.png",
 				},
 			},
 		},
@@ -71,7 +71,8 @@ module.exports = function (grunt) {
 			options: {
 				compilerFile: "node_modules/google-closure-compiler-java/compiler.jar",
 				compilerOpts: {
-					compilation_level: "SIMPLE_OPTIMIZATIONS",
+					//compilation_level: "SIMPLE_OPTIMIZATIONS",
+					compilation_level: "ADVANCED_OPTIMIZATIONS",
 					language_out: "ECMASCRIPT_2019",
 					jscomp_off: "checkVars",
 					assume_function_wrapper: true,
@@ -102,52 +103,14 @@ module.exports = function (grunt) {
 					],
 				},
 			},
-			/*prod: {
+			prod: {
 				files: {
 					"dist/index.html": ["src/html/index_prod.html"],
 					"dist/js/index_prod.js": [
-						"dist/lib/engine.all.js",
-						"dist/lib/easystar-0.4.4.js",
-						"dist/lib/tweenjs.js",
-						"dist/js/index.js",
+						"dist/lib/littlejs.release.js",
+						//"dist/lib/easystar-0.4.4.js",
+						"dist/index.js",
 					],
-				},
-			},*/
-		},
-		obfuscator: {
-			options: {
-				banner:
-					'/*! Copyright Lax Viking Games <%= grunt.template.today("yyyy") %> - ' +
-					'Built <%= grunt.template.today("yyyy-mm-dd") %> */\n',
-				domainLock: [
-					"localhost",
-					"127.0.0.1",
-					".poki.com", // poki
-					".poki-gdn.com", // poki test
-					".poki.io", // also poki
-					".po.ki", // poki QA tool
-					".laxviking.com", // our AWS server
-				],
-				domainLockRedirectUrl: "https://poki.com",
-				compact: true,
-				controlFlowFlattening: false,
-				deadCodeInjection: false,
-				debugProtection: false,
-				debugProtectionInterval: false,
-				disableConsoleOutput: false,
-				identifierNamesGenerator: "hexadecimal",
-				log: false,
-				renameGlobals: false,
-				rotateStringArray: true,
-				selfDefending: true,
-				stringArray: false, // changed from high performace settings
-				stringArrayEncoding: ["none"],
-				stringArrayThreshold: 0.75,
-				unicodeEscapeSequence: false,
-			},
-			task1: {
-				files: {
-					"dist/index.js": ["dist/js/index_closure.js"],
 				},
 			},
 		},
@@ -171,7 +134,7 @@ module.exports = function (grunt) {
 
 	grunt.registerTask("default", ["build", "http-server", "dev"]);
 
-	grunt.registerTask("prod", ["clean", "processMap", "image:prod", "concat:shared", "concat:prod", "closureCompiler"]);
+	grunt.registerTask("prod", ["clean", "image:prod", "concat:shared", "concat:prod", "closureCompiler"]);
 
 	grunt.registerTask("web", ["http-server", "dev"]);
 };

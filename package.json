@@ -14,8 +14,7 @@
 		"grunt-http-server": "*",
 		"grunt-image": "*",
 		"matchdep": "*",
-		"roadroller": "*",
-		"grunt-contrib-obfuscator": "^8.0.0"
+		"roadroller": "*"
 	},
 	"dependencies": {
 		"advzip-bin": "^2.0.0",
