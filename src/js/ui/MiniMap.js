@@ -45,7 +45,7 @@ GLOBAL.miniMap = {
 				}
 			}
 		}
-		const color = new Color(153 / 255, 229 / 255, 80 / 255);
+		let color = new Color(153 / 255, 229 / 255, 80 / 255);
 		for (let i = 0; i < GLOBAL.buildings.length; i++) {
 			const building = GLOBAL.buildings[i];
 			drawRect(
@@ -62,5 +62,16 @@ GLOBAL.miniMap = {
 				color
 			);
 		}
+
+		color = new Color(217 / 255, 87 / 255, 99 / 255);
+		for (let i = 0; i < GLOBAL.enemies.length; i++) {
+			const enemy = GLOBAL.enemies[i];
+			drawRect(
+				uiPos.add(vec2((enemy.pos.x - 15) / 12, (enemy.pos.y - 15) / 12)),
+				vec2(1/12),
+				color
+			);
+		}
+
 	}
 }

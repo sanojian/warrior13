@@ -7,6 +7,7 @@ const GLOBAL = {
 	trees: [],
 	stones: [],
 	units: [],
+	enemies: [],
 	buildings: [],
 
 	// UI

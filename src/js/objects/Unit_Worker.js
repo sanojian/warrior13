@@ -1,5 +1,5 @@
 
-class Unit_Worker extends EngineObject {
+class Unit_Worker extends Unit {
 
 	constructor(pos) {
 
@@ -7,11 +7,6 @@ class Unit_Worker extends EngineObject {
 
 		this.selected = false;
 
-		this.destination = pos;
-
-		this.speed = 1 / 48;
-		this.walkFrame = 0;
-		this.walkTile = tile(5);
 
 		this.intention = undefined;
 		this.intentionTarget = undefined;
@@ -19,9 +14,6 @@ class Unit_Worker extends EngineObject {
 		this.wood = 0;
 		this.stone = 0;
 
-		this.actionTimer = new Timer;
-		this.actionFrame = 0;
-		this.jumpHeight = 0;
 	}
 
 	isOver(x, y) {
@@ -143,18 +135,21 @@ class Unit_Worker extends EngineObject {
 						
 						this.actionTimer.set(1);
 						this.actionFrame = 0;
+						this.walkFrame = 0;
 						this.intentionTarget = tileAtPos;
 					}
 					else if (tileAtPos instanceof Stone && this.intention == 'mine') {
 						
 						this.actionTimer.set(1);
 						this.actionFrame = 0;
+						this.walkFrame = 0;
 						this.intentionTarget = tileAtPos;
 					}
 					else if (tileAtPos instanceof Building_House && this.intention == 'build' && tileAtPos.needsBuilt) {
 						
 						this.actionTimer.set(1);
 						this.actionFrame = 0;
+						this.walkFrame = 0;
 						this.intentionTarget = tileAtPos;
 					}
 					else if (tileAtPos instanceof Building_TownHall && this.intention == 'store') {
@@ -199,14 +194,7 @@ class Unit_Worker extends EngineObject {
 		// pre render
 
 		// render
-		drawTile(
-			this.pos.add(vec2(0, this.jumpHeight)),
-			vec2(1),
-			Math.floor(this.walkFrame / 10) % 2 ? this.walkTile : this.tileInfo,
-			undefined,
-			undefined,
-			this.mirror
-		);
+		super.render();
 
 		// post render
 		if (this.selected) {
