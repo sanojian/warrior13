@@ -16,6 +16,11 @@ GLOBAL.inputMan = {
 			clearInput();
 
 			// check UI
+
+			if (GLOBAL.miniMap.isOver(mousePos.x, mousePos.y)) {
+				return;
+			}
+
 			for (let i = 0; GLOBAL.state == DEFS.STATES.BUILD_MENU && i < GLOBAL.buildMenu.length; i++) {
 				if (GLOBAL.buildMenu[i].isOver(mousePos.x, mousePos.y)) {
 					return;

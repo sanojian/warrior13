@@ -3,9 +3,10 @@ class Tree extends EngineObject {
 
 	constructor(pos) {
 
-		super(pos, vec2(1), tile(2));
+		super(pos.add(vec2(0, 0.45)), vec2(1, 2), tile(vec2(24, 0), vec2(12, 24)));
 
 		this.renderOrder = -pos.y;
+		this.mirror = Math.random() > 0.5;
 
 		GLOBAL.mapGrid[pos.y][pos.x] = this;
 
@@ -28,7 +29,7 @@ class Tree extends EngineObject {
 
 		if (this.wood <= 0) {
 
-			GLOBAL.mapGrid[this.pos.y][this.pos.x] = 0;
+			GLOBAL.mapGrid[Math.round(this.pos.y)][this.pos.x] = 0;
 			GLOBAL.trees.splice(GLOBAL.trees.indexOf(this), 1);
 			this.destroy();
 		}

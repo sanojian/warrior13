@@ -40,7 +40,7 @@ const GLOBAL = {
 		GLOBAL.voiceIndex = GLOBAL.voiceIndex > voices.length - 1 ? Math.floor(Math.random() * voices.length) : GLOBAL.voiceIndex;
 		utter.voice = T2S.getVoices()[GLOBAL.voiceIndex];
 		// will use default voice first time
-		utter.pitch = 0.5;
+		utter.pitch = 1.5;
 		utter.volume = 0.5;
 		utter.rate = 2;
 		T2S.speak(utter);
