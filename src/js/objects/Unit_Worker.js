@@ -98,6 +98,7 @@ class Unit_Worker extends EngineObject {
 			const dist = this.destination.distance(this.pos);
 
 			if (dist < this.speed) {
+				// arrived
 				this.pos = this.destination;
 				if (this.intention == 'chop') {
 					// look for new target
@@ -117,6 +118,7 @@ class Unit_Worker extends EngineObject {
 				}
 			}
 			else {
+				// travelling
 				const movement = vec2().setAngle(angle, this.speed);
 				const newPos = this.pos.add(movement);
 				const tileAtPos = GLOBAL.mapMan.getTileAt(newPos);
@@ -152,6 +154,13 @@ class Unit_Worker extends EngineObject {
 					}
 					else {
 						// TODO: go around?
+
+						// walk thru for now at half speed
+						this.pos = this.pos.add(vec2().setAngle(angle, this.speed / 4));
+						this.mirror = movement.x < 0;
+						this.walkFrame++;
+
+						this.renderOrder = -this.pos.y;
 					}
 				}
 				else {
