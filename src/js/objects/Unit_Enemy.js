@@ -28,7 +28,12 @@ class Unit_Enemy extends Unit {
 				this.jumpHeight = 0;
 
 				// attack
-				zzfx(...[,.03,405,,,0,3,.1,8,,,,,.1,27,.4,.04,.44,.01]); 
+				zzfx(...[, .03, 405, , , 0, 3, .1, 8, , , , , .1, 27, .4, .04, .44, .01]); 
+				
+				if (this.intentionTarget instanceof Unit_Worker) {
+					//GLOBAL.speak('ow');
+					this.intentionTarget.takeDamage(1);
+				}
 
 			}
 			else {
@@ -50,25 +55,29 @@ class Unit_Enemy extends Unit {
 
 			if (dist < this.speed) {
 				// arrived
-				this.pos = this.destination;
-				if (this.intention == 'chop') {
-					// look for new target
-					let closest = Infinity;
-					let target = undefined;
-					for (let i = 0; i < GLOBAL.trees.length; i++) {
-						const tree = GLOBAL.trees[i];
-						const dist = tree.pos.subtract(this.pos).length();
-						if (dist < closest) {
-							target = tree;
-							closest = dist;
-						}
-					}
-					if (target) {
-						this.destination = target.pos;
-					} 
-				}
+
+				// attack town hall
+				this.destination = GLOBAL.buildings[0].pos;
 			}
 			else {
+
+				// look for targets
+				let closest = Infinity;
+				for (let i = 0; i < GLOBAL.units.length; i++) {
+					const unit = GLOBAL.units[i];
+					const dist = this.pos.distance(unit.pos);
+					if (dist < 0.8) {
+						this.actionTimer.set(1);
+						this.actionFrame = 0;
+						this.intentionTarget = unit;
+						return;
+					}
+					else if (dist < 3 && dist < closest) {
+						this.destination = unit.pos;
+						closest = dist;
+					}
+				}
+
 				// travelling
 				const movement = vec2().setAngle(angle, this.speed);
 				const newPos = this.pos.add(movement);

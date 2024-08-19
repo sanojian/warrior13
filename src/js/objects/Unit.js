@@ -8,6 +8,7 @@ class Unit extends EngineObject {
 
 		this.destination = pos;
 
+		this.hitpoints = 3;
 		this.speed = 1 / 48;
 		this.walkFrame = 0;
 		this.walkTile = tile(tileInfo.pos.add(vec2(12, 0), tileInfo.size));
@@ -19,6 +20,23 @@ class Unit extends EngineObject {
 		this.actionFrame = 0;
 		this.jumpHeight = 0;
 
+	}
+
+	takeDamage(amt) {
+
+		this.hitpoints -= amt;
+
+		if (this.hitpoints <= 0) {
+
+			if (this instanceof Unit_Worker) {
+				GLOBAL.units.splice(GLOBAL.units.indexOf(this), 1);
+			}
+			else if (this instanceof Unit_Enemy) {
+				GLOBAL.enemies.splice(GLOBAL.enemies.indexOf(this), 1);
+			}
+
+			this.destroy();
+		}
 	}
 
 	render() {
