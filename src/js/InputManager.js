@@ -65,7 +65,7 @@ GLOBAL.inputMan = {
 				const unit = wereSelected[i];
 
 				// move command
-				unit.destination = vec2(mousePos);
+				unit.takeOrder('move', { pos: mousePos });
 				unit.intention = undefined;
 			}
 		}

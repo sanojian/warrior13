@@ -32,6 +32,8 @@ class Unit_Worker extends Unit {
 
 	takeOrder(order, target) {
 
+		super.takeOrder();
+
 		this.actionTimer.unset();
 		this.intention = order;
 		this.destination = target ? target.pos : this.pos;
@@ -45,7 +47,8 @@ class Unit_Worker extends Unit {
 			mine: ['okay', 'yep?'],
 			build: ['okay', 'hammer time?', 'yep?'],
 			store: ['put away'],
-			shelter: ['shell ta', 'safety']
+			shelter: ['shell ta', 'safety'],
+			move: ['going', 'on the way', 'okay']
 		};
 
 		if (order) {
@@ -157,6 +160,8 @@ class Unit_Worker extends Unit {
 					else if (tileAtPos instanceof Building && this.intention == 'shelter') {
 
 						this.pos = tileAtPos.pos.copy();
+						this.shelter = tileAtPos;
+						this.renderOrder = this.shelter.renderOrder + 1;
 						
 					}
 					else if (tileAtPos instanceof Building_TownHall && this.intention == 'store') {

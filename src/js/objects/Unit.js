@@ -22,6 +22,10 @@ class Unit extends EngineObject {
 
 	}
 
+	takeOrder() {
+		this.shelter = undefined;
+	}
+
 	takeDamage(amt) {
 
 		this.hitpoints -= amt;
@@ -42,6 +46,16 @@ class Unit extends EngineObject {
 	render() {
 
 		// pre render
+
+		if (this.shelter) {
+
+			drawTile(
+				this.pos.add(vec2(0,  6 / 12)),
+				vec2(0.8),
+				this.tileInfo
+			);
+			return;
+		}
 
 		const step = Math.floor(this.walkFrame / 10) % 2;
 		// render
