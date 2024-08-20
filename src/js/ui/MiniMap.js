@@ -22,10 +22,15 @@ GLOBAL.miniMap = {
 			new Color(0, 0, 0)
 		);
 
-		drawRect(
+		/*drawRect(
 			uiPos,
 			vec2(30 / 12),
 			new Color(55/255, 148/255, 110/255)
+		);*/
+		drawTile(
+			uiPos,
+			vec2(3),
+			tile(vec2(0, 144), vec2(36, 36))
 		);
 		for (let y = 0; y < GLOBAL.mapMan.mapHeight; y++) {
 			for (let x = 0; x < GLOBAL.mapMan.mapWidth; x++) {

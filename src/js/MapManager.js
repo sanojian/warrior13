@@ -18,11 +18,33 @@ class MapManager {
 
 			for (let x = 0; x < w; x++) {
 
-				const info = new TileLayerData(0, randInt(0, 4));
+				// grass
+				let tileIndex = 0;
+				let rotation = randInt(0, 4);
+				let tileValue = 'w';
+
+				if (x == 0 && y == 0) {
+					tileIndex = 82;
+					rotation = 1;
+				}
+				else if (x == w - 1 && y == 0) {
+					tileIndex = 82;
+					rotation = 0;
+				}
+				else if (y == 0) {
+					tileIndex = 81
+					rotation = 0;
+				}
+				else {
+					tileValue = 0;
+				}
+
+
+				let info = new TileLayerData(tileIndex, rotation);
+				GLOBAL.mapGrid[y][x] = tileValue || 0;
 
 				tileLayer.setData(vec2(x, y), info);
 			
-				GLOBAL.mapGrid[y][x] = 0;
 			}
 		}
 
