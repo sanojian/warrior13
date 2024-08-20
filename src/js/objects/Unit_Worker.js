@@ -18,14 +18,15 @@ class Unit_Worker extends Unit {
 
 	isOver(x, y) {
 
-		this.selected = x > this.pos.x - this.size.x / 2 && x < this.pos.x + this.size.x / 2 && y > this.pos.y - this.size.y / 2 && y < this.pos.y + this.size.y / 2;
+		const select = x > this.pos.x - this.size.x / 2 && x < this.pos.x + this.size.x / 2 && y > this.pos.y - this.size.y / 2 && y < this.pos.y + this.size.y / 2;
 
-		if (this.selected) {
+		if (select && !this.selected) {
 			GLOBAL.state = DEFS.STATES.BUILD_MENU;
 			const chance = Math.random();
 			GLOBAL.speak(chance < 0.3 ? 'what' : chance < 0.6 ? 'huh?' : 'ready');
 		}
 
+		this.selected = select;
 		return this.selected;
 	}
 

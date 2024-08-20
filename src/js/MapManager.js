@@ -34,6 +34,8 @@ class MapManager {
 
 
 		GLOBAL.buildings.push(new Building_TownHall(vec2(14, 14)));
+		GLOBAL.buildings.push(new Building_Barracks(vec2(16, 12)));
+		GLOBAL.buildings[GLOBAL.buildings.length - 1].build(10);
 
 		/*let enemy = new Unit_Enemy(vec2(16, 10));
 		enemy.destination = GLOBAL.buildings[0].pos;
