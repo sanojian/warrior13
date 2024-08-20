@@ -35,11 +35,11 @@ class MapManager {
 
 		GLOBAL.buildings.push(new Building_TownHall(vec2(14, 14)));
 
-		let enemy = new Unit_Enemy(vec2(16, 10));
+		/*let enemy = new Unit_Enemy(vec2(16, 10));
 		enemy.destination = GLOBAL.buildings[0].pos;
 		GLOBAL.enemies.push(
 			enemy
-		);
+		);*/
 
 		GLOBAL.trees.push(
 			new Tree(vec2(14, 16)),

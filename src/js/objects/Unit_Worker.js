@@ -20,8 +20,8 @@ class Unit_Worker extends Unit {
 
 		this.selected = x > this.pos.x - this.size.x / 2 && x < this.pos.x + this.size.x / 2 && y > this.pos.y - this.size.y / 2 && y < this.pos.y + this.size.y / 2;
 
-		GLOBAL.state = DEFS.STATES.BUILD_MENU;
 		if (this.selected) {
+			GLOBAL.state = DEFS.STATES.BUILD_MENU;
 			const chance = Math.random();
 			GLOBAL.speak(chance < 0.3 ? 'what' : chance < 0.6 ? 'huh?' : 'ready');
 		}
@@ -145,7 +145,7 @@ class Unit_Worker extends Unit {
 						this.walkFrame = 0;
 						this.intentionTarget = tileAtPos;
 					}
-					else if (tileAtPos instanceof Building_House && this.intention == 'build' && tileAtPos.needsBuilt) {
+					else if (tileAtPos instanceof Building && this.intention == 'build' && tileAtPos.needsBuilt) {
 						
 						this.actionTimer.set(1);
 						this.actionFrame = 0;

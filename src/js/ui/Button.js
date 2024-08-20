@@ -1,11 +1,11 @@
 
 class Button {
 
-	constructor(x, y, iconTile, onClick) {
+	constructor(x, y, tileInfo, onClick) {
 		this.x = x;
 		this.y = y;
 		this.pos = vec2(x, y);
-		this.iconTile = iconTile;
+		this.tileInfo = tileInfo;
 
 		this.requiresWood = 0;
 		this.requiresStone = 0;
@@ -45,8 +45,8 @@ class Button {
 		);
 		drawTile(
 			screenToWorld(vec2(this.x, innerHeight - this.y)),
-			vec2(1),
-			tile(this.needsBuilt ? 58 : this.iconTile),
+			vec2(this.tileInfo.size.x / 12, this.tileInfo.size.y / 12),
+			this.tileInfo,
 			color
 		);
 			

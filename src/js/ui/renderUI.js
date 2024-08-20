@@ -1,6 +1,6 @@
 function gameRenderPost() {
 	
-	if (GLOBAL.state == DEFS.STATES.BUILD_HOUSE) {
+	if (GLOBAL.state == DEFS.STATES.BUILD_HOUSE || GLOBAL.state == DEFS.STATES.BUILD_BARRACKS) {
 		// draw temp house
 
 		const x = Math.round(mousePos.x);
@@ -12,10 +12,17 @@ function gameRenderPost() {
 			color = new Color(1, 0, 0, 0.5);
 		}
 
+		let size = vec2(1);
+		let tileInfo = tile(50);
+
+		if (GLOBAL.state == DEFS.STATES.BUILD_BARRACKS) {
+			size = vec2(2);
+			tileInfo = tile(vec2(0, 96), vec2(24));
+		}
 		drawTile(
 			vec2(x, y),
-			vec2(1),
-			tile(50),
+			size,
+			tileInfo,
 			color
 		);
 

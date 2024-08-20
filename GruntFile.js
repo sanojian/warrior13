@@ -99,6 +99,7 @@ module.exports = function (grunt) {
 						"src/js/main.js",
 						"src/js/DEFS.js",
 						"src/js/ui/Button.js",
+						"src/js/objects/Building.js",
 						"src/js/objects/Unit.js",
 						"src/js/**/*.js",
 					],

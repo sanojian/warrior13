@@ -9,6 +9,7 @@ const DEFS = {
 	STATES: {
 		BUILD_HOUSE: 1,
 		TOWNHALL_MENU: 2,
-		BUILD_MENU: 3
+		BUILD_MENU: 3,
+		BUILD_BARRACKS: 4,
 	}
 };
