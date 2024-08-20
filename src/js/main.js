@@ -23,7 +23,9 @@ function gameInit() {
 		new Button_Upgrade(128, 96, tile(4), () => {
 			const pos = GLOBAL.buildings[0].pos;
 
-			GLOBAL.units.push(new Unit_Worker(vec2(pos.x - 1 + Math.random() * 2, pos.y - 1)));
+			const unit = new Unit_Worker(vec2(pos.x - 1 + Math.random() * 2, pos.y - 1));
+			unit.selected = true;
+			GLOBAL.units.push(unit);
 		})
 	);
 

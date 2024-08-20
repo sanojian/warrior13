@@ -33,6 +33,17 @@ class Building extends EngineObject {
 
 	}
 
+	handleClick(selectedUnits) {
+		if (this.needsBuilt) {
+			// resume building
+			for (let i = 0; i < selectedUnits.length; i++) {
+				selectedUnits[i].takeOrder('build', this);
+			}
+
+			return true;
+		}
+	}
+
 	isOver(x, y, selectedUnits) {
 
 		const clicked = x > this.pos.x - this.size.x / 2 && x < this.pos.x + this.size.x / 2 && y > this.pos.y - this.size.y / 2 && y < this.pos.y + this.size.y / 2;

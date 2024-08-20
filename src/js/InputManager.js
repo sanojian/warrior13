@@ -3,9 +3,6 @@ GLOBAL.inputMan = {
 
 	update() {
 
-		let itemSelected = false;
-		let orderGiven = false;
-
 		if (mouseIsDown(0)) {
 
 			if (!GLOBAL.spoken) {
@@ -46,53 +43,30 @@ GLOBAL.inputMan = {
 					GLOBAL.state = 0;
 					return;
 				}
-				itemSelected = itemSelected || unit.selected;
-					
-			}
-			for (let i = 0; i < GLOBAL.trees.length && !itemSelected; i++) {
-				const tree = GLOBAL.trees[i];
-				
-				if (tree.isOver(mousePos.x, mousePos.y)) {
-				
-					for (let u = 0; u < wereSelected.length; u++) {
-						wereSelected[u].takeOrder('chop', tree);
-						orderGiven = true;
-					}
-				}
-					
-			}
-			for (let i = 0; i < GLOBAL.stones.length && !itemSelected; i++) {
-				const stone = GLOBAL.stones[i];
-				
-				if (stone.isOver(mousePos.x, mousePos.y)) {
-				
-					for (let u = 0; u < wereSelected.length; u++) {
-						wereSelected[u].takeOrder('mine', stone);
-						orderGiven = true;
-					}
+				if (unit.selected) {
+					// done here
+					return;
 				}
 					
 			}
 
-			for (let i = 0; i < GLOBAL.buildings.length && !itemSelected; i++) {
-				const building = GLOBAL.buildings[i];
+			// get clicked tile
+			const tile = GLOBAL.mapGrid[Math.round(mousePos.y)][Math.round(mousePos.x)];
+			
+			if (tile) {
 
-				orderGiven = orderGiven || building.isOver(mousePos.x, mousePos.y, wereSelected) 
-
+				tile.handleClick && tile.handleClick(wereSelected);
+				return;
 			}
 
-			if (!itemSelected || orderGiven) {
-				// this was an order to selected units
-				for (let i = 0; i < wereSelected.length; i++) {
-					const unit = wereSelected[i];
-					//unit.selected = true;
 
-					// move command
-					unit.destination = vec2(mousePos);
-					if (!orderGiven) {
-						unit.intention = undefined;
-					}
-				}
+			// this was an order to selected units
+			for (let i = 0; i < wereSelected.length; i++) {
+				const unit = wereSelected[i];
+
+				// move command
+				unit.destination = vec2(mousePos);
+				unit.intention = undefined;
 			}
 		}
 

@@ -45,6 +45,7 @@ class Unit_Worker extends Unit {
 			mine: ['okay', 'yep?'],
 			build: ['okay', 'hammer time?', 'yep?'],
 			store: ['put away'],
+			shelter: ['shell ta', 'safety']
 		};
 
 		if (order) {
@@ -152,6 +153,11 @@ class Unit_Worker extends Unit {
 						this.actionFrame = 0;
 						this.walkFrame = 0;
 						this.intentionTarget = tileAtPos;
+					}
+					else if (tileAtPos instanceof Building && this.intention == 'shelter') {
+
+						this.pos = tileAtPos.pos.copy();
+						
 					}
 					else if (tileAtPos instanceof Building_TownHall && this.intention == 'store') {
 						

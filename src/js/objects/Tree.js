@@ -14,11 +14,11 @@ class Tree extends EngineObject {
 	}
 
 
-	isOver(x, y) {
+	handleClick(selectedUnits) {
 
-		this.selected = x > this.pos.x - this.size.x / 2 && x < this.pos.x + this.size.x / 2 && y > this.pos.y - this.size.y / 2 && y < this.pos.y + this.size.y / 2;
-
-		return this.selected;
+		for (let u = 0; u < selectedUnits.length; u++) {
+			selectedUnits[u].takeOrder('chop', this);
+		}
 	}
 
 	chop(amt) {

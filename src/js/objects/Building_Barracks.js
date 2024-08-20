@@ -15,5 +15,17 @@ class Building_Barracks extends Building {
 
 	}
 
+	handleClick(selectedUnits) {
 
+		if (super.handleClick(selectedUnits)) {
+			return;
+		}
+
+		for (let u = 0; u < selectedUnits.length; u++) {
+			selectedUnits[u].takeOrder('shelter', this);
+		}
+
+
+		return true;
+	}
 }

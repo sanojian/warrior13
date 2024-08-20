@@ -13,20 +13,17 @@ class Building_TownHall extends EngineObject {
 
 	}
 
-	isOver(x, y, selectedUnits) {
+	handleClick(selectedUnits) {
 
-		const clicked = x > this.pos.x - this.size.x / 2 && x < this.pos.x + this.size.x / 2 && y > this.pos.y - this.size.y / 2 && y < this.pos.y + this.size.y / 2;
-	
-		if (clicked && !selectedUnits.length) {
+		if (!selectedUnits.length) {
 			GLOBAL.state = DEFS.STATES.TOWNHALL_MENU;
 		}
 
-		for (let i = 0; clicked && i < selectedUnits.length; i++) {
-			selectedUnits[i].takeOrder('store', this);
+		for (let u = 0; u < selectedUnits.length; u++) {
+			selectedUnits[u].takeOrder('store', this);
 		}
-
-		return clicked;
 	}
+	
 
 
 }
