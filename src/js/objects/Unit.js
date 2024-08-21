@@ -20,6 +20,7 @@ class Unit extends EngineObject {
 		this.actionFrame = 0;
 		this.jumpHeight = 0;
 
+		this.weapon = undefined;
 	}
 
 	takeOrder() {

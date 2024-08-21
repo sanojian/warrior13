@@ -17,7 +17,17 @@ function gameInit() {
 	// UI
 	GLOBAL.trainMenu.push(
 		new Button_Train(128, 96, tile(12), tile(vec2(72, 72), 24), () => {
-			GLOBAL.state = DEFS.STATES.BUILD_HOUSE;
+			for (let i = 0; i < GLOBAL.units.length; i++) {
+				const unit = GLOBAL.units[i];
+				if (unit.selected) {
+					GLOBAL.units.splice(GLOBAL.units.indexOf(unit), 1);
+					const newUnit = new Unit_Archer(unit.pos);
+					newUnit.shelter = unit.shelter;
+					GLOBAL.units.push(newUnit);
+					unit.destroy();
+					GLOBAL.state = 0;
+				}
+			}
 		}),
 		new Button_Train(256, 96, tile(14), tile(vec2(72, 96), 24), () => {
 			GLOBAL.state = DEFS.STATES.BUILD_HOUSE;
@@ -69,6 +79,7 @@ function gameUpdate() {
 		GLOBAL.inputMan.update();
 	}
 
+	GLOBAL.vfxMan.update();
 
 }
 function gameUpdatePost() {

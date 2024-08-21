@@ -18,7 +18,7 @@ class Unit_Enemy extends Unit {
 	}
 
 
-	update() {
+	update2() {
 
 		if (this.actionTimer.isSet()) {
 			// performing action
