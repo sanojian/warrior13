@@ -11,5 +11,6 @@ const DEFS = {
 		TOWNHALL_MENU: 2,
 		BUILD_MENU: 3,
 		BUILD_BARRACKS: 4,
+		TRAIN_MENU: 5,
 	}
 };

@@ -11,13 +11,14 @@ const GLOBAL = {
 	buildings: [],
 
 	// UI
+	trainMenu: [],
 	buildMenu: [],
 	townHallMenu: [],
 
 	state: 0,
 
-	wood: 10,
-	stone: 10,
+	wood: 110,
+	stone: 110,
 
 	getSupportedPop: function () {
 		let supported = 0;

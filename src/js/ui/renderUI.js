@@ -101,12 +101,16 @@ function gameRenderPost() {
 		true
 	);
 
-	// build menu
+	//  ui menus
 	if (GLOBAL.state == DEFS.STATES.BUILD_MENU) {
 		for (let i = 0; i < GLOBAL.buildMenu.length; i++) {
 			GLOBAL.buildMenu[i].draw();
 		}
-
+	}
+	if (GLOBAL.state == DEFS.STATES.TRAIN_MENU) {
+		for (let i = 0; i < GLOBAL.trainMenu.length; i++) {
+			GLOBAL.trainMenu[i].draw();
+		}
 	}
 	else if (GLOBAL.state == DEFS.STATES.TOWNHALL_MENU) {
 		for (let i = 0; i < GLOBAL.townHallMenu.length; i++) {

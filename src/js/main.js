@@ -15,6 +15,14 @@ function gameInit() {
 	GLOBAL.mapMan = new MapManager();
 
 	// UI
+	GLOBAL.trainMenu.push(
+		new Button_Train(128, 96, tile(12), tile(vec2(72, 72), 24), () => {
+			GLOBAL.state = DEFS.STATES.BUILD_HOUSE;
+		}),
+		new Button_Train(256, 96, tile(14), tile(vec2(72, 96), 24), () => {
+			GLOBAL.state = DEFS.STATES.BUILD_HOUSE;
+		}),
+	);
 	GLOBAL.buildMenu.push(
 		new Button_Build(128, 96, tile(50), () => { GLOBAL.state = DEFS.STATES.BUILD_HOUSE; }),
 		new Button_Build(256, 96, tile(vec2(0, 96), vec2(24)), () => { GLOBAL.state = DEFS.STATES.BUILD_BARRACKS; }),

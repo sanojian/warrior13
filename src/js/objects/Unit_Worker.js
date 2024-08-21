@@ -21,7 +21,13 @@ class Unit_Worker extends Unit {
 		const select = x > this.pos.x - this.size.x / 2 && x < this.pos.x + this.size.x / 2 && y > this.pos.y - this.size.y / 2 && y < this.pos.y + this.size.y / 2;
 
 		if (select && !this.selected) {
-			GLOBAL.state = DEFS.STATES.BUILD_MENU;
+			
+			if (this.shelter && this.shelter instanceof Building_Barracks) {
+				GLOBAL.state = DEFS.STATES.TRAIN_MENU;
+			}
+			else {
+				GLOBAL.state = DEFS.STATES.BUILD_MENU;
+			}
 			const chance = Math.random();
 			GLOBAL.speak(chance < 0.3 ? 'what' : chance < 0.6 ? 'huh?' : 'ready');
 		}
@@ -43,12 +49,12 @@ class Unit_Worker extends Unit {
 		GLOBAL.state = 0;
 
 		const possibleSpeak = {
-			chop: ['okay', 'choppa', 'yep?'],
-			mine: ['okay', 'yep?'],
-			build: ['okay', 'hammer time?', 'yep?'],
-			store: ['put away'],
-			shelter: ['shell ta', 'safety'],
-			move: ['going', 'on the way', 'okay']
+			chop: ['k', 'choppa', 'yep?'],
+			mine: ['k', 'yep?'],
+			build: ['k', 'hamma?', 'yep?'],
+			store: ['hoard', 'stow', 'store'],
+			shelter: ['shellta', 'safety'],
+			move: ['goin', 'yep?', 'k']
 		};
 
 		if (order) {
