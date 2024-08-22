@@ -16,10 +16,12 @@ const DEFS = {
 
 	WARRIORS: [
 		{
-			announcement: 'The first warrior, Ragnar the surly approaches'
+			announcement: 'The first warrior, Ragnar the surly approaches',
+			enemies: [32, 32, 30, 30, 32, 30]
 		},
 		{
-			announcement: 'The second warrior, Hyglak the quarrelsome approaches'
+			announcement: 'The second warrior, Hyglak the quarrelsome approaches',
+			enemies: [32, 32, 30, 30, 32, 30]
 		},
 		{
 			announcement: 'The third warrior, Halga the wise approaches'

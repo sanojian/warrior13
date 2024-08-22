@@ -86,8 +86,21 @@ function gameUpdate() {
 
 	if (GLOBAL.warriorTimer.isSet() && GLOBAL.warriorTimer.elapsed()) {
 
-		GLOBAL.speak(DEFS.WARRIORS[Math.min(DEFS.WARRIORS.length - 1, GLOBAL.warriorIndex)].announcement, 2, 1, 1);
-		GLOBAL.warriorTimer.set(30);
+		const def = DEFS.WARRIORS[Math.min(DEFS.WARRIORS.length - 1, GLOBAL.warriorIndex)];
+
+		GLOBAL.speak(def.announcement, 2, 1, 1);
+		
+		// spawn enemies
+		for (let i = 0; i < def.enemies.length; i += 2) {
+
+			let enemy = new Unit_Enemy(vec2(def.enemies[i], def.enemies[i+1]), tile(i == 0 ? 6 : 102));
+			enemy.destination = GLOBAL.buildings[0].pos;
+			GLOBAL.enemies.push(enemy);
+
+		}
+
+		
+		GLOBAL.warriorTimer.set(3000);
 		GLOBAL.warriorIndex++;
 	}
 

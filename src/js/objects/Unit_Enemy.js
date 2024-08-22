@@ -1,9 +1,9 @@
 
 class Unit_Enemy extends Unit {
 
-	constructor(pos) {
+	constructor(pos, tileInfo) {
 
-		super(pos, vec2(1), tile(6));
+		super(pos, vec2(1), tileInfo);
 
 		this.weapon = Math.random() > 0.5 ? 'axe' : 'sword';
 
@@ -18,7 +18,7 @@ class Unit_Enemy extends Unit {
 	}
 
 
-	update2() {
+	update() {
 
 		if (this.actionTimer.isSet()) {
 			// performing action
