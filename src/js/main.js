@@ -90,7 +90,50 @@ function gameRender() {
 	
 }
 
+function loadMapData(callback) {
+
+		const img = new Image(); 
+		img.onload = function() {
+			const canvas = document.createElement("canvas");
+			canvas.height = img.height;
+			const body = document.getElementsByTagName("body")[0];
+			body.appendChild(canvas);
+			const ctx = canvas.getContext("2d");
+
+			ctx.drawImage(img, 0, 0);
+
+			const data = ctx.getImageData(0, 144, 36, 36).data;
+
+			// create map grid from image data
+			GLOBAL.mapGrid = [];
+			for (let y = 0; y < 36; y++) {
+				GLOBAL.mapGrid[35 - y] = [];
+				for (let x = 0; x < 36; x++) {
+					const index = 4 * (y * 36 + x);
+					let val = 0;
+					if (data[index] == 91 && data[index + 1] == 110 && data[index + 2] == 225) {
+						val = 'w';
+					}
+					else if (data[index] == 75 && data[index + 1] == 105 && data[index + 2] == 47) {
+						val = 't';
+					}
+					else if (data[index] == 155 && data[index + 1] == 173 && data[index + 2] == 183) {
+						val = 's';
+					}
+
+					GLOBAL.mapGrid[35 - y][x] = val;
+				}
+			}
+
+			body.removeChild(canvas);
+
+			callback();
+		}
+		img.src = "tiles.png";
+}
+	
 
 tileSizeDefault = vec2(12);
-doEngineInit();
+
+loadMapData(doEngineInit);
 

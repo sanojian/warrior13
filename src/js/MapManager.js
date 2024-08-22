@@ -3,27 +3,41 @@ class MapManager {
 
 	constructor() {
 	
-		const w = 30;
-		const h = 30;
+		const w = 36;
+		const h = 36;
 		
 		this.mapWidth = w;
 		this.mapHeight = h;
 
-		GLOBAL.mapGrid = [];
+		//GLOBAL.mapGrid = [];
 
 		const tileLayer = new TileLayer(vec2(-0.5), vec2(w, h));
 
 		for (let y = 0; y < h; y++) {
-			GLOBAL.mapGrid[y] = [];
+			//GLOBAL.mapGrid[y] = [];
 
 			for (let x = 0; x < w; x++) {
 
 				// grass
 				let tileIndex = 0;
 				let rotation = randInt(0, 4);
-				let tileValue = 'w';
 
-				if (x == 0 && y == 0) {
+				const gridValue = GLOBAL.mapGrid[y][x];
+				if (gridValue == 'w') {
+					tileIndex = 80;
+				}
+				else if (gridValue == 't') {
+					const tree = new Tree(vec2(x, y));
+					GLOBAL.mapGrid[y][x] = tree;
+					GLOBAL.trees.push(tree);
+				}
+				else if (gridValue == 's') {
+					const stone = new Stone(vec2(x, y));
+					GLOBAL.mapGrid[y][x] = stone;
+					GLOBAL.stones.push(stone);
+				}
+				// water tiles
+				/*if (x == 0 && y == 0) {
 					tileIndex = 82;
 					rotation = 1;
 				}
@@ -37,11 +51,11 @@ class MapManager {
 				}
 				else {
 					tileValue = 0;
-				}
+				}*/
 
 
 				let info = new TileLayerData(tileIndex, rotation);
-				GLOBAL.mapGrid[y][x] = tileValue || 0;
+				//GLOBAL.mapGrid[y][x] = tileValue || 0;
 
 				tileLayer.setData(vec2(x, y), info);
 			
@@ -65,7 +79,7 @@ class MapManager {
 			enemy
 		);
 
-		GLOBAL.trees.push(
+		/*GLOBAL.trees.push(
 			new Tree(vec2(14, 16)),
 			new Tree(vec2(15, 16)),
 			new Tree(vec2(16, 16)),
@@ -82,7 +96,7 @@ class MapManager {
 			new Stone(vec2(18, 14)),
 			new Stone(vec2(17, 18)),
 			new Stone(vec2(7, 7)),
-		);
+		);*/
 		
 	}
 
@@ -96,4 +110,6 @@ class MapManager {
 		return GLOBAL.mapGrid[Math.round(pos.y)][Math.round(pos.x)];
 
 	}
+
+
 }

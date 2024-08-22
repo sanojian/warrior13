@@ -8,19 +8,19 @@ GLOBAL.miniMap = {
 		const dx = x - (uiPos.x - 15 / 12);
 		const dy = y - (uiPos.y - 15 / 12);
 
-		if (dx > 0 && dx <= 30 / 12 && dy > 0 && dy <= 30 / 12) {
-			cameraPos = vec2(dx * 12, dy * 12)			
+		if (dx > 0 && dx <= 3 && dy > 0 && dy <= 3) {
+			cameraPos = vec2(dx * 12, dy * 12);		
 		}
 	},
 
 	draw() {
 		const uiPos = screenToWorld(vec2(innerWidth - 128, innerHeight - 128));
 
-		drawRect(
+		/*drawRect(
 			uiPos,
 			vec2(32 / 12),
 			new Color(0, 0, 0)
-		);
+		);*/
 
 		/*drawRect(
 			uiPos,
@@ -30,7 +30,7 @@ GLOBAL.miniMap = {
 		drawTile(
 			uiPos,
 			vec2(3),
-			tile(vec2(0, 144), vec2(36, 36))
+			tile(vec2(36, 144), vec2(36, 36))
 		);
 		for (let y = 0; y < GLOBAL.mapMan.mapHeight; y++) {
 			for (let x = 0; x < GLOBAL.mapMan.mapWidth; x++) {
@@ -42,11 +42,13 @@ GLOBAL.miniMap = {
 						color = new Color(155 / 255, 173 / 255, 183 / 255)
 					}
 
-					drawRect(
-						uiPos.add(vec2((x - 15) / 12, (y - 15) / 12)),
-						size,
-						color
-					);
+					if (typeof(val) !== 'string') {
+						drawRect(
+							uiPos.add(vec2((x - 18) / 12, (y - 18) / 12)),
+							size,
+							color
+						);
+					}
 				}
 			}
 		}
@@ -54,7 +56,7 @@ GLOBAL.miniMap = {
 		for (let i = 0; i < GLOBAL.buildings.length; i++) {
 			const building = GLOBAL.buildings[i];
 			drawRect(
-				uiPos.add(vec2((building.pos.x - 15) / 12, (building.pos.y - 15) / 12)),
+				uiPos.add(vec2((building.pos.x - 18) / 12, (building.pos.y - 18) / 12)),
 				building instanceof Building_TownHall ? vec2(2/12) : vec2(1/12),
 				color
 			);
@@ -62,7 +64,7 @@ GLOBAL.miniMap = {
 		for (let i = 0; i < GLOBAL.units.length; i++) {
 			const unit = GLOBAL.units[i];
 			drawRect(
-				uiPos.add(vec2((unit.pos.x - 15) / 12, (unit.pos.y - 15) / 12)),
+				uiPos.add(vec2((unit.pos.x - 18) / 12, (unit.pos.y - 18) / 12)),
 				vec2(1/12),
 				color
 			);
@@ -72,7 +74,7 @@ GLOBAL.miniMap = {
 		for (let i = 0; i < GLOBAL.enemies.length; i++) {
 			const enemy = GLOBAL.enemies[i];
 			drawRect(
-				uiPos.add(vec2((enemy.pos.x - 15) / 12, (enemy.pos.y - 15) / 12)),
+				uiPos.add(vec2((enemy.pos.x - 18) / 12, (enemy.pos.y - 18) / 12)),
 				vec2(1/12),
 				color
 			);
