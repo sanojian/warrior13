@@ -54,7 +54,8 @@ function gameInit() {
 function gameUpdate() {
 
 	if (GLOBAL.state == DEFS.STATES.BUILD_HOUSE || GLOBAL.state == DEFS.STATES.BUILD_BARRACKS) {
-		
+		// building
+
 		if (mouseIsDown(0)) {
 			clearInput();
 

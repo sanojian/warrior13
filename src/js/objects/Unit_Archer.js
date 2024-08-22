@@ -42,4 +42,28 @@ class Unit_Archer extends PlayerUnit {
 		super.update();
 	}
 
+	render() {
+
+		super.render();
+
+		// bow
+		let size = vec2(2);
+		let pos = this.pos.add(vec2(0, -2/12))
+		if (this.shelter) {
+
+			pos = pos.add(vec2(0, 6 / 12));
+			size = vec2(1.6);
+		}
+
+		drawTile(
+			pos,
+			size,
+			tile(vec2(72, 72), 24),
+			undefined,
+			(this.mirror ? 1 : -1) * this.actionFrame / (PI*64),
+			this.mirror
+		);
+	
+	}
+
 }

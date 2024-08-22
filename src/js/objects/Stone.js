@@ -15,7 +15,10 @@ class Stone extends EngineObject {
 	handleClick(selectedUnits) {
 
 		for (let u = 0; u < selectedUnits.length; u++) {
-			selectedUnits[u].takeOrder('mine', this);
+			const unit = selectedUnits[u];
+			if (unit instanceof Unit_Worker) {
+				unit.takeOrder('mine', this);
+			}
 		}
 	}
 
@@ -28,7 +31,7 @@ class Stone extends EngineObject {
 		if (this.stone <= 0) {
 
 			GLOBAL.mapGrid[this.pos.y][this.pos.x] = 0;
-			GLOBAL.trees.splice(GLOBAL.trees.indexOf(this), 1);
+			GLOBAL.stones.splice(GLOBAL.stones.indexOf(this), 1);
 			this.destroy();
 		}
 

@@ -17,7 +17,10 @@ class Tree extends EngineObject {
 	handleClick(selectedUnits) {
 
 		for (let u = 0; u < selectedUnits.length; u++) {
-			selectedUnits[u].takeOrder('chop', this);
+			const unit = selectedUnits[u];
+			if (unit instanceof Unit_Worker) {
+				unit.takeOrder('chop', this);
+			}
 		}
 	}
 
