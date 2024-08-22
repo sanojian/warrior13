@@ -56,7 +56,9 @@ GLOBAL.inputMan = {
 			}
 
 			// get clicked tile
-			const tile = GLOBAL.mapGrid[Math.round(mousePos.y)][Math.round(mousePos.x)];
+			let x = Math.max(0, Math.min(35, Math.round(mousePos.x)));
+			let y = Math.max(0, Math.min(35, Math.round(mousePos.y)));
+			const tile = GLOBAL.mapGrid[y][x];
 			
 			if (tile) {
 
