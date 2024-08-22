@@ -9,7 +9,6 @@ function doEngineInit() {
 function gameInit() {
 	
 
-	fontDefault = 'monospace';
 	GLOBAL.uiFont = new FontImage();
 
 	GLOBAL.mapMan = new MapManager();
@@ -50,6 +49,9 @@ function gameInit() {
 	cameraPos = GLOBAL.buildings[0].pos;
 	cameraScale = 60;
 
+	GLOBAL.warriorIndex = 0;
+	GLOBAL.warriorTimer = new Timer(5);
+
 }
 function gameUpdate() {
 
@@ -82,10 +84,19 @@ function gameUpdate() {
 
 	GLOBAL.vfxMan.update();
 
+	if (GLOBAL.warriorTimer.isSet() && GLOBAL.warriorTimer.elapsed()) {
+
+		GLOBAL.speak(DEFS.WARRIORS[Math.min(DEFS.WARRIORS.length - 1, GLOBAL.warriorIndex)].announcement, 2, 1, 1);
+		GLOBAL.warriorTimer.set(30);
+		GLOBAL.warriorIndex++;
+	}
+
 }
+
 function gameUpdatePost() {
 	
 }
+
 function gameRender() {
 	
 }
@@ -135,5 +146,12 @@ function loadMapData(callback) {
 
 tileSizeDefault = vec2(12);
 
-loadMapData(doEngineInit);
 
+// wait for voices to load 
+speechSynthesis.onvoiceschanged = function() {
+	GLOBAL.voices = speechSynthesis.getVoices();
+
+	GLOBAL.voicesLoaded = true;
+};
+
+loadMapData(doEngineInit);

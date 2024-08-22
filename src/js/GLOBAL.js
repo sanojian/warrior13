@@ -20,6 +20,9 @@ const GLOBAL = {
 	wood: 110,
 	stone: 110,
 
+	voiceIndex: 47,
+	phrases: {},
+
 	getSupportedPop: function () {
 		let supported = 0;
 		for (let i = 0; i < GLOBAL.buildings.length; i++) {
@@ -31,20 +34,28 @@ const GLOBAL = {
 	},
 
 	spoken: false,
-	speak: function (phrase) {
+	speak: function (phrase, voiceIndex, pitch, rate) {
+
+		/*if (!GLOBAL.voicesLoaded) {
+			return;
+		}*/
 		const T2S = window.speechSynthesis || speechSynthesis; 
-		var utter = new SpeechSynthesisUtterance(phrase); 
+		var utter = GLOBAL.phrases[phrase] || new SpeechSynthesisUtterance(phrase);
+		GLOBAL.phrases[phrase] = utter;
+
 		// 36 Rocko
 		// 47 Zarvox
-		const voices = T2S.getVoices();
-		GLOBAL.voiceIndex = GLOBAL.voiceIndex || 47;
+		//const voices = T2S.getVoices();
+		voiceIndex = voiceIndex || GLOBAL.voiceIndex || 47;
 		// check voice available, choose random if not
-		GLOBAL.voiceIndex = GLOBAL.voiceIndex > voices.length - 1 ? Math.floor(Math.random() * voices.length) : GLOBAL.voiceIndex;
-		utter.voice = T2S.getVoices()[GLOBAL.voiceIndex];
+		voiceIndex = voiceIndex > GLOBAL.voices.length - 1 ? Math.floor(Math.random() * GLOBAL.voices.length) : voiceIndex;
+
+		utter.voice = T2S.getVoices()[voiceIndex];
 		// will use default voice first time
-		utter.pitch = 1.5;
+		utter.pitch = pitch || 1.5;
 		utter.volume = 0.5;
-		utter.rate = 2;
+		utter.rate = rate || 2;
+		T2S.cancel();
 		T2S.speak(utter);
 	}	
 };
