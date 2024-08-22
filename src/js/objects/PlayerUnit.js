@@ -7,9 +7,6 @@ class PlayerUnit extends Unit {
 
 		this.selected = false;
 
-		this.intention;
-		this.intentionTarget;
-
 		this.wood = 0;
 		this.stone = 0;
 	}

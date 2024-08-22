@@ -73,30 +73,12 @@ class MapManager {
 		GLOBAL.buildings.push(new Building_Barracks(vec2(16, 12)));
 		GLOBAL.buildings[GLOBAL.buildings.length - 1].build(10);
 
-		let enemy = new Unit_Enemy(vec2(16, 10));
+		/*let enemy = new Unit_Enemy(vec2(16, 10));
 		enemy.destination = GLOBAL.buildings[0].pos;
 		GLOBAL.enemies.push(
 			enemy
-		);
-
-		/*GLOBAL.trees.push(
-			new Tree(vec2(14, 16)),
-			new Tree(vec2(15, 16)),
-			new Tree(vec2(16, 16)),
-			new Tree(vec2(15, 17)),
-			
-			new Tree(vec2(10, 10)),
-			new Tree(vec2(8, 10)),
-			new Tree(vec2(9, 9)),
-			new Tree(vec2(10, 9)),
-			new Tree(vec2(11, 9)),
-			new Tree(vec2(10, 8)),
-		);
-		GLOBAL.stones.push(
-			new Stone(vec2(18, 14)),
-			new Stone(vec2(17, 18)),
-			new Stone(vec2(7, 7)),
 		);*/
+
 		
 	}
 

@@ -22,6 +22,7 @@ const GLOBAL = {
 
 	voiceIndex: 47,
 	phrases: {},
+	voices: [],
 
 	getSupportedPop: function () {
 		let supported = 0;

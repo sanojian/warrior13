@@ -21,8 +21,8 @@ GLOBAL.vfxMan = {
 
 	update: function() {
 		
-		for (let i = 0; i < this.arrows.length; i++) {
-			const arrow = this.arrows[i];
+		for (let i = 0; i < GLOBAL.vfxMan.arrows.length; i++) {
+			const arrow = GLOBAL.vfxMan.arrows[i];
 
 			const vec = arrow.destination.subtract(arrow.origin);
 
@@ -30,7 +30,7 @@ GLOBAL.vfxMan = {
 
 			if (arrow.timer.elapsed()) {
 				arrow.object.destroy();
-				this.arrows.splice(this.arrows.indexOf(arrow));
+				GLOBAL.vfxMan.arrows.splice(GLOBAL.vfxMan.arrows.indexOf(arrow), 1);
 			}
 		}
 	}
