@@ -5,8 +5,6 @@ class Building_TownHall extends Building {
 
 		super(pos, vec2(2), tile(vec2(0, 24), 24));
 
-		this.renderOrder = -pos.y;
-
 		this.popSupport = 2;
 		this.hitPoints = 24;
 
@@ -29,5 +27,10 @@ class Building_TownHall extends Building {
 	}
 	
 
+	destroy() {
+		// end game
+
+		super.destroy();
+	}
 
 }

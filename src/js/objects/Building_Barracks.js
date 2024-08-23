@@ -28,4 +28,8 @@ class Building_Barracks extends Building {
 
 		return true;
 	}
+
+	destroy() {
+		// check if there are any inhabitants
+	}
 }

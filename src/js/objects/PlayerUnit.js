@@ -18,7 +18,7 @@ class PlayerUnit extends Unit {
 
 		if (select && !this.selected) {
 			
-			if (this.shelter && this.shelter instanceof Building_Barracks) {
+			if (this.shelter && this.shelter instanceof Building_Barracks && this instanceof Unit_Worker) {
 				GLOBAL.state = DEFS.STATES.TRAIN_MENU;
 			}
 			else if (this instanceof Unit_Worker) {

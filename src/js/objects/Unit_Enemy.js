@@ -63,7 +63,7 @@ class Unit_Enemy extends Unit {
 				for (let i = 0; i < GLOBAL.units.length; i++) {
 					const unit = GLOBAL.units[i];
 					const dist = this.pos.distance(unit.pos);
-					if (dist < 0.8) {
+					if (dist < 0.8 && !unit.shelter) {
 						this.actionTimer.set(1);
 						this.actionFrame = 0;
 						this.intentionTarget = unit;
@@ -82,7 +82,7 @@ class Unit_Enemy extends Unit {
 
 				if (tileAtPos) {
 					// collision
-					if (tileAtPos instanceof Building_TownHall) {
+					if (tileAtPos instanceof Building) {
 						
 						this.actionTimer.set(1);
 						this.actionFrame = 0;

@@ -33,9 +33,15 @@ function gameInit() {
 		}),
 	);
 	GLOBAL.buildMenu.push(
-		new Button_Build(128, 96, tile(50), () => { GLOBAL.state = DEFS.STATES.BUILD_HOUSE; }),
-		new Button_Build(256, 96, tile(vec2(24, 96), vec2(24)), () => { GLOBAL.state = DEFS.STATES.BUILD_FARM; }),
-		new Button_Build(384, 96, tile(vec2(0, 96), vec2(24)), () => { GLOBAL.state = DEFS.STATES.BUILD_BARRACKS; }),
+		new Button_Build(128, 96, tile(50), () => {
+			GLOBAL.state = DEFS.STATES.BUILD_HOUSE;
+		}),
+		new Button_Build(256, 96, tile(vec2(24, 96), vec2(24)), () => {
+			GLOBAL.state = DEFS.STATES.BUILD_FARM;
+		}),
+		new Button_Build(384, 96, tile(vec2(0, 96), vec2(24)), () => {
+			GLOBAL.state = DEFS.STATES.BUILD_BARRACKS;
+		}),
 	);
 	GLOBAL.townHallMenu.push(
 		new Button_CreateWorker(128, 96, tile(4), () => {
@@ -70,7 +76,7 @@ function gameUpdate() {
 				if (GLOBAL.state == DEFS.STATES.BUILD_BARRACKS) {
 					GLOBAL.buildings.push(new Building_Barracks(vec2(x, y)));
 				}
-				if (GLOBAL.state == DEFS.STATES.BUILD_FARM) {
+				else if (GLOBAL.state == DEFS.STATES.BUILD_FARM) {
 					GLOBAL.buildings.push(new Building_Farm(vec2(x, y)));
 				}
 				else {
