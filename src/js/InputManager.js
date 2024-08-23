@@ -5,11 +5,6 @@ GLOBAL.inputMan = {
 
 		if (mouseIsDown(0)) {
 
-			if (!GLOBAL.spoken) {
-				GLOBAL.speak('Welcome');
-				GLOBAL.spoken = true;
-			}
-
 			clearInput();
 
 			// check UI

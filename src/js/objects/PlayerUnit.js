@@ -9,6 +9,7 @@ class PlayerUnit extends Unit {
 
 		this.wood = 0;
 		this.stone = 0;
+		this.food = 0;
 	}
 
 	isOver(x, y) {
@@ -49,7 +50,8 @@ class PlayerUnit extends Unit {
 			build: ['k', 'hamma?', 'yep?'],
 			store: ['hoard', 'stow', 'store'],
 			shelter: ['shellta', 'safety'],
-			move: ['goin', 'yep?', 'k']
+			move: ['goin', 'yep?', 'k'],
+			farm: ['fooda', 'grub', 'k'],
 		};
 
 		if (order && possibleSpeak[order]) {
@@ -77,6 +79,12 @@ class PlayerUnit extends Unit {
 					wood && zzfx(...[,.03,405,,,0,3,.1,8,,,,,.1,27,.4,.04,.44,.01]); 
 					this.wood += wood;
 				}
+				else if (this.intention == 'farm') {
+					// TODO: check if tree still exists
+					const food = this.intentionTarget.farm(1);
+					food && zzfx(...[,.03,405,,,0,3,.1,8,,,,,.1,27,.4,.04,.44,.01]); 
+					this.food += food;
+				}
 				else if (this.intention == 'mine') {
 					// TODO: check if stone still exists
 					const stone = this.intentionTarget.mine(1);
@@ -90,7 +98,7 @@ class PlayerUnit extends Unit {
 					built && this.takeOrder();					
 				}
 
-				if (this.wood + this.stone >= 3) {
+				if (this.wood + this.stone + this.food>= 3) {
 					// return to storage
 					this.prevIntention = this.intention;
 					this.prevDestination = this.destination;
@@ -164,6 +172,14 @@ class PlayerUnit extends Unit {
 						this.walkFrame = 0;
 						this.intentionTarget = tileAtPos;
 					}
+					else if (tileAtPos instanceof Building_Farm && this.intention == 'farm') {
+
+						this.actionTimer.set(1);
+						this.actionFrame = 0;
+						this.walkFrame = 0;
+						this.intentionTarget = tileAtPos;
+						
+					}
 					else if (tileAtPos instanceof Building && this.intention == 'shelter') {
 
 						this.pos = tileAtPos.pos.copy();
@@ -175,8 +191,10 @@ class PlayerUnit extends Unit {
 						
 						GLOBAL.wood += this.wood;
 						GLOBAL.stone += this.stone;
+						GLOBAL.food += this.food;
 						this.wood = 0;
 						this.stone = 0;
+						this.food = 0;
 						this.intention = this.prevIntention;
 						this.destination = this.prevDestination;
 					}

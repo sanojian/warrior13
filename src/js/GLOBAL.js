@@ -19,6 +19,7 @@ const GLOBAL = {
 
 	wood: 110,
 	stone: 110,
+	food: 5,
 
 	voiceIndex: 47,
 	phrases: {},
@@ -34,7 +35,6 @@ const GLOBAL = {
 		return supported;
 	},
 
-	spoken: false,
 	speak: function (phrase, voiceIndex, pitch, rate) {
 
 		/*if (!GLOBAL.voicesLoaded) {

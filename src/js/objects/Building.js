@@ -8,6 +8,9 @@ class Building extends EngineObject {
 
 		this.renderOrder = -pos.y;
 
+		this.popSupport = 0;
+		this.hitPoints = 12;
+
 		this.pos = pos;
 		this.builtTileInfo = tileInfo;
 		this.builtSize = size;

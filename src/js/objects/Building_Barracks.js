@@ -6,7 +6,7 @@ class Building_Barracks extends Building {
 		super(pos, vec2(2), tile(vec2(0, 96), vec2(24)));
 
 		this.popSupport = 0;
-		this.hitPoints = 12;
+		this.hitPoints = 24;
 
 		GLOBAL.mapGrid[pos.y][pos.x] = this;
 

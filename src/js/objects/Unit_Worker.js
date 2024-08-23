@@ -49,6 +49,17 @@ class Unit_Worker extends PlayerUnit {
 				this.mirror
 			);
 		}
+		else if (this.intention == 'farm') {
+			// hoe
+			drawTile(
+				this.pos.add(vec2(0, -2/12)),
+				vec2(2),
+				tile(vec2(48, 72), 24),
+				undefined,
+				(this.mirror ? 1 : -1) * this.actionFrame / (PI*12),
+				this.mirror
+			);
+		}
 
 	}
 

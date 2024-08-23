@@ -1,6 +1,6 @@
 function gameRenderPost() {
 	
-	if (GLOBAL.state == DEFS.STATES.BUILD_HOUSE || GLOBAL.state == DEFS.STATES.BUILD_BARRACKS) {
+	if (GLOBAL.state == DEFS.STATES.BUILD_HOUSE || GLOBAL.state == DEFS.STATES.BUILD_BARRACKS || GLOBAL.state == DEFS.STATES.BUILD_FARM) {
 		// draw temp house
 
 		const x = Math.round(mousePos.x);
@@ -18,6 +18,10 @@ function gameRenderPost() {
 		if (GLOBAL.state == DEFS.STATES.BUILD_BARRACKS) {
 			size = vec2(2);
 			tileInfo = tile(vec2(0, 96), vec2(24));
+		}
+		else if (GLOBAL.state == DEFS.STATES.BUILD_FARM) {
+			size = vec2(2);
+			tileInfo = tile(vec2(24, 96), vec2(24));
 		}
 		drawTile(
 			vec2(x, y),
@@ -74,6 +78,28 @@ function gameRenderPost() {
 
 	GLOBAL.uiFont.drawText(
 		'' + GLOBAL.stone,
+		uiPos.add(vec2(0.8, 0.2)),
+		0.08,
+		true
+	);
+
+	// food
+	uiPos = uiPos.add(vec2(4, 0));
+
+	drawTile(
+		uiPos,
+		vec2(4, 2),
+		tile(vec2(0, 48), vec2(48, 24))
+	);
+	drawTile(
+		uiPos.subtract(vec2(1, 0)),
+		vec2(1),
+		tile(37),
+		new Color(1, 1, 1, 0.7)
+	);
+
+	GLOBAL.uiFont.drawText(
+		'' + GLOBAL.food,
 		uiPos.add(vec2(0.8, 0.2)),
 		0.08,
 		true
