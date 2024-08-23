@@ -30,10 +30,7 @@ class Unit_Enemy extends Unit {
 				// attack
 				zzfx(...[, .03, 405, , , 0, 3, .1, 8, , , , , .1, 27, .4, .04, .44, .01]); 
 				
-				if (this.intentionTarget instanceof Unit_Worker) {
-					//GLOBAL.speak('ow');
-					this.intentionTarget.takeDamage(1);
-				}
+				this.intentionTarget.takeDamage(1);
 
 			}
 			else {

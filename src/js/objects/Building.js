@@ -46,5 +46,15 @@ class Building extends EngineObject {
 			return true;
 		}
 	}
+
+	takeDamage(amt) {
+
+		this.hitPoints -= amt;
+
+		if (this.hitPoints <= 0) {
+			GLOBAL.buildings.splice(GLOBAL.buildings.indexOf(this), 1);
+			this.destroy();
+		}
+	}
 	
 }

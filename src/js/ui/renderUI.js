@@ -92,7 +92,7 @@ function gameRenderPost() {
 		tile(vec2(0, 48), vec2(48, 24))
 	);
 	drawTile(
-		uiPos.subtract(vec2(1, 0)),
+		uiPos.subtract(vec2(0.8, 0)),
 		vec2(1),
 		tile(37),
 		new Color(1, 1, 1, 0.7)

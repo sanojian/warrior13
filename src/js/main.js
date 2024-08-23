@@ -38,7 +38,7 @@ function gameInit() {
 		new Button_Build(384, 96, tile(vec2(0, 96), vec2(24)), () => { GLOBAL.state = DEFS.STATES.BUILD_BARRACKS; }),
 	);
 	GLOBAL.townHallMenu.push(
-		new Button_Upgrade(128, 96, tile(4), () => {
+		new Button_CreateWorker(128, 96, tile(4), () => {
 			const pos = GLOBAL.buildings[0].pos;
 
 			const unit = new Unit_Worker(vec2(pos.x - 1 + Math.random() * 2, pos.y - 1));

@@ -9,6 +9,7 @@ class Button {
 
 		this.requiresWood = 0;
 		this.requiresStone = 0;
+		this.requiresFood = 0;
 		this.requiresPop = 0;
 
 		this.clicked = onClick;
@@ -28,7 +29,7 @@ class Button {
 	}
 
 	enoughMaterial() {
-		return GLOBAL.stone >= this.requiresStone && GLOBAL.wood >= this.requiresWood && GLOBAL.getSupportedPop() - GLOBAL.units.length >= this.requiresPop;
+		return GLOBAL.wood >= this.requiresWood && GLOBAL.stone >= this.requiresStone && GLOBAL.food >= this.requiresFood && GLOBAL.getSupportedPop() - GLOBAL.units.length >= this.requiresPop;
 	}
 
 	draw() {

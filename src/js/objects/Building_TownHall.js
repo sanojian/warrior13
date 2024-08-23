@@ -1,5 +1,5 @@
 
-class Building_TownHall extends EngineObject {
+class Building_TownHall extends Building {
 
 	constructor(pos) {
 
@@ -12,6 +12,7 @@ class Building_TownHall extends EngineObject {
 
 		GLOBAL.mapGrid[pos.y][pos.x] = this;
 
+		this.build(10);
 	}
 
 	handleClick(selectedUnits) {
@@ -23,6 +24,8 @@ class Building_TownHall extends EngineObject {
 		for (let u = 0; u < selectedUnits.length; u++) {
 			selectedUnits[u].takeOrder('store', this);
 		}
+
+		return true;
 	}
 	
 
