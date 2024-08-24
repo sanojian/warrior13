@@ -147,4 +147,20 @@ function gameRenderPost() {
 	// minimap
 	GLOBAL.miniMap.draw();
 
+	// messages
+	if (GLOBAL.message) {
+		if (GLOBAL.messageTimer.elapsed()) {
+			GLOBAL.message = '';
+		}
+
+		// display message
+		GLOBAL.uiFont.drawText(
+			GLOBAL.message,
+			cameraPos,
+			0.08,
+			true
+		);
+
+	}
+
 }

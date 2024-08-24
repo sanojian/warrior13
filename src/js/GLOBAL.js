@@ -17,13 +17,16 @@ const GLOBAL = {
 
 	state: 0,
 
-	wood: 110,
-	stone: 110,
+	wood: 10,
+	stone: 10,
 	food: 5,
 
 	voiceIndex: 47,
 	phrases: {},
 	voices: [],
+
+	messageTimer: new Timer(),
+	message: '',
 
 	getSupportedPop: function () {
 		let supported = 0;
@@ -58,5 +61,11 @@ const GLOBAL = {
 		utter.rate = rate || 2;
 		T2S.cancel();
 		T2S.speak(utter);
-	}	
+	},
+
+	showMessage(message) {
+
+		GLOBAL.message = message;
+		GLOBAL.messageTimer = new Timer(3);
+	}
 };

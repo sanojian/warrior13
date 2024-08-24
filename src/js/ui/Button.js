@@ -18,6 +18,12 @@ class Button {
 	isOver(x, y) {
 
 		if (!this.enoughMaterial()) {
+			// tell user what they need
+			GLOBAL.showMessage('Need '
+				+ (this.requiresWood ? this.requiresWood + ' wood, ' : '')
+				+ (this.requiresStone ? this.requiresStone + ' stone, ' : '')
+				+ (this.requiresFood ? this.requiresFood + ' food, ' : '')
+				+ (this.requiresPop ? this.requiresPop + ' worker ' : ''));
 			return;
 		}
 
@@ -31,6 +37,7 @@ class Button {
 	enoughMaterial() {
 		return GLOBAL.wood >= this.requiresWood && GLOBAL.stone >= this.requiresStone && GLOBAL.food >= this.requiresFood && GLOBAL.getSupportedPop() - GLOBAL.units.length >= this.requiresPop;
 	}
+
 
 	draw() {
 

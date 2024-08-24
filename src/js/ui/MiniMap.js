@@ -5,8 +5,8 @@ GLOBAL.miniMap = {
 
 		const uiPos = screenToWorld(vec2(innerWidth - 128, innerHeight - 128));
 
-		const dx = x - (uiPos.x - 15 / 12);
-		const dy = y - (uiPos.y - 15 / 12);
+		const dx = x - (uiPos.x - 18 / 12);
+		const dy = y - (uiPos.y - 18 / 12);
 
 		if (dx > 0 && dx <= 3 && dy > 0 && dy <= 3) {
 			cameraPos = vec2(dx * 12, dy * 12);		
