@@ -19,23 +19,33 @@ const DEFS = {
 
 	WARRIORS: [
 		{
-			announcement: 'The first warrior, Haltaf the young approaches',
+			number: 'first',
+			name: 'Haltaf the young',
 			enemies: [32, 32, 30, 30, 32, 30]
 		},
 		{
-			announcement: 'The second warrior, Hyglak the quarrelsome approaches',
+			number: 'second',
+			name: 'Hyglak the combative',
 			enemies: [32, 32, 30, 30, 32, 30]
 		},
 		{
-			announcement: 'The third warrior, Halga the wise approaches'
+			number: 'third',
+			name: 'Halga the wise',
+			enemies: [32, 32, 30, 30, 32, 30]
 		},
 		{
+			number: 'first',
+			name: 'Haltaf the young',
 			announcement: 'The fourth warrior, Helfdane the fat approaches'
 		},
 		{
+			number: 'first',
+			name: 'Haltaf the young',
 			announcement: 'The fifth warrior, Edgtho the silent approaches'
 		},
 		{
+			number: 'first',
+			name: 'Haltaf the young',
 			announcement: 'The sixth warrior, Ragnar the grim approaches'
 		},
 		{

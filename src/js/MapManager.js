@@ -65,8 +65,8 @@ class MapManager {
 		tileLayer.redraw();
 
 		GLOBAL.buildings.push(new Building_TownHall(DEFS.HOME));
-		GLOBAL.buildings.push(new Building_Barracks(vec2(16, 12)));
-		GLOBAL.buildings[GLOBAL.buildings.length - 1].build(10);
+		//GLOBAL.buildings.push(new Building_Barracks(vec2(16, 12)));
+		//GLOBAL.buildings[GLOBAL.buildings.length - 1].build(10);
 
 		GLOBAL.units.push(
 			new Unit_Worker(vec2(14, 12)),

@@ -33,15 +33,20 @@ class Unit extends EngineObject {
 
 		if (this.hitpoints <= 0) {
 
-			if (this instanceof PlayerUnit) {
-				GLOBAL.units.splice(GLOBAL.units.indexOf(this), 1);
-			}
-			else if (this instanceof Unit_Enemy) {
-				GLOBAL.enemies.splice(GLOBAL.enemies.indexOf(this), 1);
-			}
-
 			this.destroy();
 		}
+	}
+
+	destroy() {
+
+		const array = this instanceof PlayerUnit ? GLOBAL.units : GLOBAL.enemies;
+
+		const index = array.indexOf(this);
+		if (index != -1) {
+			array.splice(index, 1);
+		}
+
+		super.destroy();
 	}
 
 	render() {
