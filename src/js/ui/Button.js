@@ -26,7 +26,7 @@ class Button {
 				+ (this.requiresWood ? this.requiresWood + ' wood\n' : '')
 				+ (this.requiresStone ? this.requiresStone + ' stone\n' : '')
 				+ (this.requiresFood ? this.requiresFood + ' food\n' : '')
-				+ (this.requiresPop ? this.requiresWorker + ' worker\n' : '')
+				+ (this.requiresWorker ? this.requiresWorker + ' worker\n' : '')
 				+ (this.requiresPop ? this.requiresPop + ' living space' : ''));
 			return;
 		}

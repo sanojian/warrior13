@@ -5,7 +5,6 @@ class Button_CreateWorker extends Button {
 
 		super(x, y, tileInfo, onClick);
 
-		this.requiresWorker = 1;
 		this.requiresPop = 1;
 
 	}

@@ -17,7 +17,7 @@ const GLOBAL = {
 
 	state: 0,
 
-	wood: 10,
+	wood: 12,
 	stone: 10,
 	food: 5,
 

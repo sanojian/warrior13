@@ -8,7 +8,7 @@ class Unit extends EngineObject {
 
 		this.destination = pos;
 
-		this.hitpoints = 3;
+		this.hitPoints = 3;
 		this.speed = 1 / 48;
 		this.walkFrame = 0;
 		this.walkTile = tile(tileInfo.pos.add(vec2(12, 0), tileInfo.size));
@@ -29,9 +29,9 @@ class Unit extends EngineObject {
 
 	takeDamage(amt) {
 
-		this.hitpoints -= amt;
+		this.hitPoints -= amt;
 
-		if (this.hitpoints <= 0) {
+		if (this.hitPoints <= 0) {
 
 			this.destroy();
 		}

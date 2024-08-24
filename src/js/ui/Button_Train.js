@@ -8,6 +8,7 @@ class Button_Train extends Button {
 		this.weaponTile = weaponTile;
 		this.requiresWood = 6;
 		this.requiresStone = 4;
+		this.requiresWorker = 1;
 
 	}
 

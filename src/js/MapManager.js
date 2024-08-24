@@ -70,6 +70,7 @@ class MapManager {
 
 		GLOBAL.units.push(
 			new Unit_Worker(vec2(14, 12)),
+			new Unit_Soldier(vec2(26, 26))
 		);
 
 		/*let enemy = new Unit_Enemy(vec2(16, 10));
