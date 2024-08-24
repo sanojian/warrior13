@@ -15,6 +15,7 @@ const DEFS = {
 		BUILD_BARRACKS: 4,
 		TRAIN_MENU: 5,
 		BUILD_FARM: 6,
+		BUILD_WALL: 7,
 	},
 
 	WARRIORS: [

@@ -95,7 +95,12 @@ class PlayerUnit extends Unit {
 					// TODO: check if building still exists
 					const built = this.intentionTarget.build(1);
 					zzfx(...[, .03, 405, , , 0, 3, .1, 8, , , , , .1, 27, .4, .04, .44, .01]);
-					built && this.takeOrder();					
+					if (this.intentionTarget.needsBuilt == 0 && this.intentionTarget instanceof Building_Farm) {
+						this.takeOrder('farm', this.intentionTarget);
+					}
+					else {
+						built && this.takeOrder();
+					}
 				}
 
 				if (this.wood + this.stone + this.food>= 3) {

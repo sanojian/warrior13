@@ -43,22 +43,23 @@ function gameInit() {
 		}),
 	);
 	GLOBAL.buildMenu.push(
-		new Button_Build(128, 96, tile(50), () => {
+		new Button_Build(128, 96, tile(50), 6, 4, 0, () => {
 			GLOBAL.state = DEFS.STATES.BUILD_HOUSE;
 		}),
-		new Button_Build(256, 96, tile(vec2(24, 96), vec2(24)), () => {
+		new Button_Build(256, 96, tile(vec2(24, 96), vec2(24)), 6, 4, 0, () => {
 			GLOBAL.state = DEFS.STATES.BUILD_FARM;
 		}),
-		new Button_Build(384, 96, tile(vec2(0, 96), vec2(24)), () => {
+		new Button_Build(384, 96, tile(51), 2, 1, 0, () => {
+			GLOBAL.state = DEFS.STATES.BUILD_WALL;
+		}),
+		new Button_Build(512, 96, tile(vec2(0, 96), vec2(24)), 6, 10, 0, () => {
 			GLOBAL.state = DEFS.STATES.BUILD_BARRACKS;
 		}),
 	);
 	GLOBAL.townHallMenu.push(
 		new Button_CreateWorker(128, 96, tile(4), () => {
 			GLOBAL.food -= 5 * GLOBAL.units.length;
-			const unit = new Unit_Worker(DEFS.HOME.add(vec2(- 1 + Math.random() * 2, - 1)));
-			unit.selected = true;
-			GLOBAL.units.push(unit);
+			GLOBAL.units.push(new Unit_Worker(DEFS.HOME.add(vec2(- 1 + Math.random() * 2, - 1))));
 		})
 	);
 
@@ -71,7 +72,7 @@ function gameInit() {
 }
 function gameUpdate() {
 
-	if (GLOBAL.state == DEFS.STATES.BUILD_HOUSE || GLOBAL.state == DEFS.STATES.BUILD_BARRACKS  || GLOBAL.state == DEFS.STATES.BUILD_FARM) {
+	if (GLOBAL.state == DEFS.STATES.BUILD_HOUSE || GLOBAL.state == DEFS.STATES.BUILD_BARRACKS  || GLOBAL.state == DEFS.STATES.BUILD_FARM || GLOBAL.state == DEFS.STATES.BUILD_WALL) {
 		// building
 
 		if (mouseIsDown(0)) {
@@ -87,6 +88,9 @@ function gameUpdate() {
 				}
 				else if (GLOBAL.state == DEFS.STATES.BUILD_FARM) {
 					GLOBAL.buildings.push(new Building_Farm(vec2(x, y)));
+				}
+				else if (GLOBAL.state == DEFS.STATES.BUILD_WALL) {
+					GLOBAL.buildings.push(new Building_Wall(vec2(x, y)));
 				}
 				else {
 					GLOBAL.buildings.push(new Building_House(vec2(x, y)));
@@ -120,7 +124,7 @@ function gameUpdate() {
 		}
 
 		
-		GLOBAL.warriorTimer.set(30);
+		GLOBAL.warriorTimer.set(90);
 		GLOBAL.warriorIndex++;
 	}
 

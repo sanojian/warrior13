@@ -1,12 +1,12 @@
 
 class Button_Build extends Button {
 
-	constructor(x, y, tileInfo, onClick) {
+	constructor(x, y, tileInfo, wood, stone, food, onClick) {
 
 		super(x, y, tileInfo, onClick);
 
-		this.requiresWood = 6;
-		this.requiresStone = 4;
+		this.requiresWood = wood;
+		this.requiresStone = stone;
 
 	}
 

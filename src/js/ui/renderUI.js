@@ -1,6 +1,10 @@
 function gameRenderPost() {
 	
-	if (GLOBAL.state == DEFS.STATES.BUILD_HOUSE || GLOBAL.state == DEFS.STATES.BUILD_BARRACKS || GLOBAL.state == DEFS.STATES.BUILD_FARM) {
+	if (GLOBAL.state == DEFS.STATES.BUILD_HOUSE
+		|| GLOBAL.state == DEFS.STATES.BUILD_BARRACKS
+		|| GLOBAL.state == DEFS.STATES.BUILD_FARM
+		|| GLOBAL.state == DEFS.STATES.BUILD_WALL
+	) {
 		// draw temp house
 
 		const x = Math.round(mousePos.x);
@@ -19,10 +23,14 @@ function gameRenderPost() {
 			size = vec2(2);
 			tileInfo = tile(vec2(0, 96), vec2(24));
 		}
+		else if (GLOBAL.state == DEFS.STATES.BUILD_WALL) {
+			tileInfo = tile(51);
+		}
 		else if (GLOBAL.state == DEFS.STATES.BUILD_FARM) {
 			size = vec2(2);
 			tileInfo = tile(vec2(24, 96), vec2(24));
 		}
+		// placing the building
 		drawTile(
 			vec2(x, y),
 			size,
