@@ -5,7 +5,7 @@ class Building_TownHall extends Building {
 
 		super(pos, vec2(2), tile(vec2(0, 24), 24));
 
-		this.popSupport = 2;
+		this.popSupport = 3;
 		this.hitPoints = 24;
 
 		GLOBAL.mapGrid[pos.y][pos.x] = this;

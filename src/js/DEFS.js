@@ -21,7 +21,7 @@ const DEFS = {
 		{
 			number: 'first',
 			name: 'Haltaf the young',
-			enemies: [32, 32, 30, 30, 32, 30]
+			enemies: [32, 32]
 		},
 		{
 			number: 'second',
@@ -34,40 +34,54 @@ const DEFS = {
 			enemies: [32, 32, 30, 30, 32, 30]
 		},
 		{
-			number: 'first',
-			name: 'Haltaf the young',
-			announcement: 'The fourth warrior, Helfdane the fat approaches'
+			number: 'fourth',
+			name: 'Helfdane the fat',
+			enemies: [32, 32, 30, 30, 32, 30]
 		},
 		{
-			number: 'first',
-			name: 'Haltaf the young',
-			announcement: 'The fifth warrior, Edgtho the silent approaches'
+			number: 'fifth',
+			name: 'Edgtho the silent',
+			enemies: [32, 32, 30, 30, 32, 30]
 		},
 		{
-			number: 'first',
-			name: 'Haltaf the young',
-			announcement: 'The sixth warrior, Ragnar the grim approaches'
+			number: 'sixth',
+			name: 'Ragnar the grim',
+			enemies: [32, 32, 30, 30, 32, 30]
 		},
 		{
-			announcement: 'The seventh warrior, Rethel the archer approaches'
+			number: 'seventh',
+			name: 'Rethel the archer',
+			enemies: [32, 32, 30, 30, 32, 30]
 		},
 		{
-			announcement: 'The eighth warrior, Weath the musical approaches'
+			number: 'eighth',
+			name: 'Halga the wise',
+			enemies: [32, 32, 30, 30, 32, 30]
 		},
 		{
-			announcement: 'The ninth warrior, Herger the joyous approaches'
+			number: 'ninth',
+			name: 'Weath the musical',
+			enemies: [32, 32, 30, 30, 32, 30]
 		},
 		{
-			announcement: 'The tenth warrior, Skeld the wary approaches'
+			number: 'tenth',
+			name: 'Skeld the wary',
+			enemies: [32, 32, 30, 30, 32, 30]
 		},
 		{
-			announcement: 'The eleventh warrior, Roneth the quick approaches'
+			number: 'eleventh',
+			name: 'Roneth the quick',
+			enemies: [32, 32, 30, 30, 32, 30]
 		},
 		{
-			announcement: 'The twelfth warrior, Eben Fadlan approaches'
+			number: 'twelfth',
+			name: 'Eben Fadlan',
+			enemies: [32, 32, 30, 30, 32, 30]
 		},
 		{
-			announcement: 'The thirteenth warrior, Beowulf the king, approaches'
+			number: 'thirteenth',
+			name: 'Beowulf the king',
+			enemies: [32, 32, 30, 30, 32, 30]
 		},
 		
 	]

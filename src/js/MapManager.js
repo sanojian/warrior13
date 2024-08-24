@@ -69,8 +69,7 @@ class MapManager {
 		//GLOBAL.buildings[GLOBAL.buildings.length - 1].build(10);
 
 		GLOBAL.units.push(
-			new Unit_Worker(vec2(14, 12)),
-			new Unit_Soldier(vec2(26, 26))
+			new Unit_Worker(vec2(14, 12))
 		);
 
 		/*let enemy = new Unit_Enemy(vec2(16, 10));

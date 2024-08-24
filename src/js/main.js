@@ -55,6 +55,7 @@ function gameInit() {
 	);
 	GLOBAL.townHallMenu.push(
 		new Button_CreateWorker(128, 96, tile(4), () => {
+			GLOBAL.food -= 5 * GLOBAL.units.length;
 			const unit = new Unit_Worker(DEFS.HOME.add(vec2(- 1 + Math.random() * 2, - 1)));
 			unit.selected = true;
 			GLOBAL.units.push(unit);
@@ -65,7 +66,7 @@ function gameInit() {
 	cameraScale = 60;
 
 	GLOBAL.warriorIndex = 0;
-	GLOBAL.warriorTimer = new Timer(5);
+	GLOBAL.warriorTimer = new Timer(90);
 
 }
 function gameUpdate() {
@@ -119,7 +120,7 @@ function gameUpdate() {
 		}
 
 		
-		GLOBAL.warriorTimer.set(3000);
+		GLOBAL.warriorTimer.set(30);
 		GLOBAL.warriorIndex++;
 	}
 
