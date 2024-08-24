@@ -6,7 +6,7 @@ class Building_Barracks extends Building {
 		super(pos, vec2(2), tile(vec2(0, 96), vec2(24)));
 
 		this.popSupport = 0;
-		this.hitPoints = 24;
+		this.hitPoints = 14;
 
 		GLOBAL.mapGrid[pos.y][pos.x] = this;
 
@@ -31,5 +31,14 @@ class Building_Barracks extends Building {
 
 	destroy() {
 		// check if there are any inhabitants
+		for (let i = 0; i < GLOBAL.units.length; i++) {
+			const unit = GLOBAL.units[i];
+
+			if (unit.shelter == this) {
+				unit.shelter = undefined;
+			}
+		}
+
+		super.destroy();
 	}
 }

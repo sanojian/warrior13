@@ -52,9 +52,15 @@ class Building extends EngineObject {
 		this.hitPoints -= amt;
 
 		if (this.hitPoints <= 0) {
-			GLOBAL.buildings.splice(GLOBAL.buildings.indexOf(this), 1);
 			this.destroy();
 		}
 	}
 	
+	destroy() {
+
+		GLOBAL.buildings.splice(GLOBAL.buildings.indexOf(this), 1);
+		GLOBAL.mapGrid[Math.round(this.pos.y)][Math.round(this.pos.x)] = 0;
+
+		super.destroy();
+	}
 }
