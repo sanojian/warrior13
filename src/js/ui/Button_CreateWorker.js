@@ -5,10 +5,17 @@ class Button_CreateWorker extends Button {
 
 		super(x, y, tileInfo, onClick);
 
+		this.requiresWorker = 1;
 		this.requiresPop = 1;
-		this.requiresFood = 10;
 
 	}
 
+	enoughMaterial() {
+
+		// changes based on pop
+		this.requiresFood = 5 * GLOBAL.units.length;
+		
+		return super.enoughMaterial();
+	}
 
 }

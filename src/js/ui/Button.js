@@ -10,6 +10,7 @@ class Button {
 		this.requiresWood = 0;
 		this.requiresStone = 0;
 		this.requiresFood = 0;
+		this.requiresWorker = 0;
 		this.requiresPop = 0;
 
 		this.clicked = onClick;
@@ -17,25 +18,30 @@ class Button {
 
 	isOver(x, y) {
 
-		if (!this.enoughMaterial()) {
+		const isOver = x > this.pos.x - 1 && x < this.pos.x + 1 && y > this.pos.y - 1 && y < this.pos.y + 1;
+		
+		if (isOver && !this.enoughMaterial()) {
 			// tell user what they need
-			GLOBAL.showMessage('Need '
-				+ (this.requiresWood ? this.requiresWood + ' wood, ' : '')
-				+ (this.requiresStone ? this.requiresStone + ' stone, ' : '')
-				+ (this.requiresFood ? this.requiresFood + ' food, ' : '')
-				+ (this.requiresPop ? this.requiresPop + ' worker ' : ''));
+			GLOBAL.showMessage('Need\n'
+				+ (this.requiresWood ? this.requiresWood + ' wood\n' : '')
+				+ (this.requiresStone ? this.requiresStone + ' stone\n' : '')
+				+ (this.requiresFood ? this.requiresFood + ' food\n' : '')
+				+ (this.requiresPop ? this.requiresWorker + ' worker\n' : '')
+				+ (this.requiresPop ? this.requiresPop + ' living space' : ''));
 			return;
 		}
 
-		const clicked = x > this.pos.x - 1 && x < this.pos.x + 1 && y > this.pos.y - 1 && y < this.pos.y + 1;
+		isOver && this.clicked();
 
-		clicked && this.clicked();
-
-		return clicked;
+		return isOver;
 	}
 
 	enoughMaterial() {
-		return GLOBAL.wood >= this.requiresWood && GLOBAL.stone >= this.requiresStone && GLOBAL.food >= this.requiresFood && GLOBAL.getSupportedPop() - GLOBAL.units.length >= this.requiresPop;
+		return GLOBAL.wood >= this.requiresWood
+			&& GLOBAL.stone >= this.requiresStone
+			&& GLOBAL.food >= this.requiresFood
+			&& GLOBAL.countWorkers() >= this.requiresWorker
+			&& GLOBAL.getSupportedPop() - GLOBAL.units.length >= this.requiresPop;
 	}
 
 

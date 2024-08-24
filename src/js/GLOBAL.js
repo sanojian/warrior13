@@ -28,6 +28,17 @@ const GLOBAL = {
 	messageTimer: new Timer(),
 	message: '',
 
+	countWorkers: function () {
+
+		let count = 0;
+		for (let i = 0; i < GLOBAL.units.length; i++) {
+			if (GLOBAL.units[i] instanceof Unit_Worker) {
+				count++;
+			}
+		}
+		return count;
+	},
+
 	getSupportedPop: function () {
 		let supported = 0;
 		for (let i = 0; i < GLOBAL.buildings.length; i++) {
