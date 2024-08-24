@@ -58,7 +58,10 @@ class Building extends EngineObject {
 	
 	destroy() {
 
-		GLOBAL.buildings.splice(GLOBAL.buildings.indexOf(this), 1);
+		const index = GLOBAL.buildings.indexOf(this);
+		if (index != -1) {
+			GLOBAL.buildings.splice(index, 1);
+		}
 		GLOBAL.mapGrid[Math.round(this.pos.y)][Math.round(this.pos.x)] = 0;
 
 		super.destroy();

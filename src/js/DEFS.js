@@ -6,6 +6,8 @@ const DEFS = {
 
 	TILE_SIZE: 12,
 
+	HOME: vec2(15),
+
 	STATES: {
 		BUILD_HOUSE: 1,
 		TOWNHALL_MENU: 2,
@@ -17,7 +19,7 @@ const DEFS = {
 
 	WARRIORS: [
 		{
-			announcement: 'The first warrior, Ragnar the surly approaches',
+			announcement: 'The first warrior, Haltaf the young approaches',
 			enemies: [32, 32, 30, 30, 32, 30]
 		},
 		{
@@ -34,7 +36,7 @@ const DEFS = {
 			announcement: 'The fifth warrior, Edgtho the silent approaches'
 		},
 		{
-			announcement: 'The sixth warrior, Haltaf the young approaches'
+			announcement: 'The sixth warrior, Ragnar the grim approaches'
 		},
 		{
 			announcement: 'The seventh warrior, Rethel the archer approaches'

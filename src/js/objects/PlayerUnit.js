@@ -103,7 +103,7 @@ class PlayerUnit extends Unit {
 					this.prevIntention = this.intention;
 					this.prevDestination = this.destination;
 					this.intention = 'store';
-					this.destination = GLOBAL.buildings[0].pos;
+					this.destination = DEFS.HOME;
 				}
 			}
 			else {

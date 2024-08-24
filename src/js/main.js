@@ -45,15 +45,13 @@ function gameInit() {
 	);
 	GLOBAL.townHallMenu.push(
 		new Button_CreateWorker(128, 96, tile(4), () => {
-			const pos = GLOBAL.buildings[0].pos;
-
-			const unit = new Unit_Worker(vec2(pos.x - 1 + Math.random() * 2, pos.y - 1));
+			const unit = new Unit_Worker(DEFS.HOME.add(vec2(- 1 + Math.random() * 2, - 1)));
 			unit.selected = true;
 			GLOBAL.units.push(unit);
 		})
 	);
 
-	cameraPos = GLOBAL.buildings[0].pos;
+	cameraPos = DEFS.HOME;
 	cameraScale = 60;
 
 	GLOBAL.warriorIndex = 0;
@@ -104,7 +102,7 @@ function gameUpdate() {
 		for (let i = 0; i < def.enemies.length; i += 2) {
 
 			let enemy = new Unit_Enemy(vec2(def.enemies[i], def.enemies[i+1]), tile(i == 0 ? 6 : 102));
-			enemy.destination = GLOBAL.buildings[0].pos;
+			enemy.destination = DEFS.HOME;
 			GLOBAL.enemies.push(enemy);
 
 		}

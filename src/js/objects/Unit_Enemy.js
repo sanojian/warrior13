@@ -54,7 +54,7 @@ class Unit_Enemy extends Unit {
 				// arrived
 
 				// attack town hall
-				this.destination = GLOBAL.buildings[0].pos;
+				this.destination = DEFS.HOME;
 			}
 			else {
 
