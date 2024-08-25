@@ -33,31 +33,35 @@ const DEFS = {
 		{
 			number: 'third',
 			name: 'Halga the wise',
+			heroTile: 118,
 			enemies: [32, 3, 30, 4, 32, 4]
 		},
 		{
 			number: 'fourth',
 			name: 'Helfdane the fat',
+			heroTile: 110,
 			enemies: [18, 3, 17, 4, 19, 4]
 		},
 		{
 			number: 'fifth',
 			name: 'Edgtho the silent',
-			enemies: [3, 3, 4, 4, 5, 4]
+			heroTile: 102,
+			enemies: [3, 3, 4, 4, 5, 4, 6, 6]
 		},
 		{
 			number: 'sixth',
 			name: 'Ragnar the grim',
-			enemies: [3, 18, 4, 19, 5, 20]
+			heroTile: 94,
+			enemies: [3, 18, 4, 19, 5, 20, 6, 21]
 		},
 		{
 			number: 'seventh',
 			name: 'Rethel the archer',
-			enemies: [3, 32, 4, 30, 5, 31]
+			enemies: [3, 32, 4, 30, 5, 31, 6, 30]
 		},
 		{
 			number: 'eighth',
-			name: 'Halga the wise',
+			name: 'Herger the joyous',
 			enemies: [18, 32, 19, 30, 18, 31]
 		},
 		{
@@ -78,6 +82,7 @@ const DEFS = {
 		{
 			number: 'twelfth',
 			name: 'Eben Fadlan',
+			heroTile: 126,
 			enemies: [18, 3, 17, 4, 19, 4]
 		},
 		{

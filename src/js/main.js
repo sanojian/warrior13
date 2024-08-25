@@ -67,7 +67,7 @@ function gameInit() {
 	cameraScale = Math.min(60, 60 * innerWidth / 900);
 
 	GLOBAL.warriorIndex = 0;
-	GLOBAL.warriorTimer = new Timer(5);
+	GLOBAL.warriorTimer = new Timer(120);
 
 }
 function gameUpdate() {
@@ -109,7 +109,7 @@ function gameUpdate() {
 
 	if (GLOBAL.warriorTimer.isSet() && GLOBAL.warriorTimer.elapsed()) {
 
-		const def = DEFS.WARRIORS[Math.min(DEFS.WARRIORS.length - 1, GLOBAL.warriorIndex)];
+		const def = DEFS.WARRIORS[GLOBAL.warriorIndex];
 
 		GLOBAL.speak('The' + def.number + ' warrior, ' + def.name + ' approaches', 2, 1, 1);
 		GLOBAL.showMessage(def.name + ' approaches');
@@ -117,7 +117,7 @@ function gameUpdate() {
 		// spawn enemies
 		for (let i = 0; i < def.enemies.length; i += 2) {
 
-			let tileInfo = tile(102);
+			let tileInfo = tile(94 + Math.floor(Math.random() * 4) * 8);
 			let size = vec2(1);
 
 			if (i == 0) {
@@ -137,8 +137,13 @@ function gameUpdate() {
 		GLOBAL.boat.pos = vec2(x > 20 ? 33 : x < 5 ? 2 : 18, y > 20 ? 33 : y < 5 ? 2 : 18);
 
 		
-		GLOBAL.warriorTimer.set(90);
-		GLOBAL.warriorIndex++;
+		if (GLOBAL.warriorIndex < 12) {
+			GLOBAL.warriorTimer.set(90);
+			GLOBAL.warriorIndex++;
+		}
+		else {
+			GLOBAL.warriorTimer.unset();
+		}
 	}
 
 }
