@@ -23,6 +23,7 @@ class Building_Barracks extends Building {
 
 		for (let u = 0; u < selectedUnits.length; u++) {
 			selectedUnits[u].takeOrder('shelter', this);
+			selectedUnits[u].intentionTarget = this;
 		}
 
 

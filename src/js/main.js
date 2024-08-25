@@ -64,10 +64,10 @@ function gameInit() {
 	);
 
 	cameraPos = DEFS.HOME;
-	cameraScale = 60;
+	cameraScale = Math.min(60, 60 * innerWidth / 900);
 
 	GLOBAL.warriorIndex = 0;
-	GLOBAL.warriorTimer = new Timer(90);
+	GLOBAL.warriorTimer = new Timer(5);
 
 }
 function gameUpdate() {

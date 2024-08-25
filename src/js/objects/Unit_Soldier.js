@@ -12,20 +12,33 @@ class Unit_Soldier extends PlayerUnit {
 
 	update() {
 
-		if (!this.actionTimer.isSet() ) {
+		if (this.actionTimer.isSet()) {
+
+			if (this.actionTimer.elapsed()) {
+				this.actionTimer.unset();
+				this.jumpHeight = 0;
+
+				// attack
+				zzfx(...[, .03, 405, , , 0, 3, .1, 8, , , , , .1, 27, .4, .04, .44, .01]);
+				
+				this.intentionTarget.takeDamage(1);
+			}
+		}
+		else {
 
 			// look for targets
 			let closest = Infinity;
 			for (let i = 0; i < GLOBAL.enemies.length; i++) {
 				const unit = GLOBAL.enemies[i];
 				const dist = this.pos.distance(unit.pos);
-				if (dist < 0.8 && !unit.shelter) {
+				if (dist < 0.8) {
+					// can attack from shelter
 					this.actionTimer.set(1);
 					this.actionFrame = 0;
 					this.intentionTarget = unit;
 					return;
 				}
-				else if (dist < 3 && dist < closest) {
+				else if (dist < 3 && dist < closest && !this.shelter) {
 					this.destination = unit.pos;
 					closest = dist;
 				}
