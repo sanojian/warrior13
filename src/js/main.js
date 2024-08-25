@@ -145,10 +145,38 @@ function gameUpdate() {
 
 function gameUpdatePost() {
 	
+	// occasionally push units apart
+	separateUnits(GLOBAL.units);
+	separateUnits(GLOBAL.enemies);
 }
 
 function gameRender() {
 	
+}
+
+function separateUnits(unitArray) {
+
+	if (unitArray.length > 1) {
+		const index = frame % unitArray.length;
+		const unit1 = unitArray[index];
+		
+		for (let i = 0; i < unitArray.length; i++) {
+			if (i == index) {
+				continue;
+			}
+			const unit2 = unitArray[i];
+			const dist = unit2.pos.subtract(unit1.pos).length();
+			if (dist < 0.8) {
+				const angle = unit2.pos.subtract(unit1.pos).angle();
+				unit1.pos.x += 0.1 * Math.cos(angle);
+				unit1.pos.y += 0.1 * Math.sin(angle);
+				unit2.pos.x += 0.1 * Math.cos(angle + PI);
+				unit2.pos.y += 0.1 * Math.sin(angle + PI);
+				
+			}
+		}
+	}
+
 }
 
 function loadMapData(callback) {

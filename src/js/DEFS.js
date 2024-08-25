@@ -28,7 +28,7 @@ const DEFS = {
 		{
 			number: 'second',
 			name: 'Hyglak the combative',
-			enemies: [32, 18, 30, 17, 32, 17]
+			enemies: [32, 18, 30, 17]
 		},
 		{
 			number: 'third',
