@@ -56,7 +56,7 @@ class Unit extends EngineObject {
 		if (this.shelter) {
 
 			drawTile(
-				this.pos.add(vec2(0,  6 / 12)),
+				this.pos.add(vec2(0,  8 / 12)),
 				vec2(0.8),
 				this.tileInfo
 			);

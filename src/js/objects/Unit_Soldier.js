@@ -12,33 +12,7 @@ class Unit_Soldier extends PlayerUnit {
 
 	update() {
 
-		if (this.actionTimer.isSet()) {
-			// performing action
-
-			if (this.actionTimer.elapsed()) {
-				this.actionTimer.unset();
-				this.jumpHeight = 0;
-
-				// attack
-				zzfx(...[, .03, 405, , , 0, 3, .1, 8, , , , , .1, 27, .4, .04, .44, .01]); 
-				
-				this.intentionTarget.takeDamage(1);
-
-			}
-			else {
-				const percent = this.actionTimer.getPercent();
-				if (percent > 0.9) {
-					this.actionFrame -= 10;
-					this.jumpHeight += percent > 0.95 ? -1 / 32 : 1 / 32;
-				}
-				else {
-					this.actionFrame++;
-				}
-			}
-		}
-
-		else  {
-			
+		if (!this.actionTimer.isSet() ) {
 
 			// look for targets
 			let closest = Infinity;
@@ -56,51 +30,9 @@ class Unit_Soldier extends PlayerUnit {
 					closest = dist;
 				}
 			}
-
-			const angle = this.destination.subtract(this.pos).angle();
-			const dist = this.destination.distance(this.pos);
-
-			if (dist < this.speed) {
-				// arrived
-
-				//this.pos = this.destination;
-			}
-			else {
-
-
-				// travelling
-				const movement = vec2().setAngle(angle, this.speed);
-				const newPos = this.pos.add(movement);
-				const tileAtPos = GLOBAL.mapMan.getTileAt(newPos);
-
-				if (tileAtPos) {
-					// collision
-					
-					// TODO: go around?
-
-					// walk thru for now at half speed
-					this.pos = this.pos.add(vec2().setAngle(angle, this.speed / 4));
-					this.mirror = movement.x < 0;
-					this.walkFrame++;
-
-					this.renderOrder = -this.pos.y;
-				
-				}
-				else {
-					// walk towards destination
-					this.pos = newPos;
-					this.mirror = movement.x < 0;
-					this.walkFrame++;
-
-					this.renderOrder = -this.pos.y;
-				}
-			}
-
 		}
 
-		if (this.destination.x == this.pos.x || this.destination.y == this.pos.y) {
-			this.walkFrame = 0;
-		}
+		super.update();
 
 	}
 		
@@ -118,7 +50,7 @@ class Unit_Soldier extends PlayerUnit {
 		let pos = this.pos.add(vec2(0, -2/12))
 		if (this.shelter) {
 
-			pos = pos.add(vec2(0, 6 / 12));
+			pos = pos.add(vec2(0, 8 / 12));
 			size = vec2(1.6);
 		}
 

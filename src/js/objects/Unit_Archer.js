@@ -52,7 +52,7 @@ class Unit_Archer extends PlayerUnit {
 		let pos = this.pos.add(vec2(0, -2/12))
 		if (this.shelter) {
 
-			pos = pos.add(vec2(0, 6 / 12));
+			pos = pos.add(vec2(0, 8 / 12));
 			size = vec2(1.6);
 		}
 

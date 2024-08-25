@@ -73,6 +73,11 @@ class PlayerUnit extends Unit {
 					zzfx(...[,.03,405,,,0,3,.1,8,,,,,.1,27,.4,.04,.44,.01]); 
 					
 				}
+				else if (this.intention == 'attack') {
+					// TODO: check if tree still exists
+					this.intentionTarget.takeDamage(1);
+					zzfx(...[,.03,405,,,0,3,.1,8,,,,,.1,27,.4,.04,.44,.01]); 
+				}
 				else if (this.intention == 'chop') {
 					// TODO: check if tree still exists
 					const wood = this.intentionTarget.chop(1);
@@ -185,7 +190,7 @@ class PlayerUnit extends Unit {
 						this.intentionTarget = tileAtPos;
 						
 					}
-					else if (tileAtPos instanceof Building && this.intention == 'shelter') {
+					else if (tileAtPos instanceof Building_Barracks && this.intention == 'shelter') {
 
 						this.pos = tileAtPos.pos.copy();
 						this.shelter = tileAtPos;
