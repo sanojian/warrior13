@@ -9,6 +9,8 @@ class Unit_Soldier extends PlayerUnit {
 		this.hitPoints = 4;
 		this.maxHitPoints = 4;
 
+		GLOBAL.wood -= 4;
+		GLOBAL.stone -= 2;
 	}
 
 	update() {

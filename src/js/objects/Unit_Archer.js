@@ -13,6 +13,9 @@ class Unit_Archer extends PlayerUnit {
 		this.weapon = 'bow';
 
 		this.readyFireTimer = new Timer(1);
+
+		GLOBAL.wood -= 4;
+		GLOBAL.stone -= 2;
 	}
 
 	update() {
