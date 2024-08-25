@@ -131,8 +131,13 @@ function gameUpdate() {
 
 		}
 
+		// place boat
+		const x = def.enemies[0];
+		const y = def.enemies[1];
+		GLOBAL.boat.pos = vec2(x > 20 ? 33 : x < 5 ? 2 : 18, y > 20 ? 33 : y < 5 ? 2 : 18);
+
 		
-		GLOBAL.warriorTimer.set(90);
+		GLOBAL.warriorTimer.set(5);
 		GLOBAL.warriorIndex++;
 	}
 
