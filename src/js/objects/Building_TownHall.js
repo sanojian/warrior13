@@ -7,6 +7,7 @@ class Building_TownHall extends Building {
 
 		this.popSupport = 3;
 		this.hitPoints = 24;
+		this.maxHitPoints = 24;
 
 		GLOBAL.mapGrid[pos.y][pos.x] = this;
 

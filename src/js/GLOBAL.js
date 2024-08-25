@@ -18,9 +18,9 @@ const GLOBAL = {
 
 	state: 0,
 
-	wood: 112,
-	stone: 110,
-	food: 115,
+	wood: 12,
+	stone: 10,
+	food: 5,
 
 	voiceIndex: 47,
 	phrases: {},

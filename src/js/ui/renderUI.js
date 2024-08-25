@@ -1,5 +1,7 @@
 function gameRenderPost() {
 	
+	GLOBAL.vfxMan.render();
+	
 	if (GLOBAL.state == DEFS.STATES.BUILD_HOUSE
 		|| GLOBAL.state == DEFS.STATES.BUILD_BARRACKS
 		|| GLOBAL.state == DEFS.STATES.BUILD_FARM

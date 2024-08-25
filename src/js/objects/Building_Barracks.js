@@ -7,6 +7,7 @@ class Building_Barracks extends Building {
 
 		this.popSupport = 0;
 		this.hitPoints = 14;
+		this.maxHitPoints = 14;
 
 		GLOBAL.mapGrid[pos.y][pos.x] = this;
 

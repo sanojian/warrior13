@@ -137,7 +137,7 @@ function gameUpdate() {
 		GLOBAL.boat.pos = vec2(x > 20 ? 33 : x < 5 ? 2 : 18, y > 20 ? 33 : y < 5 ? 2 : 18);
 
 		
-		GLOBAL.warriorTimer.set(5);
+		GLOBAL.warriorTimer.set(90);
 		GLOBAL.warriorIndex++;
 	}
 
@@ -148,6 +148,7 @@ function gameUpdatePost() {
 	// occasionally push units apart
 	separateUnits(GLOBAL.units);
 	separateUnits(GLOBAL.enemies);
+
 }
 
 function gameRender() {
@@ -168,10 +169,14 @@ function separateUnits(unitArray) {
 			const dist = unit2.pos.subtract(unit1.pos).length();
 			if (dist < 0.8) {
 				const angle = unit2.pos.subtract(unit1.pos).angle();
-				unit1.pos.x += 0.1 * Math.cos(angle);
-				unit1.pos.y += 0.1 * Math.sin(angle);
-				unit2.pos.x += 0.1 * Math.cos(angle + PI);
-				unit2.pos.y += 0.1 * Math.sin(angle + PI);
+				if (!unit1.shelter) {
+					unit1.pos.x += Math.random() * 0.01 * Math.cos(angle);
+					unit1.pos.y += Math.random() * 0.01 * Math.sin(angle);
+				}
+				if (!unit2.shelter) {
+					unit2.pos.x += Math.random() * 0.01 * Math.cos(angle + PI);
+					unit2.pos.y += Math.random() * 0.01 * Math.sin(angle + PI);
+				}
 				
 			}
 		}

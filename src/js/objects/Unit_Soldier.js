@@ -6,7 +6,8 @@ class Unit_Soldier extends PlayerUnit {
 		super(pos, vec2(1), tile(14));
 
 		this.weapon = 'spear';
-		this.hitPoints = 6;
+		this.hitPoints = 4;
+		this.maxHitPoints = 4;
 
 	}
 
@@ -73,7 +74,7 @@ class Unit_Soldier extends PlayerUnit {
 			size,
 			tile(vec2(72, 96), 24),
 			undefined,
-			0,
+			this.shelter ? PI : 0,
 			this.mirror
 		);
 	

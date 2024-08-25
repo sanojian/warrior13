@@ -10,6 +10,7 @@ class Building extends EngineObject {
 
 		this.popSupport = 0;
 		this.hitPoints = 12;
+		this.maxHitPoints = 12;
 
 		this.pos = pos;
 		this.builtTileInfo = tileInfo;
@@ -65,5 +66,20 @@ class Building extends EngineObject {
 		GLOBAL.mapGrid[Math.round(this.pos.y)][Math.round(this.pos.x)] = 0;
 
 		super.destroy();
+	}
+
+	render() {
+		super.render();
+
+		// health bar
+		if (this.hitPoints < this.maxHitPoints) {
+			const pos = this.pos.subtract(vec2(this.maxHitPoints / 12, this.size.y * 7 / 12));
+
+			for (let i = 0; i < this.hitPoints; i++) {
+				drawRect(pos, vec2(1 / 12), new Color(217 / 255, 87 / 255, 99 / 255));
+				pos.x += 2 / 12;
+			}
+		}
+
 	}
 }
