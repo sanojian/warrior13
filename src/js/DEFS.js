@@ -22,6 +22,7 @@ const DEFS = {
 		{
 			number: 'first',
 			name: 'Haltaf the young',
+			heroTile: 102,
 			enemies: [32, 32]
 		},
 		{

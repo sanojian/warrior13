@@ -72,6 +72,8 @@ class MapManager {
 			new Unit_Worker(vec2(14, 12))
 		);
 
+		GLOBAL.boat = new EngineObject(vec2(33), vec2(2), tile(vec2(48, 120), 24));
+
 		/*let enemy = new Unit_Enemy(vec2(16, 10));
 		enemy.destination = GLOBAL.buildings[0].pos;
 		GLOBAL.enemies.push(

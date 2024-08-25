@@ -1,9 +1,9 @@
 
 class Unit_Enemy extends Unit {
 
-	constructor(pos, tileInfo) {
+	constructor(pos, size, tileInfo) {
 
-		super(pos, vec2(1), tileInfo);
+		super(pos, size, tileInfo);
 
 		this.weapon = Math.random() > 0.5 ? 'axe' : 'sword';
 

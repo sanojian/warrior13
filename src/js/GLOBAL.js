@@ -9,6 +9,7 @@ const GLOBAL = {
 	units: [],
 	enemies: [],
 	buildings: [],
+	boat: undefined,
 
 	// UI
 	trainMenu: [],

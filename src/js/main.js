@@ -117,7 +117,15 @@ function gameUpdate() {
 		// spawn enemies
 		for (let i = 0; i < def.enemies.length; i += 2) {
 
-			let enemy = new Unit_Enemy(vec2(def.enemies[i], def.enemies[i+1]), tile(i == 0 ? 6 : 102));
+			let tileInfo = tile(102);
+			let size = vec2(1);
+
+			if (i == 0) {
+				// hero
+				tileInfo = tile(def.heroTile || 6);
+				size = vec2(def.heroSize || 1.2);
+			}
+			let enemy = new Unit_Enemy(vec2(def.enemies[i], def.enemies[i+1]), size, tileInfo);
 			enemy.destination = DEFS.HOME;
 			GLOBAL.enemies.push(enemy);
 

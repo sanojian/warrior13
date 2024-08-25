@@ -67,7 +67,7 @@ class Unit extends EngineObject {
 		// render
 		drawTile(
 			this.pos.add(vec2(0, step ? 1 / 12 : this.jumpHeight)),
-			vec2(1),
+			this.size,
 			step ? this.walkTile : this.tileInfo,
 			undefined,
 			undefined,
