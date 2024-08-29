@@ -15,12 +15,14 @@ const GLOBAL = {
 	trainMenu: [],
 	buildMenu: [],
 	townHallMenu: [],
+	spellMenu: [],
 
 	state: 0,
 
 	wood: 12,
 	stone: 10,
 	food: 5,
+	mana: 0,
 
 	voiceIndex: 47,
 	phrases: {},

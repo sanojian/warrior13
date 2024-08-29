@@ -10,7 +10,7 @@ class Tree extends EngineObject {
 
 		GLOBAL.mapGrid[pos.y][pos.x] = this;
 
-		this.wood = 16;
+		this.wood = 8;
 	}
 
 

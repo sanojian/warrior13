@@ -10,6 +10,8 @@ class PlayerUnit extends Unit {
 		this.wood = 0;
 		this.stone = 0;
 		this.food = 0;
+
+		this.prayTimer = new Timer();
 	}
 
 	isOver(x, y) {
@@ -37,6 +39,11 @@ class PlayerUnit extends Unit {
 		super.takeOrder();
 
 		this.actionTimer.unset();
+		this.prayTimer.unset();
+		if (this.oldTileInfo) {
+			this.tileInfo = this.oldTileInfo;
+			delete this.oldTileInfo;
+		}
 		this.intention = order;
 		this.destination = target ? target.pos : this.pos;
 		this.actionFrame = 0;
@@ -52,6 +59,7 @@ class PlayerUnit extends Unit {
 			shelter: ['shellta', 'safety'],
 			move: ['goin', 'yep?', 'k'],
 			farm: ['fooda', 'grub', 'k'],
+			pray: ['woah low looow']
 		};
 
 		if (order && possibleSpeak[order]) {
@@ -60,6 +68,20 @@ class PlayerUnit extends Unit {
 	}
 
 	update() {
+
+		if (this.prayTimer.isSet() && this.prayTimer.elapsed()) {
+			// animate praying
+			if (this.oldTileInfo) {
+				this.tileInfo = this.oldTileInfo;
+				delete this.oldTileInfo;
+			}
+			else {
+				this.oldTileInfo = this.tileInfo;
+				this.tileInfo = tile(3);
+			}
+			this.prayTimer.set(1);
+		
+		}
 
 		if (this.actionTimer.isSet()) {
 			// performing action
@@ -78,6 +100,11 @@ class PlayerUnit extends Unit {
 					const wood = this.intentionTarget.chop(1);
 					wood && zzfx(...[,.03,405,,,0,3,.1,8,,,,,.1,27,.4,.04,.44,.01]); 
 					this.wood += wood;
+				}
+				else if (this.intention == 'pray') {
+					// TODO: check if temple still exists
+					zzfx(...[,.03,405,,,0,3,.1,8,,,,,.1,27,.4,.04,.44,.01]); 
+					GLOBAL.mana++;
 				}
 				else if (this.intention == 'farm') {
 					// TODO: check if tree still exists
@@ -170,6 +197,16 @@ class PlayerUnit extends Unit {
 						this.walkFrame = 0;
 						this.intentionTarget = tileAtPos;
 					}
+					else if (tileAtPos instanceof Building_Temple && this.intention == 'pray') {
+						
+						this.actionTimer.set(3);
+						this.prayTimer.set(0.8);
+						this.oldTileInfo = this.tileInfo;
+						this.tileInfo = tile(3);
+						this.actionFrame = 0;
+						this.walkFrame = 0;
+						this.intentionTarget = tileAtPos;
+					}
 					else if (tileAtPos instanceof Building && this.intention == 'build' && tileAtPos.needsBuilt) {
 						
 						this.actionTimer.set(1);
@@ -253,7 +290,7 @@ class PlayerUnit extends Unit {
 			drawTile(
 				this.pos,
 				vec2(16 / 12),
-				tile(3),
+				tile(1),
 			);
 		}
 		

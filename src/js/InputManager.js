@@ -28,6 +28,11 @@ GLOBAL.inputMan = {
 					return;
 				}
 			}
+			for (let i = 0; i < GLOBAL.spellMenu.length; i++) {
+				if (GLOBAL.spellMenu[i].isOver(mousePos.x, mousePos.y)) {
+					return;
+				}
+			}
 
 			const wereSelected = [];
 			for (let i = 0; i < GLOBAL.units.length; i++) {

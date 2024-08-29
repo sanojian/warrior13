@@ -11,6 +11,7 @@ class Button {
 		this.requiresStone = 0;
 		this.requiresFood = 0;
 		this.requiresWorker = 0;
+		this.requiresMana = 0;
 		this.requiresPop = 0;
 
 		this.clicked = onClick;
@@ -27,6 +28,7 @@ class Button {
 				+ (this.requiresStone ? this.requiresStone + ' stone\n' : '')
 				+ (this.requiresFood ? this.requiresFood + ' food\n' : '')
 				+ (this.requiresWorker ? this.requiresWorker + ' worker\n' : '')
+				+ (this.requiresMana ? this.requiresMana + ' mana\n' : '')
 				+ (this.requiresPop ? this.requiresPop + ' living space' : ''));
 			return;
 		}
@@ -40,6 +42,7 @@ class Button {
 		return GLOBAL.wood >= this.requiresWood
 			&& GLOBAL.stone >= this.requiresStone
 			&& GLOBAL.food >= this.requiresFood
+			&& GLOBAL.mana >= this.requiresMana
 			&& GLOBAL.countWorkers() >= this.requiresWorker
 			&& GLOBAL.getSupportedPop() - GLOBAL.units.length >= this.requiresPop;
 	}

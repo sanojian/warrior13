@@ -9,8 +9,8 @@ class Building extends EngineObject {
 		this.renderOrder = -pos.y;
 
 		this.popSupport = 0;
-		this.hitPoints = 12;
-		this.maxHitPoints = 12;
+		this.hitPoints = 6;
+		this.maxHitPoints = 6;
 
 		this.pos = pos;
 		this.builtTileInfo = tileInfo;

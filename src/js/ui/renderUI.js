@@ -73,7 +73,7 @@ function gameRenderPost() {
 	);
 
 	// stone
-	uiPos = uiPos.add(vec2(4, 0));
+	uiPos = uiPos.subtract(vec2(0, 2));
 
 	drawTile(
 		uiPos,
@@ -94,7 +94,7 @@ function gameRenderPost() {
 	);
 
 	// food
-	uiPos = uiPos.add(vec2(4, 0));
+	uiPos = uiPos.subtract(vec2(0, 2));
 
 	drawTile(
 		uiPos,
@@ -115,8 +115,30 @@ function gameRenderPost() {
 		true
 	);
 
+	// mana
+	uiPos = uiPos.subtract(vec2(0, 2));
+
+	drawTile(
+		uiPos,
+		vec2(4, 2),
+		tile(vec2(0, 48), vec2(48, 24))
+	);
+	drawTile(
+		uiPos.subtract(vec2(0.8, 0)),
+		vec2(1),
+		tile(45),
+		new Color(1, 1, 1, 0.7)
+	);
+
+	GLOBAL.uiFont.drawText(
+		'' + GLOBAL.mana,
+		uiPos.add(vec2(0.8, 0.2)),
+		0.08,
+		true
+	);
+
 	// population
-	uiPos = uiPos.add(vec2(4, 0));
+	uiPos = uiPos.subtract(vec2(0, 2));
 
 	drawTile(
 		uiPos,
@@ -152,6 +174,10 @@ function gameRenderPost() {
 		for (let i = 0; i < GLOBAL.townHallMenu.length; i++) {
 			GLOBAL.townHallMenu[i].draw();
 		}
+	}
+
+	for (let i = 0; i < GLOBAL.spellMenu.length; i++) {
+		GLOBAL.spellMenu[i].draw();
 	}
 
 	// minimap

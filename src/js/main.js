@@ -62,6 +62,14 @@ function gameInit() {
 			GLOBAL.units.push(new Unit_Worker(DEFS.HOME.add(vec2(- 1 + Math.random() * 2, - 1))));
 		})
 	);
+	GLOBAL.spellMenu.push(
+		new Button_Spell(innerWidth - 128, innerHeight - 96, tile(120), 10, () => {
+			for (let i = 0; i < GLOBAL.enemies.length; i++) {
+				GLOBAL.enemies[i].takeDamage(1);
+			}
+			zzfx(...[2.8,,48,,.23,.73,4,1.9,,-4,,,.21,.2,,.5,.41,.36,.07,.29]);
+		})
+	);
 
 	cameraPos = DEFS.HOME;
 	cameraScale = Math.min(60, 60 * innerWidth / 900);

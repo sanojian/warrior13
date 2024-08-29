@@ -9,7 +9,7 @@ class Stone extends EngineObject {
 
 		GLOBAL.mapGrid[pos.y][pos.x] = this;
 
-		this.stone = 50;
+		this.stone = 32;
 	}
 
 	handleClick(selectedUnits) {
