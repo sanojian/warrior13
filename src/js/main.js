@@ -158,13 +158,15 @@ function gameUpdate() {
 
 			let tileInfo = tile(94 + Math.floor(Math.random() * 4) * 8);
 			let size = vec2(1);
+			let hitPoints = 3;
 
 			if (i == 0) {
 				// hero
 				tileInfo = tile(def.heroTile || 6);
 				size = vec2(def.heroSize || 1.2);
+				hitPoints += GLOBAL.warriorIndex;
 			}
-			let enemy = new Unit_Enemy(vec2(def.enemies[i], def.enemies[i+1]), size, tileInfo);
+			let enemy = new Unit_Enemy(vec2(def.enemies[i], def.enemies[i+1]), size, tileInfo, hitPoints);
 			enemy.destination = DEFS.HOME;
 			GLOBAL.enemies.push(enemy);
 

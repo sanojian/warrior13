@@ -1,7 +1,7 @@
 
 class Unit_Enemy extends Unit {
 
-	constructor(pos, size, tileInfo) {
+	constructor(pos, size, tileInfo, hitPoints) {
 
 		super(pos, size, tileInfo);
 
@@ -9,6 +9,10 @@ class Unit_Enemy extends Unit {
 
 		this.speed = 1 / 96;
 
+		if (hitPoints) {
+			this.hitPoints = hitPoints;
+			this.maxHitPoints = hitPoints;
+		}
 	}
 
 	isOver(x, y) {
