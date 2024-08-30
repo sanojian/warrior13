@@ -151,7 +151,7 @@ function gameUpdate() {
 		const def = DEFS.WARRIORS[GLOBAL.warriorIndex];
 
 		GLOBAL.speak('The' + def.number + ' warrior, ' + def.name + ' approaches', 2, 1, 1);
-		GLOBAL.showMessage(def.name + ' approaches');
+		GLOBAL.showMessage(def.name + ' approaches\nfrom the ' + def.from);
 		
 		// spawn enemies
 		for (let i = 0; i < def.enemies.length; i += 2) {

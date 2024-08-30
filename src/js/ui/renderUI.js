@@ -192,4 +192,15 @@ function gameRenderPost() {
 
 	}
 
+	// invasion timer
+	const countdown = Math.ceil(-GLOBAL.warriorTimer.valueOf());
+
+	if (countdown < 31) {
+		GLOBAL.uiFont.drawText(
+			DEFS.WARRIORS[GLOBAL.warriorIndex].from + ' ' + countdown,
+			screenToWorld(vec2(innerWidth / 2, 24)),
+			0.08,
+			true
+		);
+	}
 }
