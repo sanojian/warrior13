@@ -104,6 +104,7 @@ const DEFS = {
 		{
 			number: 'thirteenth',
 			name: 'Beowulf the king',
+			heroTile: 124,
 			from: 'southwest',
 			enemies: [3, 3, 4, 4, 5, 4]
 		},
