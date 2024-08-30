@@ -71,15 +71,7 @@ class Building extends EngineObject {
 	render() {
 		super.render();
 
-		// health bar
-		if (this.hitPoints < this.maxHitPoints) {
-			const pos = this.pos.subtract(vec2(this.maxHitPoints / 12, this.size.y * 7 / 12));
-
-			for (let i = 0; i < this.hitPoints; i++) {
-				drawRect(pos, vec2(1 / 12), new Color(217 / 255, 87 / 255, 99 / 255));
-				pos.x += 2 / 12;
-			}
-		}
+		GLOBAL.drawHealthBar(this.pos.subtract(vec2(0, 1)), this.hitPoints, this.maxHitPoints);
 
 	}
 }
