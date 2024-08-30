@@ -12,7 +12,7 @@ GLOBAL.vfxMan = {
 			tile(9),
 			destination.subtract(origin).angle()
 		);
-		this.arrows.push({
+		GLOBAL.vfxMan.arrows.push({
 			object: arrow,
 			origin: origin,
 			destination: destination,
@@ -60,7 +60,7 @@ GLOBAL.vfxMan = {
 
 		for (let i = 0; i < drops; i++) {
 			const angle = Math.random() * PI;
-			this.bloodDrops.push({
+			GLOBAL.vfxMan.bloodDrops.push({
 				pos: pos.copy(),
 				dx: 0.01 * Math.cos(angle),
 				dy: 0.05 * Math.sin(angle),
