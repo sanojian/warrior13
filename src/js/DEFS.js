@@ -27,71 +27,84 @@ const DEFS = {
 			number: 'first',
 			name: 'Haltaf the young',
 			heroTile: 102,
+			from: 'northeast',
 			enemies: [32, 32]
 		},
 		{
 			number: 'second',
 			name: 'Hyglak the combative',
+			from: 'east',
 			enemies: [32, 18, 30, 17]
 		},
 		{
 			number: 'third',
 			name: 'Halga the wise',
 			heroTile: 118,
+			from: 'southeast',
 			enemies: [32, 3, 30, 4, 32, 4]
 		},
 		{
 			number: 'fourth',
 			name: 'Helfdane the fat',
 			heroTile: 110,
+			from: 'south',
 			enemies: [18, 3, 17, 4, 19, 4]
 		},
 		{
 			number: 'fifth',
 			name: 'Edgtho the silent',
 			heroTile: 102,
+			from: 'southwest',
 			enemies: [3, 3, 4, 4, 5, 4, 6, 6]
 		},
 		{
 			number: 'sixth',
 			name: 'Ragnar the grim',
 			heroTile: 94,
+			from: 'west',
 			enemies: [3, 18, 4, 19, 5, 20, 6, 21]
 		},
 		{
 			number: 'seventh',
 			name: 'Rethel the archer',
+			from: 'northwest',
 			enemies: [3, 32, 4, 30, 5, 31, 6, 30]
 		},
 		{
 			number: 'eighth',
 			name: 'Herger the joyous',
+			from: 'north',
 			enemies: [18, 32, 19, 30, 18, 31]
 		},
 		{
 			number: 'ninth',
 			name: 'Weath the musical',
+			from: 'northeast',
 			enemies: [32, 32, 30, 30, 32, 30]
 		},
 		{
 			number: 'tenth',
 			name: 'Skeld the wary',
+			from: 'east',
 			enemies: [32, 18, 30, 17, 32, 17]
 		},
 		{
 			number: 'eleventh',
 			name: 'Roneth the quick',
+			from: 'southeast',
 			enemies: [32, 3, 30, 4, 32, 4]
 		},
 		{
 			number: 'twelfth',
 			name: 'Eben Fadlan',
 			heroTile: 126,
+			from: 'south',
 			enemies: [18, 3, 17, 4, 19, 4]
 		},
 		{
 			number: 'thirteenth',
 			name: 'Beowulf the king',
+			from: 'southwest',
 			enemies: [3, 3, 4, 4, 5, 4]
 		},
 		
