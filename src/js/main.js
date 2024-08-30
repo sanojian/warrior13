@@ -73,9 +73,26 @@ function gameInit() {
 			for (let i = 0; i < GLOBAL.enemies.length; i++) {
 				GLOBAL.enemies[i].takeDamage(1);
 			}
+			zzfx(...[.7,,530,.01,.14,.13,,.3,-10,,,,,,32,,.03,.3,.1,,346]);
 		}),
-		new Button_Spell(innerWidth - 128, innerHeight - 448, tile(120), 15, () => {
+		new Button_Spell(innerWidth - 128, innerHeight - 448, tile(123), 15, () => {
 			GLOBAL.mana -= 15;
+			for (let i = 0; i < GLOBAL.units.length; i++) {
+				const unit = GLOBAL.units[i];
+				if (unit.hitPoints < unit.maxHitPoints) {
+					unit.hitPoints++;
+				}
+			}
+			for (let i = 0; i < GLOBAL.buildings.length; i++) {
+				const unit = GLOBAL.buildings[i];
+				if (unit.hitPoints < unit.maxHitPoints) {
+					unit.hitPoints++;
+				}
+			}
+			zzfx(...[,,244,,.05,.32,,1.7,-2,,421,.09,.02,,,,,.8,.15]);
+		}),
+		new Button_Spell(innerWidth - 128, innerHeight - 576, tile(120), 20, () => {
+			GLOBAL.mana -= 20;
 			for (let i = 0; i < GLOBAL.enemies.length; i++) {
 				GLOBAL.enemies[i].takeDamage(GLOBAL.enemies.length < 2 ? 3 : GLOBAL.enemies.length < 5 ? 2 : 1);
 			}
