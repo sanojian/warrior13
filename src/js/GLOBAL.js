@@ -22,7 +22,7 @@ const GLOBAL = {
 	wood: 12,
 	stone: 10,
 	food: 5,
-	mana: 25,
+	mana: 5,
 
 	voiceIndex: 47,
 	phrases: {},
