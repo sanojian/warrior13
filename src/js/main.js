@@ -44,15 +44,19 @@ function gameInit() {
 	);
 	GLOBAL.buildMenu.push(
 		new Button_Build(128, 96, tile(50), 6, 4, 0, () => {
+			GLOBAL.showMessage('House is living space');
 			GLOBAL.state = DEFS.STATES.BUILD_HOUSE;
 		}),
 		new Button_Build(256, 96, tile(vec2(24, 96), vec2(24)), 6, 4, 0, () => {
+			GLOBAL.showMessage('Farm is for food');
 			GLOBAL.state = DEFS.STATES.BUILD_FARM;
 		}),
 		new Button_Build(384, 96, tile(51), 2, 1, 0, () => {
+			GLOBAL.showMessage('Wall is for protection');
 			GLOBAL.state = DEFS.STATES.BUILD_WALL;
 		}),
 		new Button_Build(512, 96, tile(vec2(0, 96), vec2(24)), 6, 10, 0, () => {
+			GLOBAL.showMessage('Barracks for\ntraining soldiers.');
 			GLOBAL.state = DEFS.STATES.BUILD_BARRACKS;
 		}),
 	);
@@ -73,6 +77,7 @@ function gameInit() {
 		new Button_Spell(innerWidth - dx, innerHeight - (192 + dx), tile(121), 10, () => {
 			GLOBAL.mana -= 10;
 			for (let i = 0; i < GLOBAL.enemies.length; i++) {
+				GLOBAL.vfxMan.addParticles(GLOBAL.enemies[i].pos, GLOBAL.vfxMan.gasPlumes);
 				GLOBAL.enemies[i].takeDamage(1);
 			}
 			zzfx(...[.7,,530,.01,.14,.13,,.3,-10,,,,,,32,,.03,.3,.1,,346]);
@@ -96,6 +101,7 @@ function gameInit() {
 		new Button_Spell(innerWidth - dx, innerHeight - (192 + dx * 3), tile(120), 20, () => {
 			GLOBAL.mana -= 20;
 			for (let i = 0; i < GLOBAL.enemies.length; i++) {
+				GLOBAL.vfxMan.addParticles(GLOBAL.enemies[i].pos, GLOBAL.vfxMan.sparks);
 				GLOBAL.enemies[i].takeDamage(GLOBAL.enemies.length < 2 ? 3 : GLOBAL.enemies.length < 5 ? 2 : 1);
 			}
 			zzfx(...[2.8,,48,,.23,.73,4,1.9,,-4,,,.21,.2,,.5,.41,.36,.07,.29]);

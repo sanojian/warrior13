@@ -32,7 +32,7 @@ class Unit extends EngineObject {
 
 		this.hitPoints -= amt;
 
-		GLOBAL.vfxMan.throwBlood(this.pos);
+		GLOBAL.vfxMan.addParticles(this.pos, GLOBAL.vfxMan.bloodDrops);
 		//GLOBAL.speak('ow!', undefined, 2, 2);
 
 		if (this.hitPoints <= 0) {

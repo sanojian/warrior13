@@ -65,6 +65,10 @@ class PlayerUnit extends Unit {
 		if (order && possibleSpeak[order]) {
 			GLOBAL.speak(possibleSpeak[order][Math.floor(Math.random() * possibleSpeak[order].length)]);
 		}
+
+		if (order == 'pray') {
+			GLOBAL.showMessage('Pray to me!');
+		}
 	}
 
 	update() {

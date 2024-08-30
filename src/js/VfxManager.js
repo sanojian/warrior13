@@ -3,6 +3,8 @@ GLOBAL.vfxMan = {
 
 	arrows: [],
 	bloodDrops: [],
+	gasPlumes: [],
+	sparks: [],
 
 	showArrow: function(origin, destination, timer) {
 
@@ -39,6 +41,7 @@ GLOBAL.vfxMan = {
 
 	render: function () {
 		
+		// blood
 		for (let i = 0; i < GLOBAL.vfxMan.bloodDrops.length; i++) {
 			const drop = GLOBAL.vfxMan.bloodDrops[i];
 			drop.pos.x += drop.dx;
@@ -52,15 +55,44 @@ GLOBAL.vfxMan = {
 				i--;
 			}
 		}
+
+		// gas
+		for (let i = 0; i < GLOBAL.vfxMan.gasPlumes.length; i++) {
+			const drop = GLOBAL.vfxMan.gasPlumes[i];
+			drop.pos.x += drop.dx;
+			drop.pos.y += drop.dy / 10;
+			drawRect(drop.pos, vec2(3 / 12), new Color(106 / 255, 190 / 255, 48 / 255, 0.4));
+			drop.lifetime++;
+			// gravity
+			if (drop.lifetime > 40) {
+				GLOBAL.vfxMan.gasPlumes.splice(i, 1);
+				i--;
+			}
+		}
+
+		// sparks
+		for (let i = 0; i < GLOBAL.vfxMan.sparks.length; i++) {
+			const drop = GLOBAL.vfxMan.sparks[i];
+			drop.pos.x += drop.dx;
+			drop.pos.y += drop.dy;
+			drawRect(drop.pos, vec2(1 / 12), new Color(251 / 255, 242 / 255, 54 / 255));
+			drop.lifetime++;
+			// gravity
+			if (drop.lifetime > 40) {
+				GLOBAL.vfxMan.sparks.splice(i, 1);
+				i--;
+			}
+		}
+
 	},
 
-	throwBlood: function (pos) {
+	addParticles: function (pos, array) {
 		
 		const drops = 1 + Math.floor(Math.random() * 4);
 
 		for (let i = 0; i < drops; i++) {
 			const angle = Math.random() * PI;
-			GLOBAL.vfxMan.bloodDrops.push({
+			array.push({
 				pos: pos.copy(),
 				dx: 0.01 * Math.cos(angle),
 				dy: 0.05 * Math.sin(angle),
@@ -69,4 +101,5 @@ GLOBAL.vfxMan = {
 			})
 		}
 	}
+
 };

@@ -24,6 +24,7 @@ class Building extends EngineObject {
 			const unit = GLOBAL.units[i];
 			unit.selected && unit.takeOrder('build', this);
 		}
+
 	}
 
 	build(amt) {
