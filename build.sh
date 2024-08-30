@@ -2,8 +2,8 @@
 
 grunt prod --force
 
-#npx uglifyjs dist/js/index_closure.js  --compress unsafe --mangle --toplevel > dist/js/i.ugly.js
-npx uglifyjs dist/js/index_closure.js  --mangle --toplevel > dist/js/i.ugly.js
+npx uglifyjs dist/js/index_closure.js  --compress unsafe --mangle --toplevel > dist/js/i.ugly.js
+#npx uglifyjs dist/js/index_closure.js  --mangle --toplevel > dist/js/i.ugly.js
 
 npx roadroller  --optimize 2 dist/js/i.ugly.js -o dist/i.js
 # npx roadroller  --optimize 2 dist/js/index_closure.js -o dist/i.js
