@@ -18,6 +18,10 @@ const DEFS = {
 		BUILD_WALL: 7,
 	},
 
+	COLORS: {
+		red: new Color(172 / 255, 50 / 255, 50 / 255)
+	},
+
 	WARRIORS: [
 		{
 			number: 'first',

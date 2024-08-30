@@ -43,7 +43,7 @@ GLOBAL.vfxMan = {
 			const drop = GLOBAL.vfxMan.bloodDrops[i];
 			drop.pos.x += drop.dx;
 			drop.pos.y += drop.dy;
-			drawRect(drop.pos, vec2(1 / 12), new Color(172 / 255, 50 / 255, 50 / 255));
+			drawRect(drop.pos, vec2(1 / 12), DEFS.COLORS.red);
 			drop.lifetime++;
 			// gravity
 			drop.dy -= 0.002;

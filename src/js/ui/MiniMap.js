@@ -16,17 +16,6 @@ GLOBAL.miniMap = {
 	draw(dx) {
 		const uiPos = screenToWorld(vec2(innerWidth - dx, innerHeight - dx));
 
-		/*drawRect(
-			uiPos,
-			vec2(32 / 12),
-			new Color(0, 0, 0)
-		);*/
-
-		/*drawRect(
-			uiPos,
-			vec2(30 / 12),
-			new Color(55/255, 148/255, 110/255)
-		);*/
 		drawTile(
 			uiPos,
 			vec2(3),
