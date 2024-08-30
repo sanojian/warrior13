@@ -112,7 +112,6 @@ module.exports = function (grunt) {
 					"dist/index.html": ["src/html/index_prod.html"],
 					"dist/js/index_prod.js": [
 						"dist/lib/littlejs.release.js",
-						//"dist/lib/easystar-0.4.4.js",
 						"dist/index.js",
 					],
 				},

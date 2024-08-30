@@ -275,7 +275,6 @@ function loadMapData(callback) {
 
 tileSizeDefault = vec2(12);
 
-
 // wait for voices to load 
 speechSynthesis.onvoiceschanged = function() {
 	GLOBAL.voices = speechSynthesis.getVoices();
