@@ -70,6 +70,11 @@ const GLOBAL = {
 		voiceIndex = voiceIndex > GLOBAL.voices.length - 1 ? Math.floor(Math.random() * GLOBAL.voices.length) : voiceIndex;
 
 		utter.voice = T2S.getVoices()[voiceIndex];
+		let index = 0;
+		while (utter.voice.lang != 'en-US') {
+			// find an english voice
+			utter.voice = T2S.getVoices()[index++];
+		}
 		// will use default voice first time
 		utter.pitch = pitch || 1.5;
 		utter.volume = 0.5;
