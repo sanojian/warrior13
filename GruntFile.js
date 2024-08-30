@@ -111,7 +111,7 @@ module.exports = function (grunt) {
 				files: {
 					"dist/index.html": ["src/html/index_prod.html"],
 					"dist/js/index_prod.js": [
-						"dist/lib/littlejs.release.js",
+						"dist/lib/littlejs.trimmed.js",
 						"dist/index.js",
 					],
 				},
