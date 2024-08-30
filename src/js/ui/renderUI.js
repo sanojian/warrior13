@@ -42,8 +42,10 @@ function gameRenderPost() {
 
 	}
 
+	const dx = Math.min(128, Math.round(128 * innerWidth / 800));
+
 	// wood
-	let uiPos = screenToWorld(vec2(128, 64));
+	let uiPos = screenToWorld(vec2(dx, 64));
 
 	drawTile(
 		uiPos,
@@ -63,7 +65,7 @@ function gameRenderPost() {
 		true
 	);
 
-	const manaPos = screenToWorld(vec2(innerWidth - 128, 64));;
+	const manaPos = screenToWorld(vec2(innerWidth - dx, 64));;
 	// mana
 	drawTile(
 		manaPos,
@@ -172,7 +174,7 @@ function gameRenderPost() {
 	}
 
 	// minimap
-	GLOBAL.miniMap.draw();
+	GLOBAL.miniMap.draw(dx);
 
 	// messages
 	if (GLOBAL.message) {

@@ -13,8 +13,8 @@ GLOBAL.miniMap = {
 		}
 	},
 
-	draw() {
-		const uiPos = screenToWorld(vec2(innerWidth - 128, innerHeight - 128));
+	draw(dx) {
+		const uiPos = screenToWorld(vec2(innerWidth - dx, innerHeight - dx));
 
 		/*drawRect(
 			uiPos,
