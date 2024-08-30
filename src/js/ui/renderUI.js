@@ -56,18 +56,30 @@ function gameRenderPost() {
 		tile(36)
 	);
 
-	/*drawText(
-		'' + GLOBAL.wood,
-		uiPos.add(vec2(1.4, -0.1)),
-		1,
-		new Color(0, 0, 0),
-		undefined,
-		undefined,
-		'right'
-	);*/
 	GLOBAL.uiFont.drawText(
 		'' + GLOBAL.wood,
 		uiPos.add(vec2(0.8, 0.2)),
+		0.08,
+		true
+	);
+
+	const manaPos = screenToWorld(vec2(innerWidth - 128, 64));;
+	// mana
+	drawTile(
+		manaPos,
+		vec2(4, 2),
+		tile(vec2(0, 48), vec2(48, 24))
+	);
+	drawTile(
+		manaPos.subtract(vec2(0.8, 0)),
+		vec2(1),
+		tile(45),
+		new Color(1, 1, 1, 0.7)
+	);
+
+	GLOBAL.uiFont.drawText(
+		'' + GLOBAL.mana,
+		manaPos.add(vec2(0.8, 0.2)),
 		0.08,
 		true
 	);
@@ -115,27 +127,6 @@ function gameRenderPost() {
 		true
 	);
 
-	// mana
-	uiPos = uiPos.subtract(vec2(0, 2));
-
-	drawTile(
-		uiPos,
-		vec2(4, 2),
-		tile(vec2(0, 48), vec2(48, 24))
-	);
-	drawTile(
-		uiPos.subtract(vec2(0.8, 0)),
-		vec2(1),
-		tile(45),
-		new Color(1, 1, 1, 0.7)
-	);
-
-	GLOBAL.uiFont.drawText(
-		'' + GLOBAL.mana,
-		uiPos.add(vec2(0.8, 0.2)),
-		0.08,
-		true
-	);
 
 	// population
 	uiPos = uiPos.subtract(vec2(0, 2));

@@ -103,8 +103,11 @@ class PlayerUnit extends Unit {
 				}
 				else if (this.intention == 'pray') {
 					// TODO: check if temple still exists
-					zzfx(...[,.03,405,,,0,3,.1,8,,,,,.1,27,.4,.04,.44,.01]); 
-					GLOBAL.mana++;
+					const chance = (25 - GLOBAL.mana) / 25;
+					if (Math.random() < chance) {
+						zzfx(...[.9, , 600, , , 0, , 3.9, , -1, 650, .05, .04, , , , .08, .84, .18]);
+						GLOBAL.mana++;
+					}
 				}
 				else if (this.intention == 'farm') {
 					// TODO: check if tree still exists

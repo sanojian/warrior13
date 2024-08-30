@@ -63,9 +63,21 @@ function gameInit() {
 		})
 	);
 	GLOBAL.spellMenu.push(
-		new Button_Spell(innerWidth - 128, innerHeight - 96, tile(120), 10, () => {
+		new Button_Spell(innerWidth - 128, innerHeight - 192, tile(122), 5, () => {
+			GLOBAL.mana -= 5;
+			GLOBAL.food += 10;
+			zzfx(...[.9,,588,,.03,.14,,3.9,,-1,650,.05,.04,,,,.08,.84,.3]);
+		}),
+		new Button_Spell(innerWidth - 128, innerHeight - 320, tile(121), 10, () => {
+			GLOBAL.mana -= 10;
 			for (let i = 0; i < GLOBAL.enemies.length; i++) {
 				GLOBAL.enemies[i].takeDamage(1);
+			}
+		}),
+		new Button_Spell(innerWidth - 128, innerHeight - 448, tile(120), 15, () => {
+			GLOBAL.mana -= 15;
+			for (let i = 0; i < GLOBAL.enemies.length; i++) {
+				GLOBAL.enemies[i].takeDamage(GLOBAL.enemies.length < 2 ? 3 : GLOBAL.enemies.length < 5 ? 2 : 1);
 			}
 			zzfx(...[2.8,,48,,.23,.73,4,1.9,,-4,,,.21,.2,,.5,.41,.36,.07,.29]);
 		})
