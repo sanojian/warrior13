@@ -17,7 +17,7 @@ npx roadroller  --optimize 2 dist/js/i.ugly.js -o dist/i.js
 ########## Pack
 
 cd dist
-zip -X9 a.zip index.html i.js tiles.png 
+zip -X9 a.zip index.html i.js t.png 
 npx advzip-bin --recompress -4 -i 1000 a.zip
 ls -la a.zip
 

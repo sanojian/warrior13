@@ -2,7 +2,7 @@
 
 function doEngineInit() {
 	// startup LittleJS with your game functions after the tile image is loaded
-	engineInit(gameInit, gameUpdate, gameUpdatePost, gameRender, gameRenderPost, ["tiles.png"]);
+	engineInit(gameInit, gameUpdate, gameUpdatePost, gameRender, gameRenderPost, ["t.png"]);
 }
 
 
@@ -295,7 +295,7 @@ function loadMapData(callback) {
 
 			callback();
 		}
-		img.src = "tiles.png";
+		img.src = "t.png";
 }
 	
 

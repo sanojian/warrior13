@@ -51,7 +51,7 @@ module.exports = function (grunt) {
 					zopflipng: false,
 				},
 				files: {
-					"dist/tiles.png": "src/gfx/tiles.png"
+					"dist/t.png": "src/gfx/tiles.png"
 				},
 			},
 			prod: {
@@ -62,7 +62,7 @@ module.exports = function (grunt) {
 					zopflipng: ["-m"],
 				},
 				files: {
-					"dist/tiles.png": "src/gfx/tiles.png",
+					"dist/t.png": "src/gfx/tiles.png",
 				},
 			},
 		},
@@ -71,7 +71,6 @@ module.exports = function (grunt) {
 			options: {
 				compilerFile: "node_modules/google-closure-compiler-java/compiler.jar",
 				compilerOpts: {
-					//compilation_level: "SIMPLE_OPTIMIZATIONS",
 					compilation_level: "ADVANCED_OPTIMIZATIONS",
 					language_out: "ECMASCRIPT_2019",
 					jscomp_off: "checkVars",

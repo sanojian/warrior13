@@ -10,9 +10,6 @@
 
 
 
-let showWatermark = 0;
-const debug = 0;
-
 /**
  * LittleJS Utility Classes and Functions
  * - General purpose math library
@@ -520,14 +517,6 @@ class Vector2
         return this.x >= 0 && this.y >= 0 && this.x < arraySize.x && this.y < arraySize.y;
     }
 
-    /** Returns this vector expressed as a string
-     * @param {Number} digits - precision to display
-     * @return {String} */
-    toString(digits=3) 
-    {
-        if (debug)
-            return `(${(this.x<0?'':' ') + this.x.toFixed(digits)},${(this.y<0?'':' ') + this.y.toFixed(digits)} )`;
-    }
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -787,11 +776,7 @@ class Timer
     /** Get percentage elapsed based on time it was set to, returns 0 if not set
      * @return {Number} */
     getPercent() { return this.isSet()? percent(this.time - time, this.setTime, 0) : 0; }
-    
-    /** Returns this timer expressed as a string
-     * @return {String} */
-    toString() { if (debug) { return this.isSet() ? Math.abs(this.get()) + ' seconds ' + (this.get()<0 ? 'before' : 'after' ) : 'unset'; }}
-    
+       
     /** Get how long since elapsed, returns 0 if not set (returns negative if currently active)
      * @return {Number} */
     valueOf()               { return this.get(); }
@@ -847,12 +832,6 @@ let canvasPixelated = true;
  *  @memberof Settings */
 let fontDefault = 'arial';
 
-/** Enable to show the LittleJS splash screen be shown on startup
- *  @type {Boolean}
- *  @default
- *  @memberof Settings */
-let showSplashScreen = false;
-
 ///////////////////////////////////////////////////////////////////////////////
 // WebGL settings
 
@@ -883,115 +862,6 @@ let tileSizeDefault = vec2(16);
  *  @memberof Settings */
 let tileFixBleedScale = .1;
 
-///////////////////////////////////////////////////////////////////////////////
-// Object settings
-
-/** Enable physics solver for collisions between objects
- *  @type {Boolean}
- *  @default
- *  @memberof Settings */
-let enablePhysicsSolver = true;
-
-/** Default object mass for collision calcuations (how heavy objects are)
- *  @type {Number}
- *  @default
- *  @memberof Settings */
-let objectDefaultMass = 1;
-
-/** How much to slow velocity by each frame (0-1)
- *  @type {Number}
- *  @default
- *  @memberof Settings */
-let objectDefaultDamping = 1;
-
-/** How much to slow angular velocity each frame (0-1)
- *  @type {Number}
- *  @default
- *  @memberof Settings */
-let objectDefaultAngleDamping = 1;
-
-/** How much to bounce when a collision occurs (0-1)
- *  @type {Number}
- *  @default
- *  @memberof Settings */
-let objectDefaultElasticity = 0;
-
-/** How much to slow when touching (0-1)
- *  @type {Number}
- *  @default
- *  @memberof Settings */
-let objectDefaultFriction = .8;
-
-/** Clamp max speed to avoid fast objects missing collisions
- *  @type {Number}
- *  @default
- *  @memberof Settings */
-let objectMaxSpeed = 1;
-
-/** How much gravity to apply to objects along the Y axis, negative is down
- *  @type {Number}
- *  @default
- *  @memberof Settings */
-let gravity = 0;
-
-/** Scales emit rate of particles, useful for low graphics mode (0 disables particle emitters)
- *  @type {Number}
- *  @default
- *  @memberof Settings */
-let particleEmitRateScale = 1;
-
-///////////////////////////////////////////////////////////////////////////////
-// Input settings
-
-/** Should gamepads be allowed
- *  @type {Boolean}
- *  @default
- *  @memberof Settings */
-//let gamepadsEnable = true;
-
-/** If true, the dpad input is also routed to the left analog stick (for better accessability)
- *  @type {Boolean}
- *  @default
- *  @memberof Settings */
-let gamepadDirectionEmulateStick = true;
-
-/** If true the WASD keys are also routed to the direction keys (for better accessability)
- *  @type {Boolean}
- *  @default
- *  @memberof Settings */
-let inputWASDEmulateDirection = true;
-
-/** True if touch gamepad should appear on mobile devices
- *  - Supports left analog stick, 4 face buttons and start button (button 9)
- *  - Must be set by end of gameInit to be activated
- *  @type {Boolean}
- *  @default
- *  @memberof Settings */
-//let touchGamepadEnable = false;
-
-/** True if touch gamepad should be analog stick or false to use if 8 way dpad
- *  @type {Boolean}
- *  @default
- *  @memberof Settings */
-//let touchGamepadAnalog = true;
-
-/** Size of virtual gamepad for touch devices in pixels
- *  @type {Number}
- *  @default
- *  @memberof Settings */
-let touchGamepadSize = 99;
-
-/** Transparency of touch gamepad overlay
- *  @type {Number}
- *  @default
- *  @memberof Settings */
-let touchGamepadAlpha = .3;
-
-/** Allow vibration hardware if it exists
- *  @type {Boolean}
- *  @default
- *  @memberof Settings */
-let vibrateEnable = true;
 
 ///////////////////////////////////////////////////////////////////////////////
 // Audio settings
@@ -1054,11 +924,6 @@ function setCanvasPixelated(pixelated) { canvasPixelated = pixelated; }
  *  @memberof Settings */
 function setFontDefault(font) { fontDefault = font; }
 
-/** Set if the LittleJS splash screen be shown on startup
- *  @param {Boolean} show
- *  @memberof Settings */
-function setShowSplashScreen(show) { showSplashScreen = show; }
-
 /** Set if webgl rendering is enabled
  *  @param {Boolean} enable
  *  @memberof Settings */
@@ -1078,91 +943,6 @@ function setTileSizeDefault(size) { tileSizeDefault = size; }
  *  @param {Number} scale
  *  @memberof Settings */
 function setTileFixBleedScale(scale) { tileFixBleedScale = scale; }
-
-/** Set if collisions between objects are enabled
- *  @param {Boolean} enable
- *  @memberof Settings */
-function setEnablePhysicsSolver(enable) { enablePhysicsSolver = enable; }
-
-/** Set default object mass for collison calcuations
- *  @param {Number} mass
- *  @memberof Settings */
-function setObjectDefaultMass(mass) { objectDefaultMass = mass; }
-
-/** Set how much to slow velocity by each frame
- *  @param {Number} damp
- *  @memberof Settings */
-function setObjectDefaultDamping(damp) { objectDefaultDamping = damp; }
-
-/** Set how much to slow angular velocity each frame
- *  @param {Number} damp
- *  @memberof Settings */
-function setObjectDefaultAngleDamping(damp) { objectDefaultAngleDamping = damp; }
-
-/** Set how much to bounce when a collision occur
- *  @param {Number} elasticity
- *  @memberof Settings */
-function setObjectDefaultElasticity(elasticity) { objectDefaultElasticity = elasticity; }
-
-/** Set how much to slow when touching
- *  @param {Number} friction
- *  @memberof Settings */
-function setObjectDefaultFriction(friction) { objectDefaultFriction = friction; }
-
-/** Set max speed to avoid fast objects missing collisions
- *  @param {Number} speed
- *  @memberof Settings */
-function setObjectMaxSpeed(speed) { objectMaxSpeed = speed; }
-
-/** Set how much gravity to apply to objects along the Y axis
- *  @param {Number} newGravity
- *  @memberof Settings */
-function setGravity(newGravity) { gravity = newGravity; }
-
-/** Set to scales emit rate of particles
- *  @param {Number} scale
- *  @memberof Settings */
-function setParticleEmitRateScale(scale) { particleEmitRateScale = scale; }
-
-/** Set if gamepads are enabled
- *  @param {Boolean} enable
- *  @memberof Settings */
-//function setGamepadsEnable(enable) { gamepadsEnable = enable; }
-
-/** Set if the dpad input is also routed to the left analog stick
- *  @param {Boolean} enable
- *  @memberof Settings */
-//function setGamepadDirectionEmulateStick(enable) { gamepadDirectionEmulateStick = enable; }
-
-/** Set if true the WASD keys are also routed to the direction keys
- *  @param {Boolean} enable
- *  @memberof Settings */
-function setInputWASDEmulateDirection(enable) { inputWASDEmulateDirection = enable; }
-
-/** Set if touch gamepad should appear on mobile devices
- *  @param {Boolean} enable
- *  @memberof Settings */
-//function setTouchGamepadEnable(enable) { touchGamepadEnable = enable; }
-
-/** Set if touch gamepad should be analog stick or 8 way dpad
- *  @param {Boolean} analog
- *  @memberof Settings */
-//function setTouchGamepadAnalog(analog) { touchGamepadAnalog = analog; }
-
-/** Set size of virutal gamepad for touch devices in pixels
- *  @param {Number} size
- *  @memberof Settings */
-//function setTouchGamepadSize(size) { touchGamepadSize = size; }
-
-/** Set transparency of touch gamepad overlay
- *  @param {Number} alpha
- *  @memberof Settings */
-//function setTouchGamepadAlpha(alpha) { touchGamepadAlpha = alpha; }
-
-/** Set to allow vibration hardware if it exists
- *  @param {Boolean} enable
- *  @memberof Settings */
-//function setVibrateEnable(enable) { vibrateEnable = enable; }
 
 /** Set to disable all audio code
  *  @param {Boolean} enable
@@ -1184,10 +964,6 @@ function setSoundDefaultRange(range) { soundDefaultRange = range; }
  *  @memberof Settings */
 function setSoundDefaultTaper(taper) { soundDefaultTaper = taper; }
 
-/** Set if watermark with FPS should be shown
- *  @param {Boolean} show
- *  @memberof Debug */
-function setShowWatermark(show) { showWatermark = show; }
 
 /** 
  * LittleJS Object System
@@ -1252,15 +1028,15 @@ class EngineObject
 
         // physical properties
         /** @property {Number} [mass=objectDefaultMass]                 - How heavy the object is, static if 0 */
-        this.mass         = objectDefaultMass;
-        /** @property {Number} [damping=objectDefaultDamping]           - How much to slow down velocity each frame (0-1) */
-        this.damping      = objectDefaultDamping;
-        /** @property {Number} [angleDamping=objectDefaultAngleDamping] - How much to slow down rotation each frame (0-1) */
-        this.angleDamping = objectDefaultAngleDamping;
+        this.mass         = 1;
+        /** @property {Number} [damping=1]           - How much to slow down velocity each frame (0-1) */
+        this.damping      = 1;
+        /** @property {Number} [angleDamping=1] - How much to slow down rotation each frame (0-1) */
+        this.angleDamping = 1;
         /** @property {Number} [elasticity=objectDefaultElasticity]     - How bouncy the object is when colliding (0-1) */
-        this.elasticity   = objectDefaultElasticity;
-        /** @property {Number} [friction=objectDefaultFriction]         - How much friction to apply when sliding (0-1) */
-        this.friction     = objectDefaultFriction;
+        this.elasticity   = 1;
+        /** @property {Number} [friction=1]         - How much friction to apply when sliding (0-1) */
+        this.friction     = 1;
         /** @property {Number}  - How much to scale gravity by for this object */
         this.gravityScale = 1;
         /** @property {Number}  - Objects are sorted by render order */
@@ -1299,171 +1075,7 @@ class EngineObject
     /** Update the object transform and physics, called automatically by engine once each frame */
     update()
     {
-        const parent = this.parent;
-        if (parent)
-        {
-            // copy parent pos/angle
-            this.pos = this.localPos.multiply(vec2(parent.getMirrorSign(),1)).rotate(-parent.angle).add(parent.pos);
-            this.angle = parent.getMirrorSign()*this.localAngle + parent.angle;
-            return;
-        }
-
-        // limit max speed to prevent missing collisions
-        this.velocity.x = clamp(this.velocity.x, -objectMaxSpeed, objectMaxSpeed);
-        this.velocity.y = clamp(this.velocity.y, -objectMaxSpeed, objectMaxSpeed);
-
-        // apply physics
-        const oldPos = this.pos.copy();
-        this.velocity.y += gravity * this.gravityScale;
-        this.pos.x += this.velocity.x *= this.damping;
-        this.pos.y += this.velocity.y *= this.damping;
-        this.angle += this.angleVelocity *= this.angleDamping;
-
-        // physics sanity checks
-
-        if (!enablePhysicsSolver || !this.mass) // do not update collision for fixed objects
-            return;
-
-        const wasMovingDown = this.velocity.y < 0;
-        if (this.groundObject)
-        {
-            // apply friction in local space of ground object
-            const groundSpeed = this.groundObject.velocity ? this.groundObject.velocity.x : 0;
-            this.velocity.x = groundSpeed + (this.velocity.x - groundSpeed) * this.friction;
-            this.groundObject = 0;
-        }
-
-        if (this.collideSolidObjects)
-        {
-            // check collisions against solid objects
-            const epsilon = .001; // necessary to push slightly outside of the collision
-            for (const o of engineObjectsCollide)
-            {
-                // non solid objects don't collide with eachother
-                if (!this.isSolid && !o.isSolid || o.destroyed || o.parent || o == this)
-                    continue;
-
-                // check collision
-                if (!isOverlapping(this.pos, this.size, o.pos, o.size))
-                    continue;
-
-                // notify objects of collision and check if should be resolved
-                const collide1 = this.collideWithObject(o);
-                const collide2 = o.collideWithObject(this);
-                if (!collide1 || !collide2)
-                    continue;
-
-                if (isOverlapping(oldPos, this.size, o.pos, o.size))
-                {
-                    // if already was touching, try to push away
-                    const deltaPos = oldPos.subtract(o.pos);
-                    const length = deltaPos.length();
-                    const pushAwayAccel = .001; // push away if already overlapping
-                    const velocity = length < .01 ? randVector(pushAwayAccel) : deltaPos.scale(pushAwayAccel/length);
-                    this.velocity = this.velocity.add(velocity);
-                    if (o.mass) // push away if not fixed
-                        o.velocity = o.velocity.subtract(velocity);
-                        
-                    continue;
-                }
-
-                // check for collision
-                const sizeBoth = this.size.add(o.size);
-                const smallStepUp = (oldPos.y - o.pos.y)*2 > sizeBoth.y + gravity; // prefer to push up if small delta
-                const isBlockedX = abs(oldPos.y - o.pos.y)*2 < sizeBoth.y;
-                const isBlockedY = abs(oldPos.x - o.pos.x)*2 < sizeBoth.x;
-                const elasticity = max(this.elasticity, o.elasticity);
-                
-                if (smallStepUp || isBlockedY || !isBlockedX) // resolve y collision
-                {
-                    // push outside object collision
-                    this.pos.y = o.pos.y + (sizeBoth.y/2 + epsilon) * sign(oldPos.y - o.pos.y);
-                    if (o.groundObject && wasMovingDown || !o.mass)
-                    {
-                        // set ground object if landed on something
-                        if (wasMovingDown)
-                            this.groundObject = o;
-
-                        // bounce if other object is fixed or grounded
-                        this.velocity.y *= -elasticity;
-                    }
-                    else if (o.mass)
-                    {
-                        // inelastic collision
-                        const inelastic = (this.mass * this.velocity.y + o.mass * o.velocity.y) / (this.mass + o.mass);
-
-                        // elastic collision
-                        const elastic0 = this.velocity.y * (this.mass - o.mass) / (this.mass + o.mass)
-                            + o.velocity.y * 2 * o.mass / (this.mass + o.mass);
-                        const elastic1 = o.velocity.y * (o.mass - this.mass) / (this.mass + o.mass)
-                            + this.velocity.y * 2 * this.mass / (this.mass + o.mass);
-
-                        // lerp betwen elastic or inelastic based on elasticity
-                        this.velocity.y = lerp(elasticity, inelastic, elastic0);
-                        o.velocity.y = lerp(elasticity, inelastic, elastic1);
-                    }
-                }
-                if (!smallStepUp && isBlockedX) // resolve x collision
-                {
-                    // push outside collision
-                    this.pos.x = o.pos.x + (sizeBoth.x/2 + epsilon) * sign(oldPos.x - o.pos.x);
-                    if (o.mass)
-                    {
-                        // inelastic collision
-                        const inelastic = (this.mass * this.velocity.x + o.mass * o.velocity.x) / (this.mass + o.mass);
-
-                        // elastic collision
-                        const elastic0 = this.velocity.x * (this.mass - o.mass) / (this.mass + o.mass)
-                            + o.velocity.x * 2 * o.mass / (this.mass + o.mass);
-                        const elastic1 = o.velocity.x * (o.mass - this.mass) / (this.mass + o.mass)
-                            + this.velocity.x * 2 * this.mass / (this.mass + o.mass);
-
-                        // lerp betwen elastic or inelastic based on elasticity
-                        this.velocity.x = lerp(elasticity, inelastic, elastic0);
-                        o.velocity.x = lerp(elasticity, inelastic, elastic1);
-                    }
-                    else // bounce if other object is fixed
-                        this.velocity.x *= -elasticity;
-                }
-            }
-        }
-        if (this.collideTiles)
-        {
-            // check collision against tiles
-            if (tileCollisionTest(this.pos, this.size, this))
-            {
-                // if already was stuck in collision, don't do anything
-                // this should not happen unless something starts in collision
-                if (!tileCollisionTest(oldPos, this.size, this))
-                {
-                    // test which side we bounced off (or both if a corner)
-                    const isBlockedY = tileCollisionTest(vec2(oldPos.x, this.pos.y), this.size, this);
-                    const isBlockedX = tileCollisionTest(vec2(this.pos.x, oldPos.y), this.size, this);
-                    if (isBlockedY || !isBlockedX)
-                    {
-                        // set if landed on ground
-                        this.groundObject = wasMovingDown;
-
-                        // bounce velocity
-                        this.velocity.y *= -this.elasticity;
-
-                        // adjust next velocity to settle on ground
-                        const o = (oldPos.y - this.size.y/2|0) - (oldPos.y - this.size.y/2);
-                        if (o < 0 && o > this.damping * this.velocity.y + gravity * this.gravityScale) 
-                            this.velocity.y = this.damping ? (o - gravity * this.gravityScale) / this.damping : 0;
-
-                        // move to previous position
-                        this.pos.y = oldPos.y;
-                    }
-                    if (isBlockedX)
-                    {
-                        // move to previous position and bounce
-                        this.pos.x = oldPos.x;
-                        this.velocity.x *= -this.elasticity;
-                    }
-                }
-            }
-        }
+        return;
     }
        
     /** Render the object, draws a tile by default, automatically called each frame, sorted by renderOrder */
@@ -1547,26 +1159,6 @@ class EngineObject
         this.collideRaycast = collideRaycast;
     }
 
-    /** Returns string containg info about this object for debugging
-     *  @return {String} */
-    toString()
-    {
-        if (debug)
-        {
-            let text = 'type = ' + this.constructor.name;
-            if (this.pos.x || this.pos.y)
-                text += '\npos = ' + this.pos;
-            if (this.velocity.x || this.velocity.y)
-                text += '\nvelocity = ' + this.velocity;
-            if (this.size.x || this.size.y)
-                text += '\nsize = ' + this.size;
-            if (this.angle)
-                text += '\nangle = ' + this.angle.toFixed(3);
-            if (this.color)
-                text += '\ncolor = ' + this.color;
-            return text;
-        }
-    }
 }
 /** 
  * LittleJS Drawing System
@@ -1806,7 +1398,6 @@ function drawTile(pos, size=vec2(1), tileInfo, color=new Color,
     else
     {
         // normal canvas 2D rendering method (slower)
-        showWatermark && ++drawCount;
         drawCanvas2D(pos, size, angle, mirror, (context)=>
         {
             if (textureInfo)
@@ -2179,7 +1770,7 @@ function inputUpdatePost()
 ///////////////////////////////////////////////////////////////////////////////
 // Keyboard event handlers
 
-{
+/*{
     onkeydown = (e)=>
     {
         if (debug && e.target != document.body) return;
@@ -2210,7 +1801,7 @@ function inputUpdatePost()
             c == 'KeyA' ? 'ArrowLeft' : 
             c == 'KeyD' ? 'ArrowRight' : c : c;
     }
-}
+}*/
 
 ///////////////////////////////////////////////////////////////////////////////
 // Mouse event handlers
@@ -2403,43 +1994,6 @@ class Sound
     isLoading() { return !this.sampleChannels; }
 }
 
-/** 
- * Sound Wave Object - Stores a wave sound for later use and can be played positionally
- * - this can be used to play wave, mp3, and ogg files
- * @example
- * // create a sound
- * const sound_example = new SoundWave('sound.mp3');
- * 
- * // play the sound
- * sound_example.play();
- */
-class SoundWave extends Sound
-{
-    /** Create a sound object and cache the wave file for later use
-     *  @param {String} filename - Filename of audio file to load
-     *  @param {Number} [randomness] - How much to randomize frequency each time sound plays
-     *  @param {Number} [range=soundDefaultRange] - World space max range of sound, will not play if camera is farther away
-     *  @param {Number} [taper=soundDefaultTaper] - At what percentage of range should it start tapering off
-     */
-    constructor(filename, randomness=0, range, taper)
-    {
-        super(undefined, range, taper);
-        this.randomness = randomness;
-
-        if (!soundEnable) return;
-
-        fetch(filename)
-        .then(response => response.arrayBuffer())
-        .then(arrayBuffer => audioContext.decodeAudioData(arrayBuffer))
-        .then(audioBuffer => 
-        {
-            this.sampleChannels = [];
-            for (let i = audioBuffer.numberOfChannels; i--;)
-                this.sampleChannels[i] = Array.from(audioBuffer.getChannelData(i));
-            this.sampleRate = audioBuffer.sampleRate;
-        });
-    }
-}
 
 /**
  * Music Object - Stores a zzfx music track for later use
@@ -2495,52 +2049,6 @@ class Music extends Sound
     { return super.play(undefined, volume, 1, 1, loop); }
 }
 
-/** Play an mp3, ogg, or wav audio from a local file or url
- *  @param {String}  filename - Location of sound file to play
- *  @param {Number}  [volume] - How much to scale volume by
- *  @param {Boolean} [loop] - True if the music should loop
- *  @return {HTMLAudioElement} - The audio element for this sound
- *  @memberof Audio */
-function playAudioFile(filename, volume=1, loop=false)
-{
-    if (!soundEnable) return;
-
-    const audio = new Audio(filename);
-    audio.volume = soundVolume * volume;
-    audio.loop = loop;
-    audio.play();
-    return audio;
-}
-
-/** Speak text with passed in settings
- *  @param {String} text - The text to speak
- *  @param {String} [language] - The language/accent to use (examples: en, it, ru, ja, zh)
- *  @param {Number} [volume] - How much to scale volume by
- *  @param {Number} [rate] - How quickly to speak
- *  @param {Number} [pitch] - How much to change the pitch by
- *  @return {SpeechSynthesisUtterance} - The utterance that was spoken
- *  @memberof Audio */
-function speak(text, language='', volume=1, rate=1, pitch=1)
-{
-    if (!soundEnable || !speechSynthesis) return;
-
-    // common languages (not supported by all browsers)
-    // en - english,  it - italian, fr - french,  de - german, es - spanish
-    // ja - japanese, ru - russian, zh - chinese, hi - hindi,  ko - korean
-
-    // build utterance and speak
-    const utterance = new SpeechSynthesisUtterance(text);
-    utterance.lang = language;
-    utterance.volume = 2*volume*soundVolume;
-    utterance.rate = rate;
-    utterance.pitch = pitch;
-    speechSynthesis.speak(utterance);
-    return utterance;
-}
-
-/** Stop all queued speech
- *  @memberof Audio */
-function speakStop() {speechSynthesis && speechSynthesis.cancel();}
 
 /** Get frequency of a note on a musical scale
  *  @param {Number} semitoneOffset - How many semitones away from the root note
@@ -2884,87 +2392,8 @@ function initTileCollision(size)
         tileCollision[i] = 0;
 }
 
-/** Set tile collision data
- *  @param {Vector2} pos
- *  @param {Number}  [data]
- *  @memberof TileCollision */
-function setTileCollisionData(pos, data=0)
-{
-    pos.arrayCheck(tileCollisionSize) && (tileCollision[(pos.y|0)*tileCollisionSize.x+pos.x|0] = data);
-}
 
-/** Get tile collision data
- *  @param {Vector2} pos
- *  @return {Number}
- *  @memberof TileCollision */
-function getTileCollisionData(pos)
-{
-    return pos.arrayCheck(tileCollisionSize) ? tileCollision[(pos.y|0)*tileCollisionSize.x+pos.x|0] : 0;
-}
 
-/** Check if collision with another object should occur
- *  @param {Vector2}      pos
- *  @param {Vector2}      [size=(0,0)]
- *  @param {EngineObject} [object]
- *  @return {Boolean}
- *  @memberof TileCollision */
-function tileCollisionTest(pos, size=vec2(), object)
-{
-    const minX = max(pos.x - size.x/2|0, 0);
-    const minY = max(pos.y - size.y/2|0, 0);
-    const maxX = min(pos.x + size.x/2, tileCollisionSize.x);
-    const maxY = min(pos.y + size.y/2, tileCollisionSize.y);
-    for (let y = minY; y < maxY; ++y)
-    for (let x = minX; x < maxX; ++x)
-    {
-        const tileData = tileCollision[y*tileCollisionSize.x+x];
-        if (tileData && (!object || object.collideWithTile(tileData, vec2(x, y))))
-            return true;
-    }
-}
-
-/** Return the center of first tile hit (does not return the exact intersection)
- *  @param {Vector2}      posStart
- *  @param {Vector2}      posEnd
- *  @param {EngineObject} [object]
- *  @return {Vector2}
- *  @memberof TileCollision */
-function tileCollisionRaycast(posStart, posEnd, object)
-{
-    // test if a ray collides with tiles from start to end
-    // todo: a way to get the exact hit point, it must still be inside the hit tile
-    const delta = posEnd.subtract(posStart);
-    const totalLength = delta.length();
-    const normalizedDelta = delta.normalize();
-    const unit = vec2(abs(1/normalizedDelta.x), abs(1/normalizedDelta.y));
-    const flooredPosStart = posStart.floor();
-
-    // setup iteration variables
-    let pos = flooredPosStart;
-    let xi = unit.x * (delta.x < 0 ? posStart.x - pos.x : pos.x - posStart.x + 1);
-    let yi = unit.y * (delta.y < 0 ? posStart.y - pos.y : pos.y - posStart.y + 1);
-
-    while (1)
-    {
-        // check for tile collision
-        const tileData = getTileCollisionData(pos);
-        if (tileData && (!object || object.collideWithTile(tileData, pos)))
-        {
-            return pos.add(vec2(.5));
-        }
-
-        // check if past the end
-        if (xi > totalLength && yi > totalLength)
-            break;
-
-        // get coordinates of the next tile to check
-        if (xi > yi)
-            pos.y += sign(delta.y), yi += unit.y;
-        else
-            pos.x += sign(delta.x), xi += unit.x;
-    }
-
-}
 
 ///////////////////////////////////////////////////////////////////////////////
 // Tile Layer Rendering System
@@ -3212,337 +2641,6 @@ class TileLayer extends EngineObject
     drawRect(pos, size, color, angle) 
     { this.drawTile(pos, size, undefined, color, angle); }
 }
-/** 
- * LittleJS Particle System
- */
-
-
-
-/**
- * Particle Emitter - Spawns particles with the given settings
- * @extends EngineObject
- * @example
- * // create a particle emitter
- * let pos = vec2(2,3);
- * let particleEmitter = new ParticleEmitter
- * (
- *     pos, 0, 1, 0, 500, PI,      // pos, angle, emitSize, emitTime, emitRate, emiteCone
- *     tile(0, 16),                // tileInfo
- *     rgb(1,1,1),   rgb(0,0,0),   // colorStartA, colorStartB
- *     rgb(1,1,1,0), rgb(0,0,0,0), // colorEndA, colorEndB
- *     2, .2, .2, .1, .05,  // particleTime, sizeStart, sizeEnd, particleSpeed, particleAngleSpeed
- *     .99, 1, 1, PI, .05,  // damping, angleDamping, gravityScale, particleCone, fadeRate, 
- *     .5, 1                // randomness, collide, additive, randomColorLinear, renderOrder
- * );
- */
-class ParticleEmitter extends EngineObject
-{
-    /** Create a particle system with the given settings
-     *  @param {Vector2} position - World space position of the emitter
-     *  @param {Number} [angle] - Angle to emit the particles
-     *  @param {Number|Vector2}  [emitSize] - World space size of the emitter (float for circle diameter, vec2 for rect)
-     *  @param {Number} [emitTime] - How long to stay alive (0 is forever)
-     *  @param {Number} [emitRate] - How many particles per second to spawn, does not emit if 0
-     *  @param {Number} [emitConeAngle=PI] - Local angle to apply velocity to particles from emitter
-     *  @param {TileInfo} [tileInfo] - Tile info to render particles (undefined is untextured)
-     *  @param {Color} [colorStartA=(1,1,1,1)] - Color at start of life 1, randomized between start colors
-     *  @param {Color} [colorStartB=(1,1,1,1)] - Color at start of life 2, randomized between start colors
-     *  @param {Color} [colorEndA=(1,1,1,0)] - Color at end of life 1, randomized between end colors
-     *  @param {Color} [colorEndB=(1,1,1,0)] - Color at end of life 2, randomized between end colors
-     *  @param {Number} [particleTime]      - How long particles live
-     *  @param {Number} [sizeStart]         - How big are particles at start
-     *  @param {Number} [sizeEnd]           - How big are particles at end
-     *  @param {Number} [speed]             - How fast are particles when spawned
-     *  @param {Number} [angleSpeed]        - How fast are particles rotating
-     *  @param {Number} [damping]           - How much to dampen particle speed
-     *  @param {Number} [angleDamping]      - How much to dampen particle angular speed
-     *  @param {Number} [gravityScale]      - How much gravity effect particles
-     *  @param {Number} [particleConeAngle] - Cone for start particle angle
-     *  @param {Number} [fadeRate]          - How quick to fade particles at start/end in percent of life
-     *  @param {Number} [randomness]    - Apply extra randomness percent
-     *  @param {Boolean} [collideTiles] - Do particles collide against tiles
-     *  @param {Boolean} [additive]     - Should particles use addtive blend
-     *  @param {Boolean} [randomColorLinear] - Should color be randomized linearly or across each component
-     *  @param {Number} [renderOrder] - Render order for particles (additive is above other stuff by default)
-     *  @param {Boolean}  [localSpace] - Should it be in local space of emitter (world space is default)
-     */
-    constructor
-    ( 
-        position,
-        angle,
-        emitSize = 0,
-        emitTime = 0,
-        emitRate = 100,
-        emitConeAngle = PI,
-        tileInfo,
-        colorStartA = new Color,
-        colorStartB = new Color,
-        colorEndA = new Color(1,1,1,0),
-        colorEndB = new Color(1,1,1,0),
-        particleTime = .5,
-        sizeStart = .1,
-        sizeEnd = 1,
-        speed = .1,
-        angleSpeed = .05,
-        damping = 1,
-        angleDamping = 1,
-        gravityScale = 0,
-        particleConeAngle = PI,
-        fadeRate = .1,
-        randomness = .2, 
-        collideTiles = false,
-        additive = false,
-        randomColorLinear = true,
-        renderOrder = additive ? 1e9 : 0,
-        localSpace = false
-    )
-    {
-        super(position, vec2(), tileInfo, angle, undefined, renderOrder);
-
-        // emitter settings
-        /** @property {Number|Vector2} - World space size of the emitter (float for circle diameter, vec2 for rect) */
-        this.emitSize = emitSize
-        /** @property {Number} - How long to stay alive (0 is forever) */
-        this.emitTime = emitTime;
-        /** @property {Number} - How many particles per second to spawn, does not emit if 0 */
-        this.emitRate = emitRate;
-        /** @property {Number} - Local angle to apply velocity to particles from emitter */
-        this.emitConeAngle = emitConeAngle;
-
-        // color settings
-        /** @property {Color} - Color at start of life 1, randomized between start colors */
-        this.colorStartA = colorStartA;
-        /** @property {Color} - Color at start of life 2, randomized between start colors */
-        this.colorStartB = colorStartB;
-        /** @property {Color} - Color at end of life 1, randomized between end colors */
-        this.colorEndA   = colorEndA;
-        /** @property {Color} - Color at end of life 2, randomized between end colors */
-        this.colorEndB   = colorEndB;
-        /** @property {Boolean} - Should color be randomized linearly or across each component */
-        this.randomColorLinear = randomColorLinear;
-
-        // particle settings
-        /** @property {Number} - How long particles live */
-        this.particleTime      = particleTime;
-        /** @property {Number} - How big are particles at start */
-        this.sizeStart         = sizeStart;
-        /** @property {Number} - How big are particles at end */
-        this.sizeEnd           = sizeEnd;
-        /** @property {Number} - How fast are particles when spawned */
-        this.speed             = speed;
-        /** @property {Number} - How fast are particles rotating */
-        this.angleSpeed        = angleSpeed;
-        /** @property {Number} - How much to dampen particle speed */
-        this.damping           = damping;
-        /** @property {Number} - How much to dampen particle angular speed */
-        this.angleDamping      = angleDamping;
-        /** @property {Number} - How much does gravity effect particles */
-        this.gravityScale      = gravityScale;
-        /** @property {Number} - Cone for start particle angle */
-        this.particleConeAngle = particleConeAngle;
-        /** @property {Number} - How quick to fade in particles at start/end in percent of life */
-        this.fadeRate          = fadeRate;
-        /** @property {Number} - Apply extra randomness percent */
-        this.randomness        = randomness;
-        /** @property {Boolean} - Do particles collide against tiles */
-        this.collideTiles      = collideTiles;
-        /** @property {Boolean} - Should particles use addtive blend */
-        this.additive          = additive;
-        /** @property {Boolean} - Should it be in local space of emitter */
-        this.localSpace        = localSpace;
-        /** @property {Number} - If non zero the partile is drawn as a trail, stretched in the drection of velocity */
-        this.trailScale        = 0;
-        /** @property {Function}   - Callback when particle is destroyed */
-        this.particleDestroyCallback = undefined;
-        /** @property {Function}   - Callback when particle is created */
-        this.particleCreateCallback = undefined;
-        /** @property {Number} - Track particle emit time */
-        this.emitTimeBuffer    = 0;
-    }
-    
-    /** Update the emitter to spawn particles, called automatically by engine once each frame */
-    update()
-    {
-        // only do default update to apply parent transforms
-        this.parent && super.update();
-
-        // update emitter
-        if (!this.emitTime || this.getAliveTime() <= this.emitTime)
-        {
-            // emit particles
-            if (this.emitRate * particleEmitRateScale)
-            {
-                const rate = 1/this.emitRate/particleEmitRateScale;
-                for (this.emitTimeBuffer += timeDelta; this.emitTimeBuffer > 0; this.emitTimeBuffer -= rate)
-                    this.emitParticle();
-            }
-        }
-        else
-            this.destroy();
-
-    }
-
-    /** Spawn one particle
-     *  @return {Particle} */
-    emitParticle()
-    {
-        // spawn a particle
-        let pos = typeof this.emitSize === 'number' ? // check if number was used
-            randInCircle(this.emitSize/2)              // circle emitter
-            : vec2(rand(-.5,.5), rand(-.5,.5))         // box emitter
-                .multiply(this.emitSize).rotate(this.angle)
-        let angle = rand(this.particleConeAngle, -this.particleConeAngle);
-        if (!this.localSpace)
-        {
-            pos = this.pos.add(pos);
-            angle += this.angle;
-        }
-
-        // randomness scales each paremeter by a percentage
-        const randomness = this.randomness;
-        const randomizeScale = (v)=> v + v*rand(randomness, -randomness);
-
-        // randomize particle settings
-        const particleTime  = randomizeScale(this.particleTime);
-        const sizeStart     = randomizeScale(this.sizeStart);
-        const sizeEnd       = randomizeScale(this.sizeEnd);
-        const speed         = randomizeScale(this.speed);
-        const angleSpeed    = randomizeScale(this.angleSpeed) * randSign();
-        const coneAngle     = rand(this.emitConeAngle, -this.emitConeAngle);
-        const colorStart    = randColor(this.colorStartA, this.colorStartB, this.randomColorLinear);
-        const colorEnd      = randColor(this.colorEndA,   this.colorEndB, this.randomColorLinear);
-        const velocityAngle = this.localSpace ? coneAngle : this.angle + coneAngle;
-        
-        // build particle
-        const particle = new Particle(pos, this.tileInfo, angle, colorStart, colorEnd, particleTime, sizeStart, sizeEnd, this.fadeRate, this.additive,  this.trailScale, this.localSpace && this, this.particleDestroyCallback);
-        particle.velocity      = vec2().setAngle(velocityAngle, speed);
-        particle.angleVelocity = angleSpeed;
-        particle.fadeRate      = this.fadeRate;
-        particle.damping       = this.damping;
-        particle.angleDamping  = this.angleDamping;
-        particle.elasticity    = this.elasticity;
-        particle.friction      = this.friction;
-        particle.gravityScale  = this.gravityScale;
-        particle.collideTiles  = this.collideTiles;
-        particle.renderOrder   = this.renderOrder;
-        particle.mirror        = !!randInt(2);
-
-        // call particle create callaback
-        this.particleCreateCallback && this.particleCreateCallback(particle);
-
-        // return the newly created particle
-        return particle;
-    }
-
-    // Particle emitters are not rendered, only the particles are
-    render() {}
-}
-
-///////////////////////////////////////////////////////////////////////////////
-/**
- * Particle Object - Created automatically by Particle Emitters
- * @extends EngineObject
- */
-class Particle extends EngineObject
-{
-    /**
-     * Create a particle with the given shis.colorStart = undefined;ettings
-     * @param {Vector2}  position     - World space position of the particle
-     * @param {TileInfo} [tileInfo]   - Tile info to render particles
-     * @param {Number}   [angle]      - Angle to rotate the particle
-     * @param {Color}    [colorStart] - Color at start of life
-     * @param {Color}    [colorEnd]   - Color at end of life
-     * @param {Number}   [lifeTime]   - How long to live for
-     * @param {Number}   [sizeStart]  - Angle to rotate the particle
-     * @param {Number}   [sizeEnd]    - Angle to rotate the particle
-     * @param {Number}   [fadeRate]   - Angle to rotate the particle
-     * @param {Boolean}  [additive]   - Angle to rotate the particle
-     * @param {Number}   [trailScale] - If a trail, how long to make it
-     * @param {ParticleEmitter} [localSpaceEmitter] - Parent emitter if local space
-     * @param {Function}  [destroyCallback] - Called when particle dies
-     */
-    constructor(position, tileInfo, angle, colorStart, colorEnd, lifeTime, sizeStart, sizeEnd, fadeRate, additive, trailScale, localSpaceEmitter, destroyCallback
-    )
-    { 
-        super(position, vec2(), tileInfo, angle); 
-    
-        /** @property {Color} - Color at start of life */
-        this.colorStart = colorStart;
-        /** @property {Color} - Calculated change in color */
-        this.colorEndDelta = colorEnd.subtract(colorStart);
-        /** @property {Number} - How long to live for */
-        this.lifeTime = lifeTime;
-        /** @property {Number} - Size at start of life */
-        this.sizeStart = sizeStart;
-        /** @property {Number} - Calculated change in size */
-        this.sizeEndDelta = sizeEnd - sizeStart;
-        /** @property {Number} - How quick to fade in/out */
-        this.fadeRate = fadeRate;
-        /** @property {Boolean} - Is it additive */
-        this.additive = additive;
-        /** @property {Number} - If a trail, how long to make it */
-        this.trailScale = trailScale;
-        /** @property {ParticleEmitter} - Parent emitter if local space */
-        this.localSpaceEmitter = localSpaceEmitter;
-        /** @property {Function} - Called when particle dies */
-        this.destroyCallback = destroyCallback;
-    }
-
-    /** Render the particle, automatically called each frame, sorted by renderOrder */
-    render()
-    {
-        // modulate size and color
-        const p = min((time - this.spawnTime) / this.lifeTime, 1);
-        const radius = this.sizeStart + p * this.sizeEndDelta;
-        const size = vec2(radius);
-        const fadeRate = this.fadeRate/2;
-        const color = new Color(
-            this.colorStart.r + p * this.colorEndDelta.r,
-            this.colorStart.g + p * this.colorEndDelta.g,
-            this.colorStart.b + p * this.colorEndDelta.b,
-            (this.colorStart.a + p * this.colorEndDelta.a) * 
-             (p < fadeRate ? p/fadeRate : p > 1-fadeRate ? (1-p)/fadeRate : 1)); // fade alpha
-
-        // draw the particle
-        this.additive && setBlendMode(true);
-
-        let pos = this.pos, angle = this.angle;
-        if (this.localSpaceEmitter)
-        {
-            // in local space of emitter
-            pos = this.localSpaceEmitter.pos.add(pos.rotate(-this.localSpaceEmitter.angle)); 
-            angle += this.localSpaceEmitter.angle;
-        }
-        if (this.trailScale)
-        {
-            // trail style particles
-            let velocity = this.velocity;
-            if (this.localSpaceEmitter)
-                velocity = velocity.rotate(-this.localSpaceEmitter.angle);
-            const speed = velocity.length();
-            if (speed)
-            {
-                const direction = velocity.scale(1/speed);
-                const trailLength = speed * this.trailScale;
-                size.y = max(size.x, trailLength);
-                angle = direction.angle();
-                drawTile(pos.add(direction.multiply(vec2(0,-trailLength/2))), size, this.tileInfo, color, angle, this.mirror);
-            }
-        }
-        else
-            drawTile(pos, size, this.tileInfo, color, angle, this.mirror);
-        this.additive && setBlendMode();
-
-        if (p == 1)
-        {
-            // destroy particle when it's time runs out
-            this.color = color;
-            this.size = size;
-            this.destroyCallback && this.destroyCallback(this);
-            this.destroyed = 1;
-        }
-    }
-}
 
 /**
  * LittleJS WebGL Interface
@@ -3698,9 +2796,6 @@ function glCompileShader(source, type)
     glContext.shaderSource(shader, source);
     glContext.compileShader(shader);
 
-    // check for errors
-    if (debug && !glContext.getShaderParameter(shader, gl_COMPILE_STATUS))
-        throw glContext.getShaderInfoLog(shader);
     return shader;
 }
 
@@ -3717,10 +2812,7 @@ function glCreateProgram(vsSource, fsSource)
     glContext.attachShader(program, glCompileShader(fsSource, gl_FRAGMENT_SHADER));
     glContext.linkProgram(program);
 
-    // check for errors
-    if (debug && !glContext.getProgramParameter(program, gl_LINK_STATUS))
-        throw glContext.getProgramInfoLog(program);
-    return program;
+     return program;
 }
 
 /** Create WebGL texture from an image and init the texture settings
@@ -3756,8 +2848,6 @@ function glFlush()
     // draw all the sprites in the batch and reset the buffer
     glContext.bufferSubData(gl_ARRAY_BUFFER, 0, glPositionData);
     glContext.drawArraysInstanced(gl_TRIANGLE_STRIP, 0, 4, glInstanceCount);
-    if (showWatermark)
-        drawCount += glInstanceCount;
     glInstanceCount = 0;
     glBatchAdditive = glAdditive;
 }
@@ -3957,17 +3047,6 @@ gl_INSTANCE_BUFFER_SIZE = gl_MAX_INSTANCES * gl_INSTANCE_BYTE_STRIDE;
 
 
 
-/** Name of engine
- *  @type {String}
- *  @default
- *  @memberof Engine */
-const engineName = 'LittleJS';
-
-/** Version of engine
- *  @type {String}
- *  @default
- *  @memberof Engine */
-const engineVersion = '1.9.5';
 
 /** Frames per second to update
  *  @type {Number}
@@ -4051,16 +3130,9 @@ function engineInit(gameInit, gameUpdate, gameUpdatePost, gameRender, gameRender
         // update time keeping
         let frameTimeDeltaMS = frameTimeMS - frameTimeLastMS;
         frameTimeLastMS = frameTimeMS;
-        if (debug || showWatermark)
-            averageFPS = lerp(.05, averageFPS, 1e3/(frameTimeDeltaMS||1));
-        const debugSpeedUp   = debug && keyIsDown('Equal'); // +
-        const debugSpeedDown = debug && keyIsDown('Minus'); // -
-        if (debug) // +/- to speed/slow time
-            frameTimeDeltaMS *= debugSpeedUp ? 5 : debugSpeedDown ? .2 : 1;
         timeReal += frameTimeDeltaMS / 1e3;
         frameTimeBufferMS += paused ? 0 : frameTimeDeltaMS;
-        if (!debugSpeedUp)
-            frameTimeBufferMS = min(frameTimeBufferMS, 50); // clamp in case of slow framerate
+        frameTimeBufferMS = min(frameTimeBufferMS, 50); // clamp in case of slow framerate
         updateCanvas();
 
         if (paused)
@@ -4112,22 +3184,6 @@ function engineInit(gameInit, gameUpdate, gameUpdatePost, gameRender, gameRender
         //medalsRender();
         //touchGamepadRender();
         glEnable && glCopyToContext(mainContext);
-
-        if (showWatermark)
-        {
-            // update fps
-            overlayContext.textAlign = 'right';
-            overlayContext.textBaseline = 'top';
-            overlayContext.font = '1em monospace';
-            overlayContext.fillStyle = '#000';
-            const text = engineName + ' ' + 'v' + engineVersion + ' / ' 
-                + drawCount + ' / ' + engineObjects.length + ' / ' + averageFPS.toFixed(1)
-                + (glEnable ? ' GL' : ' 2D') ;
-            overlayContext.fillText(text, mainCanvas.width-3, 3);
-            overlayContext.fillStyle = '#fff';
-            overlayContext.fillText(text, mainCanvas.width-2, 2);
-            drawCount = 0;
-        }
 
         requestAnimationFrame(engineUpdate);
     }
@@ -4200,20 +3256,6 @@ function engineInit(gameInit, gameUpdate, gameUpdatePost, gameRender, gameRender
         })
     );
 
-    // draw splash screen
-    showSplashScreen && promises.push(new Promise(resolve => 
-    {
-        let t = 0;
-        console.log(`${engineName} Engine v${engineVersion}`);
-        updateSplash();
-        function updateSplash()
-        {
-            clearInput();
-            drawEngineSplashScreen(t+=.01);
-            t>1 ? resolve() : setTimeout(updateSplash, 16);
-        }
-    }));
-
     // load all of the images
     Promise.all(promises).then(()=> 
     {
@@ -4246,234 +3288,3 @@ function engineObjectsUpdate()
     // remove destroyed objects
     engineObjects = engineObjects.filter(o=>!o.destroyed);
 }
-
-/** Destroy and remove all objects
- *  @memberof Engine */
-function engineObjectsDestroy()
-{
-    for (const o of engineObjects)
-        o.parent || o.destroy();
-    engineObjects = engineObjects.filter(o=>!o.destroyed);
-}
-
-/** Collects all object within a given area
- *  @param {Vector2} [pos]                 - Center of test area, or undefined for all objects
- *  @param {Number|Vector2} [size]         - Radius of circle if float, rectangle size if Vector2
- *  @param {Array} [objects=engineObjects] - List of objects to check
- *  @return {Array}                        - List of collected objects
- *  @memberof Engine */
-function engineObjectsCollect(pos, size, objects=engineObjects)
-{
-    const collectedObjects = [];
-    if (!pos) // all objects
-    {
-        for (const o of objects)
-            collectedObjects.push(o);
-    }
-    else if (size instanceof Vector2)  // bounding box test
-    {
-        for (const o of objects)
-            isOverlapping(pos, size, o.pos, o.size) && collectedObjects.push(o);
-    }
-    else  // circle test
-    {
-        const sizeSquared = size*size;
-        for (const o of objects)
-            pos.distanceSquared(o.pos) < sizeSquared && collectedObjects.push(o);
-    }
-    return collectedObjects;
-}
-
-/** Triggers a callback for each object within a given area
- *  @param {Vector2} [pos]                 - Center of test area, or undefined for all objects
- *  @param {Number|Vector2} [size]         - Radius of circle if float, rectangle size if Vector2
- *  @param {Function} [callbackFunction]   - Calls this function on every object that passes the test
- *  @param {Array} [objects=engineObjects] - List of objects to check
- *  @memberof Engine */
-function engineObjectsCallback(pos, size, callbackFunction, objects=engineObjects)
-{ engineObjectsCollect(pos, size, objects).forEach(o => callbackFunction(o)); }
-
-/** Return a list of objects intersecting a ray
- *  @param {Vector2} start
- *  @param {Vector2} end
- *  @param {Array} [objects=engineObjects] - List of objects to check
- *  @return {Array} - List of objects hit
- *  @memberof Engine */
-function engineObjectsRaycast(start, end, objects=engineObjects)
-{
-    const hitObjects = [];
-    for (const o of objects)
-    {
-        if (o.collideRaycast && isIntersecting(start, end, o.pos, o.size))
-        {
-            hitObjects.push(o);
-        }
-    }
-
-    return hitObjects;
-}
-
-///////////////////////////////////////////////////////////////////////////////
-// LittleJS splash screen and logo
-
-/*function drawEngineSplashScreen(t)
-{
-    const x = overlayContext;
-    const w = overlayCanvas.width = innerWidth;
-    const h = overlayCanvas.height = innerHeight;
-
-    {
-        // background
-        const p3 = percent(t, 1, .8);
-        const p4 = percent(t, 0, .5);
-        const g = x.createRadialGradient(w/2,h/2,0,w/2,h/2,Math.hypot(w,h)*.7);
-        g.addColorStop(0,hsl(0,0,lerp(p4,0,p3/2),p3).toString());
-        g.addColorStop(1,hsl(0,0,0,p3).toString());
-        x.save();
-        x.fillStyle = g;
-        x.fillRect(0,0,w,h);
-    }
-
-    // draw LittleJS logo...
-    const rect = (X, Y, W, H, C)=>
-    {
-        x.beginPath();
-        x.rect(X,Y,W,C?H*p:H);
-        x.fillStyle = C;
-        C ? x.fill() : x.stroke();
-    };
-    const line = (X, Y, Z, W)=>
-    {
-        x.beginPath();
-        x.lineTo(X,Y);
-        x.lineTo(Z,W);
-        x.stroke();
-    };
-    const circle = (X, Y, R, A=0, B=2*PI, C, F)=>
-    {
-        const D = (A+B)/2, E = p*(B-A)/2;
-        x.beginPath();
-        F && x.lineTo(X,Y);
-        x.arc(X,Y,R,D-E,D+E);
-        x.fillStyle = C;
-        C ? x.fill() : x.stroke();
-    };
-    const color = (c=0, l=0) =>
-        hsl([.98,.3,.57,.14][c%4]-10,.8,[0,.3,.5,.8,.9][l]).toString();
-    const alpha = wave(1,1,t);
-    const p = percent(alpha, .1, .5);
-
-    // setup
-    x.translate(w/2,h/2);
-    const size = min(6, min(w,h)/99); // fit to screen
-    x.scale(size,size);
-    x.translate(-40,-35);
-    x.lineJoin = x.lineCap = 'round';
-    x.lineWidth = .1 + p*1.9;
-
-    // drawing effect
-    const p2 = percent(alpha,.1,1);
-    x.setLineDash([99*p2,99]);
-
-    // cab top
-    rect(7,17,18,-8,color(2,2));
-    rect(7,9,18,4,color(2,3));
-    rect(25,9,8,8,color(2,1));
-    rect(25,9,-18,8);
-    rect(25,9,8,8);
-
-    // cab
-    rect(25,17,7,22,color());
-    rect(11,40,14,-23,color(1,1));
-    rect(11,17,14,17,color(1,2));
-    rect(11,17,14,9,color(1,3));
-    rect(15,31,6,-9,color(2,2));
-    circle(15,23,5,0,PI/2,color(2,4),1);
-    rect(25,17,-14,23);
-    rect(21,22,-6,9);
-
-    // little stack
-    rect(37,14,9,6,color(3,2));
-    rect(37,14,4.5,6,color(3,3));
-    rect(37,14,9,6);
-
-    // big stack
-    rect(50,20,10,-8,color(0,1))
-    rect(50,20,6.5,-8,color(0,2))
-    rect(50,20,3.5,-8,color(0,3))
-    rect(50,20,10,-8)
-    circle(55,2,11.4,.5,PI-.5,color(3,3))
-    circle(55,2,11.4,.5,PI/2,color(3,2),1)
-    circle(55,2,11.4,.5,PI-.5)
-    rect(45,7,20,-7,color(0,2))
-    rect(45,-1,20,4,color(0,3))
-    rect(45,-1,20,8)
-
-    // engine
-    for (let i=5; i--;)
-    {
-        // stagger radius to fix slight seam
-        circle(60-i*6,30, 9.9,0,2*PI,color(i+2,3));
-        circle(60-i*6,30,10.0,-.5,PI+.5,color(i+2,2));
-        circle(60-i*6,30,10.1,.5,PI-.5,color(i+2,1));
-    }
-
-    // engine outline
-    circle(36,30,10,PI/2,PI*3/2);
-    circle(48,30,10,PI/2,PI*3/2);
-    circle(60,30,10);
-    line(36,20,60,20);
-
-    // engine front light
-    circle(60,30,4,PI,3*PI,color(3,2)); 
-    circle(60,30,4,PI,2*PI,color(3,3));
-    circle(60,30,4,PI,3*PI);
-
-    // front brush
-    for (let i=6; i--;)
-    {
-        x.beginPath();
-        x.lineTo(53,54);
-        x.lineTo(53,40);
-        x.lineTo(53+(1+i*2.9)*p,40);
-        x.lineTo(53+(4+i*3.5)*p,54);
-        x.fillStyle = color(0,i%2+2);
-        x.fill();
-        i%2 && x.stroke();
-    }
-
-    // wheels
-    rect(6,40,5,5);
-    rect(6,40,5,5,color());
-    rect(15,54,38,-14,color());
-    for (let i=3; i--;)
-    for (let j=2; j--;)
-    {
-        circle(15*i+15,47,j?7:1,PI,3*PI,color(i,3));
-        x.stroke();
-        circle(15*i+15,47,j?7:1,0,PI,color(i,2));
-        x.stroke();
-    }
-    line(6,40,68,40); // center
-    line(77,54,4,54); // bottom
-
-    // draw engine name
-    const s = engineName;
-    x.font = '900 16px arial';
-    x.textAlign = 'center';
-    x.textBaseline = 'top';
-    x.lineWidth = .1+p*3.9;
-    let w2 = 0;
-    for (let i=0; i<s.length; ++i)
-        w2 += x.measureText(s[i]).width;
-    for (let j=2; j--;)
-    for (let i=0, X=41-w2/2; i<s.length; ++i)
-    {
-        x.fillStyle = color(i,2);
-        const w = x.measureText(s[i]).width;
-        x[j?'strokeText':'fillText'](s[i],X+w/2,55.5,17*p);
-        X += w;
-    }
-    
-    x.restore();
-}*/
