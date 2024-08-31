@@ -75,110 +75,30 @@ function gameRenderPost() {
 	// wood
 	let uiPos = screenToWorld(vec2(dx, 64));
 
-	drawTile(
-		uiPos,
-		vec2(4, 2),
-		tile(vec2(0, 48), vec2(48, 24))
-	);
-	drawTile(
-		uiPos.subtract(vec2(0.8, 0)),
-		vec2(1),
-		tile(36)
-	);
-
-	GLOBAL.uiFont.drawText(
-		'' + GLOBAL.wood,
-		uiPos.add(vec2(0.8, 0.2)),
-		0.08,
-		true
-	);
+	drawUiBox(uiPos, tile(36), GLOBAL.wood);
 
 	const manaPos = screenToWorld(vec2(innerWidth - dx, 64));;
 	// mana
-	drawTile(
-		manaPos,
-		vec2(4, 2),
-		tile(vec2(0, 48), vec2(48, 24))
-	);
-	drawTile(
-		manaPos.subtract(vec2(0.8, 0)),
-		vec2(1),
-		tile(45),
-		new Color(1, 1, 1, 0.7)
-	);
-
-	GLOBAL.uiFont.drawText(
-		'' + GLOBAL.mana,
-		manaPos.add(vec2(0.8, 0.2)),
-		0.08,
-		true
-	);
+	drawUiBox(manaPos, tile(45), GLOBAL.mana);
 
 	// stone
 	uiPos = uiPos.subtract(vec2(0, 2));
 
-	drawTile(
-		uiPos,
-		vec2(4, 2),
-		tile(vec2(0, 48), vec2(48, 24))
-	);
-	drawTile(
-		uiPos.subtract(vec2(0.8, 0)),
-		vec2(1),
-		tile(44)
-	);
-
-	GLOBAL.uiFont.drawText(
-		'' + GLOBAL.stone,
-		uiPos.add(vec2(0.8, 0.2)),
-		0.08,
-		true
-	);
+	drawUiBox(uiPos, tile(44), GLOBAL.stone);
+	
 
 	// food
 	uiPos = uiPos.subtract(vec2(0, 2));
 
-	drawTile(
-		uiPos,
-		vec2(4, 2),
-		tile(vec2(0, 48), vec2(48, 24))
-	);
-	drawTile(
-		uiPos.subtract(vec2(0.8, 0)),
-		vec2(1),
-		tile(37),
-		new Color(1, 1, 1, 0.7)
-	);
+	drawUiBox(uiPos, tile(37), GLOBAL.food);
 
-	GLOBAL.uiFont.drawText(
-		'' + GLOBAL.food,
-		uiPos.add(vec2(0.8, 0.2)),
-		0.08,
-		true
-	);
 
 
 	// population
 	uiPos = uiPos.subtract(vec2(0, 2));
 
-	drawTile(
-		uiPos,
-		vec2(4, 2),
-		tile(vec2(0, 48), vec2(48, 24))
-	);
-	drawTile(
-		uiPos.subtract(vec2(1, 0)),
-		vec2(1),
-		tile(4),
-		new Color(1, 1, 1, 0.7)
-	);
+	drawUiBox(uiPos, tile(4), GLOBAL.units.length + '/' + GLOBAL.getSupportedPop());
 
-	GLOBAL.uiFont.drawText(
-		'' + GLOBAL.units.length + '/' + GLOBAL.getSupportedPop(),
-		uiPos.add(vec2(0.6, 0.2)),
-		0.08,
-		true
-	);
 
 	//  ui menus
 	if (GLOBAL.state == DEFS.STATES.BUILD_MENU) {
@@ -231,4 +151,28 @@ function gameRenderPost() {
 			true
 		);
 	}
+}
+
+function drawUiBox(uiPos, tileInfo, text) {
+	
+	drawTile(
+		uiPos,
+		vec2(4, 2),
+		tile(vec2(0, 48), vec2(48, 24))
+	);
+	drawTile(
+		uiPos.subtract(vec2(0.8, 0)),
+		vec2(1),
+		tileInfo,
+		new Color(1, 1, 1, 0.7)
+	);
+
+	GLOBAL.uiFont.drawText(
+		text,
+		uiPos.add(vec2(0.8, 0.2)),
+		0.08,
+		true
+	);
+
+
 }
