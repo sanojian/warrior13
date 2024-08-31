@@ -13,6 +13,15 @@ function gameRenderPost() {
 
 		return;
 	}
+	else if (GLOBAL.state == DEFS.STATES.GAME_WON) {
+
+		GLOBAL.uiFont.drawText(
+			'You Have Defeated\nthe "heroes"!',
+			screenToWorld(vec2(innerWidth / 2, innerHeight / 2)),
+			0.12,
+			true
+		);
+	}
 
 	if (GLOBAL.state == DEFS.STATES.BUILD_HOUSE
 		|| GLOBAL.state == DEFS.STATES.BUILD_BARRACKS
@@ -207,7 +216,7 @@ function gameRenderPost() {
 	// invasion timer
 	const countdown = Math.ceil(-GLOBAL.warriorTimer.valueOf());
 
-	if (countdown < 31) {
+	if (GLOBAL.warriorIndex < 12 && countdown < 31) {
 		GLOBAL.uiFont.drawText(
 			DEFS.WARRIORS[GLOBAL.warriorIndex].from + ' ' + countdown,
 			screenToWorld(vec2(innerWidth / 2, 24)),

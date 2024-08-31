@@ -128,6 +128,13 @@ function gameUpdate() {
 		return;
 	}
 
+	if (GLOBAL.warriorIndex > 11 && !GLOBAL.enemies.length) {
+		// game is won
+		GLOBAL.state = DEFS.STATES.GAME_WON;
+
+		return;
+	}
+
 	if (GLOBAL.state == DEFS.STATES.BUILD_HOUSE || GLOBAL.state == DEFS.STATES.BUILD_BARRACKS  || GLOBAL.state == DEFS.STATES.BUILD_FARM || GLOBAL.state == DEFS.STATES.BUILD_WALL) {
 		// building
 
@@ -198,11 +205,13 @@ function gameUpdate() {
 		
 		if (GLOBAL.warriorIndex < 12) {
 			GLOBAL.warriorTimer.set(90);
-			GLOBAL.warriorIndex++;
+			GLOBAL.warriorTimer.set(1);
 		}
 		else {
 			GLOBAL.warriorTimer.unset();
 		}
+
+		GLOBAL.warriorIndex++;
 	}
 
 }
