@@ -30,6 +30,7 @@ class Building_TownHall extends Building {
 
 	destroy() {
 		// end game
+		GLOBAL.state = DEFS.STATES.GAME_LOST;
 
 		super.destroy();
 	}

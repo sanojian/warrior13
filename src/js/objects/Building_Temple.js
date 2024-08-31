@@ -7,6 +7,8 @@ class Building_Temple extends Building {
 
 		GLOBAL.mapGrid[pos.y][pos.x] = this;
 
+		this.hitPoints = 18;
+		this.maxHitPoints = 18;
 	}
 
 	handleClick(selectedUnits) {

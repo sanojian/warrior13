@@ -2,6 +2,18 @@ function gameRenderPost() {
 	
 	GLOBAL.vfxMan.render();
 	
+	if (GLOBAL.state == DEFS.STATES.GAME_LOST) {
+
+		GLOBAL.uiFont.drawText(
+			'You Have Lost\nClick to retry',
+			screenToWorld(vec2(innerWidth / 2, innerHeight / 2)),
+			0.12,
+			true
+		);
+
+		return;
+	}
+
 	if (GLOBAL.state == DEFS.STATES.BUILD_HOUSE
 		|| GLOBAL.state == DEFS.STATES.BUILD_BARRACKS
 		|| GLOBAL.state == DEFS.STATES.BUILD_FARM

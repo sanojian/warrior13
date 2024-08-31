@@ -16,6 +16,8 @@ const DEFS = {
 		TRAIN_MENU: 5,
 		BUILD_FARM: 6,
 		BUILD_WALL: 7,
+		GAME_LOST: 8,
+		GAME_WON: 9
 	},
 
 	COLORS: {

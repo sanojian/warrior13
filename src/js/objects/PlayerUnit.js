@@ -59,7 +59,7 @@ class PlayerUnit extends Unit {
 			shelter: ['shellta', 'safety'],
 			move: ['goin', 'yep?', 'k'],
 			farm: ['fooda', 'grub', 'k'],
-			pray: ['woah low low']
+			pray: ['woah low, low', 'ooh gah']
 		};
 
 		if (order && possibleSpeak[order]) {

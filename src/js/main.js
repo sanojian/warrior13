@@ -118,6 +118,16 @@ function gameInit() {
 }
 function gameUpdate() {
 
+	if (GLOBAL.state == DEFS.STATES.GAME_LOST) {
+
+		if (mouseIsDown(0)) {
+			clearInput();
+			location.reload();
+		}
+
+		return;
+	}
+
 	if (GLOBAL.state == DEFS.STATES.BUILD_HOUSE || GLOBAL.state == DEFS.STATES.BUILD_BARRACKS  || GLOBAL.state == DEFS.STATES.BUILD_FARM || GLOBAL.state == DEFS.STATES.BUILD_WALL) {
 		// building
 
