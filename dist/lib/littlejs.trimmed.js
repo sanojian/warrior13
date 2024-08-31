@@ -11,28 +11,8 @@
 
 
 let showWatermark = 0;
-let debugKey = '';
 const debug = 0;
-const debugOverlay = 0;
-const debugPhysics = 0;
-const debugParticles = 0;
-const debugRaycast = 0;
-const debugGamepads = 0;
-const debugMedals = 0;
 
-// debug commands are automatically removed from the final build
-function ASSERT          (){}
-function debugInit       (){}
-function debugUpdate     (){}
-function debugRender     (){}
-function debugRect       (){}
-function debugCircle     (){}
-function debugPoint      (){}
-function debugLine       (){}
-function debugAABB       (){}
-function debugText       (){}
-function debugClear      (){}
-function debugSaveCanvas (){}
 /**
  * LittleJS Utility Classes and Functions
  * - General purpose math library
@@ -380,7 +360,6 @@ class Vector2
      *  @return {Vector2} */
     add(v)
     {
-        ASSERT(isVector2(v));
         return new Vector2(this.x + v.x, this.y + v.y);
     }
 
@@ -389,7 +368,6 @@ class Vector2
      *  @return {Vector2} */
     subtract(v)
     {
-        ASSERT(isVector2(v));
         return new Vector2(this.x - v.x, this.y - v.y);
     }
 
@@ -398,7 +376,6 @@ class Vector2
      *  @return {Vector2} */
     multiply(v)
     {
-        ASSERT(isVector2(v));
         return new Vector2(this.x * v.x, this.y * v.y);
     }
 
@@ -407,7 +384,6 @@ class Vector2
      *  @return {Vector2} */
     divide(v)
     {
-        ASSERT(isVector2(v));
         return new Vector2(this.x / v.x, this.y / v.y);
     }
 
@@ -416,7 +392,6 @@ class Vector2
      *  @return {Vector2} */
     scale(s)
     {
-        ASSERT(!isVector2(s));
         return new Vector2(this.x * s, this.y * s);
     }
 
@@ -433,7 +408,6 @@ class Vector2
      * @return {Number} */
     distance(v)
     {
-        ASSERT(isVector2(v));
         return this.distanceSquared(v)**.5;
     }
 
@@ -442,7 +416,6 @@ class Vector2
      * @return {Number} */
     distanceSquared(v)
     {
-        ASSERT(isVector2(v));
         return (this.x - v.x)**2 + (this.y - v.y)**2;
     }
 
@@ -469,7 +442,6 @@ class Vector2
      * @return {Number} */
     dot(v)
     {
-        ASSERT(isVector2(v));
         return this.x*v.x + this.y*v.y;
     }
 
@@ -478,7 +450,6 @@ class Vector2
      * @return {Number} */
     cross(v)
     {
-        ASSERT(isVector2(v));
         return this.x*v.y - this.y*v.x;
     }
 
@@ -511,7 +482,6 @@ class Vector2
      * @param {Number} [length] */
     setDirection(direction, length=1)
     {
-        ASSERT(direction==0 || direction==1 || direction==2 || direction==3);
         return vec2(direction%2 ? direction-1 ? -length : length : 0, 
             direction%2 ? 0 : direction ? -length : length);
     }
@@ -539,7 +509,6 @@ class Vector2
      * @return {Vector2} */
     lerp(v, percent)
     {
-        ASSERT(isVector2(v));
         return this.add(v.subtract(this).scale(clamp(percent)));
     }
 
@@ -548,7 +517,6 @@ class Vector2
      * @return {Boolean} */
     arrayCheck(arraySize)
     {
-        ASSERT(isVector2(arraySize));
         return this.x >= 0 && this.y >= 0 && this.x < arraySize.x && this.y < arraySize.y;
     }
 
@@ -631,7 +599,6 @@ class Color
      * @return {Color} */
     add(c)
     {
-        ASSERT(isColor(c));
         return new Color(this.r+c.r, this.g+c.g, this.b+c.b, this.a+c.a);
     }
 
@@ -640,7 +607,6 @@ class Color
      * @return {Color} */
     subtract(c)
     {
-        ASSERT(isColor(c));
         return new Color(this.r-c.r, this.g-c.g, this.b-c.b, this.a-c.a);
     }
 
@@ -649,7 +615,6 @@ class Color
      * @return {Color} */
     multiply(c)
     {
-        ASSERT(isColor(c));
         return new Color(this.r*c.r, this.g*c.g, this.b*c.b, this.a*c.a);
     }
 
@@ -658,7 +623,6 @@ class Color
      * @return {Color} */
     divide(c)
     {
-        ASSERT(isColor(c));
         return new Color(this.r/c.r, this.g/c.g, this.b/c.b, this.a/c.a);
     }
 
@@ -679,7 +643,6 @@ class Color
      * @return {Color} */
     lerp(c, percent)
     {
-        ASSERT(isColor(c));
         return this.add(c.subtract(this).scale(clamp(percent)));
     }
 
@@ -1226,10 +1189,6 @@ function setSoundDefaultTaper(taper) { soundDefaultTaper = taper; }
  *  @memberof Debug */
 function setShowWatermark(show) { showWatermark = show; }
 
-/** Set key code used to toggle debug mode, Esc by default
- *  @param {String} key
- *  @memberof Debug */
-function setDebugKey(key) { debugKey = key; }
 /** 
  * LittleJS Object System
  */
@@ -1274,9 +1233,6 @@ class EngineObject
     constructor(pos=vec2(), size=vec2(1), tileInfo, angle=0, color, renderOrder=0)
     {
         // set passed in params
-        ASSERT(isVector2(pos) && isVector2(size), 'ensure pos and size are vec2s');
-        ASSERT(typeof tileInfo !== 'number' || !tileInfo, 'old style tile setup');
-
         /** @property {Vector2} - World space position of the object */
         this.pos = pos.copy();
         /** @property {Vector2} - World space width and height of the object */
@@ -1364,8 +1320,6 @@ class EngineObject
         this.angle += this.angleVelocity *= this.angleDamping;
 
         // physics sanity checks
-        ASSERT(this.angleDamping >= 0 && this.angleDamping <= 1);
-        ASSERT(this.damping >= 0 && this.damping <= 1);
 
         if (!enablePhysicsSolver || !this.mass) // do not update collision for fixed objects
             return;
@@ -1377,7 +1331,6 @@ class EngineObject
             const groundSpeed = this.groundObject.velocity ? this.groundObject.velocity.x : 0;
             this.velocity.x = groundSpeed + (this.velocity.x - groundSpeed) * this.friction;
             this.groundObject = 0;
-            //debugOverlay && debugPhysics && debugPoint(this.pos.subtract(vec2(0,this.size.y/2)), '#0f0');
         }
 
         if (this.collideSolidObjects)
@@ -1411,7 +1364,6 @@ class EngineObject
                     if (o.mass) // push away if not fixed
                         o.velocity = o.velocity.subtract(velocity);
                         
-                    debugOverlay && debugPhysics && debugAABB(this.pos, this.size, o.pos, o.size, '#f00');
                     continue;
                 }
 
@@ -1473,7 +1425,6 @@ class EngineObject
                     else // bounce if other object is fixed
                         this.velocity.x *= -elasticity;
                 }
-                debugOverlay && debugPhysics && debugAABB(this.pos, this.size, o.pos, o.size, '#f0f');
             }
         }
         if (this.collideTiles)
@@ -1569,7 +1520,6 @@ class EngineObject
      *  @param {Number}       [localAngle] */
     addChild(child, localPos=vec2(), localAngle=0)
     {
-        ASSERT(!child.parent && !this.children.includes(child));
         this.children.push(child);
         child.parent = this;
         child.localPos = localPos.copy();
@@ -1580,7 +1530,6 @@ class EngineObject
      *  @param {EngineObject} child */
     removeChild(child)
     {
-        ASSERT(child.parent == this && this.children.includes(child));
         this.children.splice(this.children.indexOf(child), 1);
         child.parent = 0;
     }
@@ -1592,8 +1541,6 @@ class EngineObject
      *  @param {Boolean} [collideRaycast]      - Does it collide with raycasts? */
     setCollision(collideSolidObjects=true, isSolid=true, collideTiles=true, collideRaycast=true)
     {
-        ASSERT(collideSolidObjects || !isSolid, 'solid objects must be set to collide');
-
         this.collideSolidObjects = collideSolidObjects;
         this.isSolid = isSolid;
         this.collideTiles = collideTiles;
@@ -1700,7 +1647,6 @@ function tile(pos=vec2(), size=tileSizeDefault, textureIndex=0)
     // if size is a number, make it a vector
     if (typeof size === 'number')
     {
-        ASSERT(size > 0);
         size = vec2(size);
     }
 
@@ -1708,7 +1654,6 @@ function tile(pos=vec2(), size=tileSizeDefault, textureIndex=0)
     if (typeof pos === 'number')
     {
         const textureInfo = textureInfos[textureIndex];
-        ASSERT(textureInfo, 'Texture not loaded');
         const cols = textureInfo.size.x / size.x |0;
         pos = vec2((pos%cols)*size.x, (pos/cols|0)*size.y);
     }
@@ -1750,7 +1695,6 @@ class TileInfo
     */
     frame(frame)
     {
-        ASSERT(typeof frame == 'number');
         return this.offset(vec2(frame*this.size.x, 0));
     }
 
@@ -1829,10 +1773,6 @@ function getCameraSize() { return mainCanvasSize.scale(1/cameraScale); }
 function drawTile(pos, size=vec2(1), tileInfo, color=new Color,
     angle=0, mirror, additiveColor=new Color(0,0,0,0), useWebGL=glEnable, screenSpace, context)
 {
-    ASSERT(!context || !useWebGL, 'context only supported in canvas 2D mode'); 
-    ASSERT(typeof tileInfo !== 'number' || !tileInfo, 
-        'this is an old style calls, to fix replace it with tile(tileIndex, tileSize)');
-
     const textureInfo = tileInfo && tileInfo.getTextureInfo();
     if (useWebGL)
     {
@@ -1952,7 +1892,6 @@ function drawCanvas2D(pos, size, angle, mirror, drawFunction, screenSpace, conte
  *  @memberof Draw */
 function setBlendMode(additive, useWebGL=glEnable, context)
 {
-    ASSERT(!context || !useWebGL, 'context only supported in canvas 2D mode');
     if (useWebGL)
         glAdditive = additive;
     else
@@ -2135,7 +2074,6 @@ function toggleFullscreen()
  *  @memberof Input */
 function keyIsDown(key, device=0)
 { 
-    ASSERT(device > 0 || typeof key !== 'number' || key < 3, 'use code string for keyboard');
     return inputData[device] && !!(inputData[device][key] & 1); 
 }
 
@@ -2146,7 +2084,6 @@ function keyIsDown(key, device=0)
  *  @memberof Input */
 function keyWasPressed(key, device=0)
 { 
-    ASSERT(device > 0 || typeof key !== 'number' || key < 3, 'use code string for keyboard');
     return inputData[device] && !!(inputData[device][key] & 2); 
 }
 
@@ -2157,7 +2094,6 @@ function keyWasPressed(key, device=0)
  *  @memberof Input */
 function keyWasReleased(key, device=0)
 { 
-    ASSERT(device > 0 || typeof key !== 'number' || key < 3, 'use code string for keyboard');
     return inputData[device] && !!(inputData[device][key] & 4);
 }
 
@@ -3014,8 +2950,6 @@ function tileCollisionRaycast(posStart, posEnd, object)
         const tileData = getTileCollisionData(pos);
         if (tileData && (!object || object.collideWithTile(tileData, pos)))
         {
-            debugRaycast && debugLine(posStart, posEnd, '#f00', .02);
-            debugRaycast && debugPoint(pos.add(vec2(.5)), '#ff0');
             return pos.add(vec2(.5));
         }
 
@@ -3030,7 +2964,6 @@ function tileCollisionRaycast(posStart, posEnd, object)
             pos.x += sign(delta.x), xi += unit.x;
     }
 
-    debugRaycast && debugLine(posStart, posEnd, '#00f', .02);
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -3134,8 +3067,6 @@ class TileLayer extends EngineObject
     // Render the tile layer, called automatically by the engine
     render()
     {
-        ASSERT(mainContext != this.context, 'must call redrawEnd() after drawing tiles');
-
         // flush and copy gl canvas because tile canvas does not use webgl
         glEnable && !glOverlay && !this.isOverlay && glCopyToContext(mainContext);
         
@@ -3193,9 +3124,7 @@ class TileLayer extends EngineObject
     /** Call to end the redraw process */
     redrawEnd()
     {
-        ASSERT(mainContext == this.context, 'must call redrawStart() before drawing tiles');
         glEnable && glCopyToContext(mainContext, true);
-        //debugSaveCanvas(this.canvas);
 
         // set stuff back to normal
         [mainCanvas, mainContext, mainCanvasSize, cameraPos, cameraScale] = this.savedRenderSettings;
@@ -3222,7 +3151,6 @@ class TileLayer extends EngineObject
         if (d.tile != undefined)
         {
             const pos = this.pos.add(layerPos).add(vec2(.5));
-            ASSERT(mainContext == this.context, 'must call redrawStart() before drawing tiles');
             const tileInfo = tile(d.tile, s, this.tileInfo.textureIndex);
             drawTile(pos, vec2(1), tileInfo, d.color, d.direction*PI/2, d.mirror);
         }
@@ -3452,7 +3380,6 @@ class ParticleEmitter extends EngineObject
         else
             this.destroy();
 
-        debugParticles && debugRect(this.pos, vec2(this.emitSize), '#0f0', 0, this.angle);
     }
 
     /** Spawn one particle
@@ -3605,7 +3532,6 @@ class Particle extends EngineObject
         else
             drawTile(pos, size, this.tileInfo, color, angle, this.mirror);
         this.additive && setBlendMode();
-        debugParticles && debugRect(pos, size, '#f005', 0, angle);
 
         if (p == 1)
         {
@@ -3866,8 +3792,6 @@ function glCopyToContext(context, forceDraw=false)
  *  @memberof WebGL */
 function glDraw(x, y, sizeX, sizeY, angle, uv0X, uv0Y, uv1X, uv1Y, rgba, rgbaAdditive=0)
 {
-    ASSERT(typeof rgba == 'number' && typeof rgbaAdditive == 'number', 'invalid color');
-
     // flush if there is not enough room or if different blend mode
     if (glInstanceCount >= gl_MAX_INSTANCES || glBatchAdditive != glAdditive)
         glFlush();
@@ -3898,8 +3822,6 @@ let glPostShader, glPostTexture, glPostIncludeOverlay;
  *  @memberof WebGL */
 function glInitPostProcess(shaderCode, includeOverlay=false)
 {
-    ASSERT(!glPostShader, 'can only have 1 post effects shader');
-
     if (!shaderCode) // default shader pass through
         shaderCode = 'void mainImage(out vec4 c,vec2 p){c=texture(iChannel0,p/iResolution.xy);}';
 
@@ -4110,8 +4032,6 @@ let frameTimeLastMS = 0, frameTimeBufferMS = 0, averageFPS = 0;
  *  @memberof Engine */
 function engineInit(gameInit, gameUpdate, gameUpdatePost, gameRender, gameRenderPost, imageSources=['tiles.png'])
 {
-    ASSERT(Array.isArray(imageSources), 'pass in images as array');
-
     // Called automatically by engine to setup render system
     function enginePreRender()
     {
@@ -4147,7 +4067,6 @@ function engineInit(gameInit, gameUpdate, gameUpdatePost, gameRender, gameRender
         {
             // do post update even when paused
             inputUpdate();
-            debugUpdate();
             gameUpdatePost();
             inputUpdatePost();
         }
@@ -4174,7 +4093,6 @@ function engineInit(gameInit, gameUpdate, gameUpdatePost, gameRender, gameRender
                 engineObjectsUpdate();
 
                 // do post update
-                debugUpdate();
                 gameUpdatePost();
                 inputUpdatePost();
             }
@@ -4193,7 +4111,6 @@ function engineInit(gameInit, gameUpdate, gameUpdatePost, gameRender, gameRender
         glRenderPostProcess();
         //medalsRender();
         //touchGamepadRender();
-        debugRender();
         glEnable && glCopyToContext(mainContext);
 
         if (showWatermark)
@@ -4257,7 +4174,6 @@ function engineInit(gameInit, gameUpdate, gameUpdatePost, gameRender, gameRender
     mainContext = mainCanvas.getContext('2d');
 
     // init stuff and start engine
-    debugInit();
     glEnable && glInit();
 
     // create overlay canvas for hud to appear above gl canvas
@@ -4390,12 +4306,10 @@ function engineObjectsRaycast(start, end, objects=engineObjects)
     {
         if (o.collideRaycast && isIntersecting(start, end, o.pos, o.size))
         {
-            debugRaycast && debugRect(o.pos, o.size, '#f00');
             hitObjects.push(o);
         }
     }
 
-    debugRaycast && debugLine(start, end, hitObjects.length ? '#f00' : '#00f', .02);
     return hitObjects;
 }
 
