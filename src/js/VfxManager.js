@@ -7,7 +7,7 @@ GLOBAL.vfxMan = {
 	sparks: [],
 	heartPlusses: [],
 
-	showArrow: function(origin, destination, timer) {
+	showArrow (origin, destination, timer) {
 
 		const arrow = new EngineObject(
 			origin,
@@ -23,7 +23,7 @@ GLOBAL.vfxMan = {
 		});
 	},
 
-	update: function() {
+	update () {
 		
 		for (let i = 0; i < GLOBAL.vfxMan.arrows.length; i++) {
 			const arrow = GLOBAL.vfxMan.arrows[i];
@@ -40,70 +40,51 @@ GLOBAL.vfxMan = {
 
 	},
 
-	render: function () {
+	render  () {
 		
 		// blood
-		for (let i = 0; i < GLOBAL.vfxMan.bloodDrops.length; i++) {
-			const drop = GLOBAL.vfxMan.bloodDrops[i];
-			drop.pos.x += drop.dx;
-			drop.pos.y += drop.dy;
+		GLOBAL.vfxMan.updateParticles(GLOBAL.vfxMan.bloodDrops, function (drop) {
 			drawRect(drop.pos, vec2(1 / 12), DEFS.COLORS.red);
-			drop.lifetime++;
 			// gravity
 			drop.dy -= 0.002;
-			if (drop.lifetime > 40) {
-				GLOBAL.vfxMan.bloodDrops.splice(i, 1);
-				i--;
-			}
-		}
+		});
 
 		// gas
-		for (let i = 0; i < GLOBAL.vfxMan.gasPlumes.length; i++) {
-			const drop = GLOBAL.vfxMan.gasPlumes[i];
-			drop.pos.x += drop.dx;
-			drop.pos.y += drop.dy / 10;
+		GLOBAL.vfxMan.updateParticles(GLOBAL.vfxMan.gasPlumes, function (drop) {
 			drawRect(drop.pos, vec2(3 / 12), new Color(106 / 255, 190 / 255, 48 / 255, 0.4));
-			drop.lifetime++;
-			// gravity
-			if (drop.lifetime > 40) {
-				GLOBAL.vfxMan.gasPlumes.splice(i, 1);
-				i--;
-			}
-		}
+			drop.pos.y -= drop.dy / 2;
+		});
 
 		// health
-		for (let i = 0; i < GLOBAL.vfxMan.heartPlusses.length; i++) {
-			const drop = GLOBAL.vfxMan.heartPlusses[i];
-			drop.pos.x += drop.dx;
-			drop.pos.y += drop.dy;
+		GLOBAL.vfxMan.updateParticles(GLOBAL.vfxMan.heartPlusses, function (drop) {
 			drawRect(drop.pos, vec2(3 / 12, 1 / 12), new Color(106 / 255, 190 / 255, 48 / 255));
 			drawRect(drop.pos, vec2(1 / 12, 3 / 12), new Color(106 / 255, 190 / 255, 48 / 255));
-			drop.lifetime++;
-			// gravity
-			if (drop.lifetime > 40) {
-				GLOBAL.vfxMan.heartPlusses.splice(i, 1);
-				i--;
-			}
-		}
+		});
 
 
 		// sparks
-		for (let i = 0; i < GLOBAL.vfxMan.sparks.length; i++) {
-			const drop = GLOBAL.vfxMan.sparks[i];
-			drop.pos.x += drop.dx;
-			drop.pos.y += drop.dy;
+		GLOBAL.vfxMan.updateParticles(GLOBAL.vfxMan.sparks, function (drop) {
 			drawRect(drop.pos, vec2(1 / 12), new Color(251 / 255, 242 / 255, 54 / 255));
-			drop.lifetime++;
-			// gravity
-			if (drop.lifetime > 40) {
-				GLOBAL.vfxMan.sparks.splice(i, 1);
-				i--;
-			}
-		}
+		});
 
 	},
 
-	addParticles: function (pos, array) {
+	updateParticles(array, funcDraw) {
+		
+		for (let i = 0; i < array.length; i++) {
+			const drop = array[i];
+			drop.pos.x += drop.dx;
+			drop.pos.y += drop.dy;
+			funcDraw(drop)
+			drop.lifetime++;
+			if (drop.lifetime > 40) {
+				array.splice(i, 1);
+				i--;
+			}
+		}
+	},
+
+	addParticles (pos, array) {
 		
 		const drops = 1 + Math.floor(Math.random() * 4);
 

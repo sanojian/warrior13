@@ -115,6 +115,7 @@ function gameInit() {
 	cameraScale = Math.min(60, 60 * innerWidth / 900);
 
 	GLOBAL.warriorIndex = 0;
+	//GLOBAL.warriorTimer = new Timer(5);
 	GLOBAL.warriorTimer = new Timer(150);
 
 }
@@ -218,6 +219,7 @@ function gameUpdate() {
 
 		
 		if (GLOBAL.warriorIndex < 12) {
+			//GLOBAL.warriorTimer.set(5);
 			GLOBAL.warriorTimer.set(90);
 		}
 		else {

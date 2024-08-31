@@ -31,7 +31,7 @@ const GLOBAL = {
 	messageTimer: new Timer(),
 	message: '',
 
-	countWorkers: function () {
+	countWorkers () {
 
 		let count = 0;
 		for (let i = 0; i < GLOBAL.units.length; i++) {
@@ -42,7 +42,7 @@ const GLOBAL = {
 		return count;
 	},
 
-	getSupportedPop: function () {
+	getSupportedPop () {
 		let supported = 0;
 		for (let i = 0; i < GLOBAL.buildings.length; i++) {
 			const building = GLOBAL.buildings[i];
@@ -52,7 +52,7 @@ const GLOBAL = {
 		return supported;
 	},
 
-	speak: function (phrase, voiceIndex, pitch, rate) {
+	speak (phrase, voiceIndex, pitch, rate) {
 
 		/*if (!GLOBAL.voicesLoaded) {
 			return;
