@@ -109,7 +109,7 @@ class PlayerUnit extends Unit {
 					// TODO: check if temple still exists
 					const chance = (25 - GLOBAL.mana) / 25;
 					if (Math.random() < chance) {
-						zzfx(...[.9, , 600, , , 0, , 3.9, , -1, 650, .05, .04, , , , .08, .84, .18]);
+						zzfx(...[.5, , 600, , , 0, , 3.9, , -1, 650, .05, .04, , , , .08, .84, .18]);
 						GLOBAL.mana++;
 					}
 				}

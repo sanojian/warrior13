@@ -205,7 +205,6 @@ function gameUpdate() {
 		
 		if (GLOBAL.warriorIndex < 12) {
 			GLOBAL.warriorTimer.set(90);
-			GLOBAL.warriorTimer.set(1);
 		}
 		else {
 			GLOBAL.warriorTimer.unset();

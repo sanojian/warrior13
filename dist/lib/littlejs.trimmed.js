@@ -2819,7 +2819,7 @@ function zzfxG
  *  @param {Number} [BPM] - Playback speed of the song in BPM
  *  @return {Array} - Left and right channel sample data
  *  @memberof Audio */
-/*function zzfxM(instruments, patterns, sequence, BPM = 125) 
+function zzfxM(instruments, patterns, sequence, BPM = 125) 
 {
   let i, j, k;
   let instrumentParameters;
@@ -2912,7 +2912,7 @@ function zzfxG
   }
 
   return [leftChannelBuffer, rightChannelBuffer];
-}*/
+}
 /** 
  * LittleJS Tile Layer System
  * - Caches arrays of tiles to off screen canvas for fast rendering

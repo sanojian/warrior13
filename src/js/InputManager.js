@@ -7,6 +7,11 @@ GLOBAL.inputMan = {
 
 			clearInput();
 
+			if (!GLOBAL.musicPlaying) {
+				GLOBAL.music.playMusic(0.6, true);
+				GLOBAL.musicPlaying = true;
+			}
+
 			// check UI
 
 			if (GLOBAL.miniMap.isOver(mousePos.x, mousePos.y)) {
