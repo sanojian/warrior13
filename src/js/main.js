@@ -170,7 +170,8 @@ function gameUpdate() {
 				// hero
 				tileInfo = tile(def.heroTile || 6);
 				size = vec2(def.heroSize || 1.2);
-				hitPoints += GLOBAL.warriorIndex;
+				// king gets double bonus
+				hitPoints += GLOBAL.warriorIndex == 12 ? 24 : GLOBAL.warriorIndex;
 			}
 			let enemy = new Unit_Enemy(vec2(def.enemies[i], def.enemies[i+1]), size, tileInfo, hitPoints);
 			enemy.destination = DEFS.HOME;
