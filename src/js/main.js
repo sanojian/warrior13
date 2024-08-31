@@ -87,6 +87,7 @@ function gameInit() {
 			for (let i = 0; i < GLOBAL.units.length; i++) {
 				const unit = GLOBAL.units[i];
 				if (unit.hitPoints < unit.maxHitPoints) {
+					GLOBAL.vfxMan.addParticles(GLOBAL.units[i].pos, GLOBAL.vfxMan.heartPlusses);
 					unit.hitPoints++;
 				}
 			}

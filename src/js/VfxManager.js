@@ -5,6 +5,7 @@ GLOBAL.vfxMan = {
 	bloodDrops: [],
 	gasPlumes: [],
 	sparks: [],
+	heartPlusses: [],
 
 	showArrow: function(origin, destination, timer) {
 
@@ -69,6 +70,22 @@ GLOBAL.vfxMan = {
 				i--;
 			}
 		}
+
+		// health
+		for (let i = 0; i < GLOBAL.vfxMan.heartPlusses.length; i++) {
+			const drop = GLOBAL.vfxMan.heartPlusses[i];
+			drop.pos.x += drop.dx;
+			drop.pos.y += drop.dy;
+			drawRect(drop.pos, vec2(3 / 12, 1 / 12), new Color(106 / 255, 190 / 255, 48 / 255));
+			drawRect(drop.pos, vec2(1 / 12, 3 / 12), new Color(106 / 255, 190 / 255, 48 / 255));
+			drop.lifetime++;
+			// gravity
+			if (drop.lifetime > 40) {
+				GLOBAL.vfxMan.heartPlusses.splice(i, 1);
+				i--;
+			}
+		}
+
 
 		// sparks
 		for (let i = 0; i < GLOBAL.vfxMan.sparks.length; i++) {
