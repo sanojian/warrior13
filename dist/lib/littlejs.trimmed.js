@@ -532,16 +532,6 @@ class Vector2
  */
 function rgb(r, g, b, a) { return new Color(r, g, b, a); }
 
-/** 
- * Create a color object with HSLA values, white by default
- * @param {Number} [h=0] - hue
- * @param {Number} [s=0] - saturation
- * @param {Number} [l=1] - lightness
- * @param {Number} [a=1] - alpha
- * @return {Color}
- * @memberof Utilities
- */
-function hsl(h, s, l, a) { return new Color().setHSLA(h, s, l, a); }
 
 /** 
  * Check if object is a valid Color
@@ -635,78 +625,6 @@ class Color
         return this.add(c.subtract(this).scale(clamp(percent)));
     }
 
-    /** Sets this color given a hue, saturation, lightness, and alpha
-     * @param {Number} [h] - hue
-     * @param {Number} [s] - saturation
-     * @param {Number} [l] - lightness
-     * @param {Number} [a] - alpha
-     * @return {Color} */
-    setHSLA(h=0, s=0, l=1, a=1)
-    {
-        const q = l < .5 ? l*(1+s) : l+s-l*s, p = 2*l-q,
-            f = (p, q, t)=>
-                (t = ((t%1)+1)%1) < 1/6 ? p+(q-p)*6*t :
-                t < 1/2 ? q :
-                t < 2/3 ? p+(q-p)*(2/3-t)*6 : p;
-                
-        this.r = f(p, q, h + 1/3);
-        this.g = f(p, q, h);
-        this.b = f(p, q, h - 1/3);
-        this.a = a;
-        return this;
-    }
-
-    /** Returns this color expressed in hsla format
-     * @return {Array} */
-    HSLA()
-    {
-        const r = clamp(this.r);
-        const g = clamp(this.g);
-        const b = clamp(this.b);
-        const a = clamp(this.a);
-        const max = Math.max(r, g, b);
-        const min = Math.min(r, g, b);
-        const l = (max + min) / 2;
-        
-        let h = 0, s = 0;
-        if (max != min)
-        {
-            let d = max - min;
-            s = l > .5 ? d / (2 - max - min) : d / (max + min);
-            if (r == max)
-                h = (g - b) / d + (g < b ? 6 : 0);
-            else if (g == max)
-                h = (b - r) / d + 2;
-            else if (b == max)
-                h =  (r - g) / d + 4;
-        }
-
-        return [h / 6, s, l, a];
-    }
-
-    /** Returns a new color that has each component randomly adjusted
-     * @param {Number} [amount]
-     * @param {Number} [alphaAmount]
-     * @return {Color} */
-    mutate(amount=.05, alphaAmount=0) 
-    {
-        return new Color
-        (
-            this.r + rand(amount, -amount),
-            this.g + rand(amount, -amount),
-            this.b + rand(amount, -amount),
-            this.a + rand(alphaAmount, -alphaAmount)
-        ).clamp();
-    }
-
-    /** Returns this color expressed as a hex color code
-     * @param {Boolean} [useAlpha] - if alpha should be included in result
-     * @return {String} */
-    toString(useAlpha = true)      
-    { 
-        const toHex = (c)=> ((c=c*255|0)<16 ? '0' : '') + c.toString(16);
-        return '#' + toHex(this.r) + toHex(this.g) + toHex(this.b) + (useAlpha ? toHex(this.a) : '');
-    }
 
     /** Set this color from a hex code
      * @param {String} hex - html hex code
@@ -1047,26 +965,10 @@ class EngineObject
         this.angleVelocity = 0;
         /** @property {Number}  - Track when object was created  */
         this.spawnTime = time;
-        /** @property {Array}   - List of children of this object */
-        this.children = [];
 
         // parent child system
         /** @property {EngineObject} - Parent of object if in local space  */
         this.parent = undefined;
-        /** @property {Vector2}      - Local position if child */
-        this.localPos = vec2();
-        /** @property {Number}       - Local angle if child  */
-        this.localAngle = 0;
-
-        // collision flags
-        /** @property {Boolean} - Object collides with the tile collision */
-        this.collideTiles = false;
-        /** @property {Boolean} - Object collides with solid objects */
-        this.collideSolidObjects = false;
-        /** @property {Boolean} - Object collides with and blocks other objects */
-        this.isSolid = false;
-        /** @property {Boolean} - Object collides with raycasts */
-        this.collideRaycast = false;
 
         // add to list of objects
         engineObjects.push(this);
@@ -1093,71 +995,16 @@ class EngineObject
         
         // disconnect from parent and destroy chidren
         this.destroyed = 1;
-        this.parent && this.parent.removeChild(this);
-        for (const child of this.children)
-            child.destroy(child.parent = 0);
     }
     
-    /** Called to check if a tile collision should be resolved
-     *  @param {Number}  tileData - the value of the tile at the position
-     *  @param {Vector2} pos      - tile where the collision occured
-     *  @return {Boolean}         - true if the collision should be resolved */
-    collideWithTile(tileData, pos)    { return tileData > 0; }
-
-    /** Called to check if a object collision should be resolved
-     *  @param {EngineObject} object - the object to test against
-     *  @return {Boolean}            - true if the collision should be resolved
-     */
-    collideWithObject(object)         { return true; }
-
     /** How long since the object was created
      *  @return {Number} */
     getAliveTime()                    { return time - this.spawnTime; }
-
-    /** Apply acceleration to this object (adjust velocity, not affected by mass)
-     *  @param {Vector2} acceleration */
-    applyAcceleration(acceleration)   { if (this.mass) this.velocity = this.velocity.add(acceleration); }
-
-    /** Apply force to this object (adjust velocity, affected by mass)
-     *  @param {Vector2} force */
-    applyForce(force)	              { this.applyAcceleration(force.scale(1/this.mass)); }
-    
+   
     /** Get the direction of the mirror
      *  @return {Number} -1 if this.mirror is true, or 1 if not mirrored */
     getMirrorSign() { return this.mirror ? -1 : 1; }
 
-    /** Attaches a child to this with a given local transform
-     *  @param {EngineObject} child
-     *  @param {Vector2}      [localPos=(0,0)]
-     *  @param {Number}       [localAngle] */
-    addChild(child, localPos=vec2(), localAngle=0)
-    {
-        this.children.push(child);
-        child.parent = this;
-        child.localPos = localPos.copy();
-        child.localAngle = localAngle;
-    }
-
-    /** Removes a child from this one
-     *  @param {EngineObject} child */
-    removeChild(child)
-    {
-        this.children.splice(this.children.indexOf(child), 1);
-        child.parent = 0;
-    }
-
-    /** Set how this object collides
-     *  @param {Boolean} [collideSolidObjects] - Does it collide with solid objects?
-     *  @param {Boolean} [isSolid]             - Does it collide with and block other objects? (expensive in large numbers)
-     *  @param {Boolean} [collideTiles]        - Does it collide with the tile collision?
-     *  @param {Boolean} [collideRaycast]      - Does it collide with raycasts? */
-    setCollision(collideSolidObjects=true, isSolid=true, collideTiles=true, collideRaycast=true)
-    {
-        this.collideSolidObjects = collideSolidObjects;
-        this.isSolid = isSolid;
-        this.collideTiles = collideTiles;
-        this.collideRaycast = collideRaycast;
-    }
 
 }
 /** 
@@ -1647,15 +1494,6 @@ function toggleFullscreen()
     else if (document.body.requestFullscreen)
             document.body.requestFullscreen();
 }
-/** 
- * LittleJS Input System
- * - Tracks keyboard down, pressed, and released
- * - Tracks mouse buttons, position, and wheel
- * - Tracks multiple analog gamepads
- * - Virtual gamepad for touch devices
- * @namespace Input
- */
-
 
 
 /** Returns true if device key is down
@@ -2381,17 +2219,6 @@ let tileCollision = [];
  *  @memberof TileCollision */
 let tileCollisionSize = vec2();
 
-/** Clear and initialize tile collision
- *  @param {Vector2} size
- *  @memberof TileCollision */
-function initTileCollision(size)
-{
-    tileCollisionSize = size;
-    tileCollision = [];
-    for (let i=tileCollision.length = tileCollisionSize.area(); i--;)
-        tileCollision[i] = 0;
-}
-
 
 
 
@@ -3109,7 +2936,7 @@ let frameTimeLastMS = 0, frameTimeBufferMS = 0, averageFPS = 0;
  *  @param {Function} gameRenderPost - Called after objects are rendered, draw effects or hud that appear above all objects
  *  @param {Array} [imageSources=['tiles.png']] - Image to load
  *  @memberof Engine */
-function engineInit(gameInit, gameUpdate, gameUpdatePost, gameRender, gameRenderPost, imageSources=['tiles.png'])
+function engineInit(gameInit, gameUpdate, gameUpdatePost, gameRender, gameRenderPost, imageSources)
 {
     // Called automatically by engine to setup render system
     function enginePreRender()
@@ -3181,8 +3008,6 @@ function engineInit(gameInit, gameUpdate, gameUpdatePost, gameRender, gameRender
             o.destroyed || o.render();
         gameRenderPost();
         glRenderPostProcess();
-        //medalsRender();
-        //touchGamepadRender();
         glEnable && glCopyToContext(mainContext);
 
         requestAnimationFrame(engineUpdate);
@@ -3269,8 +3094,6 @@ function engineInit(gameInit, gameUpdate, gameUpdatePost, gameRender, gameRender
  *  @memberof Engine */
 function engineObjectsUpdate()
 {
-    // get list of solid objects for physics optimzation
-    engineObjectsCollide = engineObjects.filter(o=>o.collideSolidObjects);
 
     // recursive object update
     function updateObject(o)
@@ -3278,8 +3101,6 @@ function engineObjectsUpdate()
         if (!o.destroyed)
         {
             o.update();
-            for (const child of o.children)
-                updateObject(child);
         }
     }
     for (const o of engineObjects)

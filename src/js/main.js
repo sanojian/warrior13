@@ -42,20 +42,22 @@ function gameInit() {
 			}
 		}),
 	);
+	const dx = Math.min(128, Math.round(128 * innerWidth / 800));
+
 	GLOBAL.buildMenu.push(
-		new Button_Build(128, 96, tile(50), 6, 4, 0, () => {
+		new Button_Build(dx, 96, tile(50), 6, 4, 0, () => {
 			GLOBAL.showMessage('House is living space');
 			GLOBAL.state = DEFS.STATES.BUILD_HOUSE;
 		}),
-		new Button_Build(256, 96, tile(vec2(24, 96), vec2(24)), 6, 4, 0, () => {
+		new Button_Build(dx*2, 96, tile(vec2(24, 96), vec2(24)), 6, 4, 0, () => {
 			GLOBAL.showMessage('Farm is for food');
 			GLOBAL.state = DEFS.STATES.BUILD_FARM;
 		}),
-		new Button_Build(384, 96, tile(51), 2, 1, 0, () => {
+		new Button_Build(dx*3, 96, tile(51), 2, 1, 0, () => {
 			GLOBAL.showMessage('Wall is for protection');
 			GLOBAL.state = DEFS.STATES.BUILD_WALL;
 		}),
-		new Button_Build(512, 96, tile(vec2(0, 96), vec2(24)), 6, 10, 0, () => {
+		new Button_Build(dx*4, 96, tile(vec2(0, 96), vec2(24)), 6, 10, 0, () => {
 			GLOBAL.showMessage('Barracks for\ntraining soldiers.');
 			GLOBAL.state = DEFS.STATES.BUILD_BARRACKS;
 		}),
@@ -66,7 +68,6 @@ function gameInit() {
 			GLOBAL.units.push(new Unit_Worker(DEFS.HOME.add(vec2(- 1 + Math.random() * 2, - 1))));
 		})
 	);
-	const dx = Math.min(128, Math.round(128 * innerWidth / 800));
 
 	GLOBAL.spellMenu.push(
 		new Button_Spell(innerWidth - dx, innerHeight - 192, tile(122), 5, () => {
@@ -128,7 +129,7 @@ function gameUpdate() {
 		return;
 	}
 
-	if (GLOBAL.warriorIndex > 11 && !GLOBAL.enemies.length) {
+	if (GLOBAL.warriorIndex > 12 && !GLOBAL.enemies.length) {
 		// game is won
 		GLOBAL.state = DEFS.STATES.GAME_WON;
 

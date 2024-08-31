@@ -1,9 +1,10 @@
 
 GLOBAL.miniMap = {
+	dx: 128,
 
 	isOver(x, y) {
 
-		const uiPos = screenToWorld(vec2(innerWidth - 128, innerHeight - 128));
+		const uiPos = screenToWorld(vec2(innerWidth - GLOBAL.miniMap.dx, innerHeight - GLOBAL.miniMap.dx));
 
 		const dx = x - (uiPos.x - 18 / 12);
 		const dy = y - (uiPos.y - 18 / 12);
@@ -14,6 +15,9 @@ GLOBAL.miniMap = {
 	},
 
 	draw(dx) {
+
+		GLOBAL.miniMap.dx = dx;
+
 		const uiPos = screenToWorld(vec2(innerWidth - dx, innerHeight - dx));
 
 		drawTile(
