@@ -15,12 +15,19 @@ function gameRenderPost() {
 	}
 	else if (GLOBAL.state == DEFS.STATES.GAME_WON) {
 
+		cameraScale += GLOBAL.dScale;
+		if (cameraScale > GLOBAL.maxCameraScale || cameraScale < GLOBAL.minCameraScale) {
+			GLOBAL.dScale = -GLOBAL.dScale;
+		}
+
 		GLOBAL.uiFont.drawText(
 			'You Have Defeated\nthe "heroes"!',
 			screenToWorld(vec2(innerWidth / 2, innerHeight / 2)),
 			0.12,
 			true
 		);
+
+		return;
 	}
 
 	if (GLOBAL.state == DEFS.STATES.BUILD_HOUSE

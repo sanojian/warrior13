@@ -31,6 +31,12 @@ const GLOBAL = {
 	messageTimer: new Timer(),
 	message: '',
 
+	// for win screen
+	origCameraScale: 0,
+	maxCameraScale: 0,
+	minCameraScale: 0,
+	dScale: 0,
+
 	countWorkers () {
 
 		let count = 0;

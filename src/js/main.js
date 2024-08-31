@@ -137,8 +137,12 @@ function gameUpdate() {
 
 		if (mouseIsDown(0)) {
 			clearInput();
-			location.reload();
+			setTimeout(location.reload.bind(location), 2);
 		}
+
+		return;
+	}
+	else if (GLOBAL.state == DEFS.STATES.GAME_WON) {
 
 		return;
 	}
@@ -146,6 +150,11 @@ function gameUpdate() {
 	if (GLOBAL.warriorIndex > 12 && !GLOBAL.enemies.length) {
 		// game is won
 		GLOBAL.state = DEFS.STATES.GAME_WON;
+
+		GLOBAL.origCameraScale = cameraScale;
+		GLOBAL.maxCameraScale = cameraScale * 2;
+		GLOBAL.minCameraScale = cameraScale * 0.5;
+		GLOBAL.dScale = -cameraScale / 100;
 
 		return;
 	}
