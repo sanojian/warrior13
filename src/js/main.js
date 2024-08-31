@@ -83,8 +83,8 @@ function gameInit() {
 			}
 			zzfx(...[.7,,530,.01,.14,.13,,.3,-10,,,,,,32,,.03,.3,.1,,346]);
 		}),
-		new Button_Spell(innerWidth - dx, innerHeight - (192 + dx * 2), tile(123), 15, () => {
-			GLOBAL.mana -= 15;
+		new Button_Spell(innerWidth - dx, innerHeight - (192 + dx * 2), tile(123), 10, () => {
+			GLOBAL.mana -= 10;
 			for (let i = 0; i < GLOBAL.units.length; i++) {
 				const unit = GLOBAL.units[i];
 				if (unit.hitPoints < unit.maxHitPoints) {
@@ -95,6 +95,7 @@ function gameInit() {
 			for (let i = 0; i < GLOBAL.buildings.length; i++) {
 				const unit = GLOBAL.buildings[i];
 				if (unit.hitPoints < unit.maxHitPoints) {
+					GLOBAL.vfxMan.addParticles(GLOBAL.units[i].pos, GLOBAL.vfxMan.heartPlusses);
 					unit.hitPoints++;
 				}
 			}
@@ -114,10 +115,22 @@ function gameInit() {
 	cameraScale = Math.min(60, 60 * innerWidth / 900);
 
 	GLOBAL.warriorIndex = 0;
-	GLOBAL.warriorTimer = new Timer(120);
+	GLOBAL.warriorTimer = new Timer(150);
 
 }
 function gameUpdate() {
+
+	if (GLOBAL.musicPlaying == GLOBAL.music && GLOBAL.enemies.length) {
+		GLOBAL.music.source.stop();
+		GLOBAL.music2.playMusic(1, true);
+		GLOBAL.musicPlaying = GLOBAL.music2;
+	}
+	else if (GLOBAL.musicPlaying == GLOBAL.music2 && !GLOBAL.enemies.length) {
+		GLOBAL.music2.source.stop();
+		GLOBAL.music.playMusic(1, true);
+		GLOBAL.musicPlaying = GLOBAL.music;
+	}
+
 
 	if (GLOBAL.state == DEFS.STATES.GAME_LOST) {
 

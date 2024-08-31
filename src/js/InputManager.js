@@ -9,7 +9,7 @@ GLOBAL.inputMan = {
 
 			if (!GLOBAL.musicPlaying) {
 				GLOBAL.music.playMusic(0.6, true);
-				GLOBAL.musicPlaying = true;
+				GLOBAL.musicPlaying = GLOBAL.music;
 			}
 
 			// check UI

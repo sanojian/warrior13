@@ -218,7 +218,7 @@ function gameRenderPost() {
 
 	if (GLOBAL.warriorIndex < 12 && countdown < 31) {
 		GLOBAL.uiFont.drawText(
-			DEFS.WARRIORS[GLOBAL.warriorIndex].from + ' ' + countdown,
+			DEFS.WARRIORS[GLOBAL.warriorIndex].number + ' ' + countdown + '\n' + DEFS.WARRIORS[GLOBAL.warriorIndex].from,
 			screenToWorld(vec2(innerWidth / 2, 24)),
 			0.08,
 			true

@@ -69,11 +69,15 @@ const GLOBAL = {
 		// check voice available, choose random if not
 		voiceIndex = voiceIndex > GLOBAL.voices.length - 1 ? Math.floor(Math.random() * GLOBAL.voices.length) : voiceIndex;
 
-		utter.voice = T2S.getVoices()[voiceIndex];
+		const voices = T2S.getVoices();
+		if (!voices.length) {
+			return;
+		}
+		utter.voice = voices[voiceIndex];
 		let index = 0;
-		while (utter.voice.lang != 'en-US') {
+		while (utter.voice.lang.substr(0, 2) != 'en') {
 			// find an english voice
-			utter.voice = T2S.getVoices()[index++];
+			utter.voice = voices[index++];
 		}
 		// will use default voice first time
 		utter.pitch = pitch || 1.5;
@@ -105,25 +109,33 @@ const GLOBAL = {
 	},
 
 	musicPlaying: false,
-	music: new Music(
-		[
-			[
-				// instruments
-				[.5, 0, 400], [0.1, 0, 220,, .33,, 2]
-			],
-			[
-				// patterns
-				[
-					[, , 3, , , , , , 3, , 15, , , , , , 3, , , , , , , , 3, , 15, , , , , , , , 2, , , , , , 2, , 14, , , , , , 2, , , , , , , , 2, , 14, , , , , , , ,],
-					[1, , 25, , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , 24, , 22, , 20, , 17, , , , , , , , , , , , , , , , , , , , , , , , , ,],
-				],
-				[
-					[, , 3, , , , , , 3, , 15, , , , , , 3, , , , , , , , 3, , 15, , , , , , , , 2, , , , , , 2, , 14, , , , , , 2, , , , , , , , 2, , 14, , , , , , , ,],
-					[1, , 17, , , , 20, , , , 20, , , , 20, , , , , , , , , , , , , , , , , , , , 17, , , , 18, , 17, , , , , , 18, , , , 17, , , , , , 18, , 17, , , , 15, , , ,],
-				]
-			],
-			[0, 0, 1, 1],
-			125
-		]
-	)
+
 };
+
+const musicDef = [
+	[
+		// instruments
+		[.3, 0, 400], [0.1, 0, 220, , .33, , 2]
+	],
+	[
+		// patterns
+		[
+			[, , 3, , , , , , 3, , 15, , , , , , 3, , , , , , , , 3, , 15, , , , , , , , 2, , , , , , 2, , 14, , , , , , 2, , , , , , , , 2, , 14, , , , , , , ,],
+			[1, , 25, , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , 24, , 22, , 20, , 17, , , , , , , , , , , , , , , , , , , , , , , , , ,],
+		],
+		[
+			[, , 3, , , , , , 3, , 15, , , , , , 3, , , , , , , , 3, , 15, , , , , , , , 2, , , , , , 2, , 14, , , , , , 2, , , , , , , , 2, , 14, , , , , , , ,],
+			[1, , 17, , , , 20, , , , 20, , , , 20, , , , , , , , , , , , , , , , , , , , 17, , , , 18, , 17, , , , , , 18, , , , 17, , , , , , 18, , 17, , , , 15, , , ,],
+		]
+	],
+	[0, 0, 1, 1],
+	125
+];
+
+// make second song
+GLOBAL.music = new Music(musicDef);
+musicDef[0].reverse();
+musicDef[1][0].splice(1);
+musicDef[1][1].splice(1);
+musicDef[3] = 180;
+GLOBAL.music2 = new Music(musicDef);
