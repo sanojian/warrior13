@@ -72,39 +72,39 @@ const DEFS = {
 			number: 'eighth',
 			name: 'Herger the joyous',
 			from: 'north',
-			enemies: [18, 32, 19, 30, 18, 31]
+			enemies: [18, 32, 19, 30, 18, 31, 19, 31]
 		},
 		{
 			number: 'ninth',
 			name: 'Weath the musical',
 			from: 'northeast',
-			enemies: [32, 32, 30, 30, 32, 30]
+			enemies: [32, 32, 30, 30, 32, 30, 31, 31, 32, 31]
 		},
 		{
 			number: 'tenth',
 			name: 'Skeld the wary',
 			from: 'east',
-			enemies: [32, 18, 30, 17, 32, 17]
+			enemies: [32, 18, 30, 17, 32, 17, 32, 19, 30, 18]
 		},
 		{
 			number: 'eleventh',
 			name: 'Roneth the quick',
 			from: 'southeast',
-			enemies: [32, 3, 30, 4, 32, 4]
+			enemies: [32, 3, 30, 4, 32, 4, 31, 4, 31, 3]
 		},
 		{
 			number: 'twelfth',
 			name: 'Eben Fadlan',
 			heroTile: 108,
 			from: 'south',
-			enemies: [18, 3, 17, 4, 19, 4]
+			enemies: [18, 3, 17, 4, 19, 4, 18, 4, 17, 5]
 		},
 		{
 			number: 'thirteenth',
 			name: 'Beowulf the king',
 			heroTile: 116,
 			from: 'southwest',
-			enemies: [3, 3, 4, 4, 5, 4]
+			enemies: [3, 3, 4, 4, 5, 4, 4, 19, 5, 20, 6, 21, 17, 4, 19, 4, 18, 4, 17, 5]
 		},
 		
 	]
