@@ -365,15 +365,6 @@ class Vector2
         return new Vector2(this.x*c - this.y*s, this.x*s + this.y*c);
     }
 
-    /** Set the integer direction of this vector, corrosponding to multiples of 90 degree rotation (0-3)
-     * @param {Number} [direction]
-     * @param {Number} [length] */
-    setDirection(direction, length=1)
-    {
-        return vec2(direction%2 ? direction-1 ? -length : length : 0, 
-            direction%2 ? 0 : direction ? -length : length);
-    }
-
     /** Returns the integer direction of this vector, corrosponding to multiples of 90 degree rotation (0-3)
      * @return {Number} */
     direction()
@@ -464,37 +455,6 @@ class Color
      * @return {Color} */
     copy() { return new Color(this.r, this.g, this.b, this.a); }
 
-    /** Returns a copy of this color plus the color passed in
-     * @param {Color} c - other color
-     * @return {Color} */
-    add(c)
-    {
-        return new Color(this.r+c.r, this.g+c.g, this.b+c.b, this.a+c.a);
-    }
-
-    /** Returns a copy of this color minus the color passed in
-     * @param {Color} c - other color
-     * @return {Color} */
-    subtract(c)
-    {
-        return new Color(this.r-c.r, this.g-c.g, this.b-c.b, this.a-c.a);
-    }
-
-    /** Returns a copy of this color times the color passed in
-     * @param {Color} c - other color
-     * @return {Color} */
-    multiply(c)
-    {
-        return new Color(this.r*c.r, this.g*c.g, this.b*c.b, this.a*c.a);
-    }
-
-    /** Returns a copy of this color divided by the color passed in
-     * @param {Color} c - other color
-     * @return {Color} */
-    divide(c)
-    {
-        return new Color(this.r/c.r, this.g/c.g, this.b/c.b, this.a/c.a);
-    }
 
     /** Returns a copy of this color scaled by the value passed in, alpha can be scaled separately
      * @param {Number} scale
@@ -507,16 +467,7 @@ class Color
      * @return {Color} */
     clamp() { return new Color(clamp(this.r), clamp(this.g), clamp(this.b), clamp(this.a)); }
 
-    /** Returns a new color that is p percent between this and the color passed in
-     * @param {Color}  c - other color
-     * @param {Number} percent
-     * @return {Color} */
-    lerp(c, percent)
-    {
-        return this.add(c.subtract(this).scale(clamp(percent)));
-    }
-
-  
+ 
     /** Returns this color expressed as 32 bit RGBA value
      * @return {Number} */
     rgbaInt()  
@@ -685,80 +636,6 @@ let soundDefaultRange = 40;
  *  @default
  *  @memberof Settings */
 let soundDefaultTaper = .7;
-
-
-///////////////////////////////////////////////////////////////////////////////
-// Setters for global variables
-
-/** Set position of camera in world space
- *  @param {Vector2} pos
- *  @memberof Settings */
-function setCameraPos(pos) { cameraPos = pos; }
-
-/** Set scale of camera in world space
- *  @param {Number} scale
- *  @memberof Settings */
-function setCameraScale(scale) { cameraScale = scale; }
-
-/** Set max size of the canvas
- *  @param {Vector2} size
- *  @memberof Settings */
-function setCanvasMaxSize(size) { canvasMaxSize = size; }
-
-/** Set fixed size of the canvas
- *  @param {Vector2} size
- *  @memberof Settings */
-function setCanvasFixedSize(size) { canvasFixedSize = size; }
-
-/** Disables anti aliasing for pixel art if true
- *  @param {Boolean} pixelated
- *  @memberof Settings */
-function setCanvasPixelated(pixelated) { canvasPixelated = pixelated; }
-
-/** Set default font used for text rendering
- *  @param {String} font
- *  @memberof Settings */
-function setFontDefault(font) { fontDefault = font; }
-
-/** Set if webgl rendering is enabled
- *  @param {Boolean} enable
- *  @memberof Settings */
-function setGlEnable(enable) { glEnable = enable; }
-
-/** Set to not composite the WebGL canvas
- *  @param {Boolean} overlay
- *  @memberof Settings */
-function setGlOverlay(overlay) { glOverlay = overlay; }
-
-/** Set default size of tiles in pixels
- *  @param {Vector2} size
- *  @memberof Settings */
-function setTileSizeDefault(size) { tileSizeDefault = size; }
-
-/** Set to prevent tile bleeding from neighbors in pixels
- *  @param {Number} scale
- *  @memberof Settings */
-function setTileFixBleedScale(scale) { tileFixBleedScale = scale; }
-
-/** Set to disable all audio code
- *  @param {Boolean} enable
- *  @memberof Settings */
-function setSoundEnable(enable) { soundEnable = enable; }
-
-/** Set volume scale to apply to all sound, music and speech
- *  @param {Number} volume
- *  @memberof Settings */
-function setSoundVolume(volume) { soundVolume = volume; }
-
-/** Set default range where sound no longer plays
- *  @param {Number} range
- *  @memberof Settings */
-function setSoundDefaultRange(range) { soundDefaultRange = range; }
-
-/** Set default range percent to start tapering off sound
- *  @param {Number} taper
- *  @memberof Settings */
-function setSoundDefaultTaper(taper) { soundDefaultTaper = taper; }
 
 
 /** 

@@ -4,8 +4,6 @@
 
 const DEFS = {
 
-	TILE_SIZE: 12,
-
 	HOME: vec2(15),
 
 	STATES: {

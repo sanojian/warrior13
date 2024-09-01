@@ -7,9 +7,6 @@ class Unit_Worker extends PlayerUnit {
 
 		this.selected = false;
 
-		this.intention = undefined;
-		this.intentionTarget = undefined;
-
 	}
 
 	render() {

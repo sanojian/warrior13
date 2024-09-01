@@ -7,9 +7,6 @@ class Unit_Archer extends PlayerUnit {
 
 		this.selected = false;
 
-		this.intention = undefined;
-		this.intentionTarget = undefined;
-
 		this.weapon = 'bow';
 
 		this.readyFireTimer = new Timer(1);
