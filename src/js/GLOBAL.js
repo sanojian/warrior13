@@ -37,6 +37,9 @@ const GLOBAL = {
 	minCameraScale: 0,
 	dScale: 0,
 
+	// for selection box
+	startSelect: undefined,
+
 	countWorkers () {
 
 		let count = 0;

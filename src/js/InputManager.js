@@ -3,7 +3,7 @@ GLOBAL.inputMan = {
 
 	update() {
 
-		if (mouseIsDown(0)) {
+		if (mouseWasPressed(0)) {
 
 			clearInput();
 
@@ -71,6 +71,11 @@ GLOBAL.inputMan = {
 				return;
 			}
 
+			if (!wereSelected.length) {
+				// start dragging select
+				GLOBAL.startSelect = mousePos;
+			}
+
 
 			// this was an order to selected units
 			for (let i = 0; i < wereSelected.length; i++) {
@@ -82,5 +87,34 @@ GLOBAL.inputMan = {
 			}
 		}
 
+		// select box
+		if (GLOBAL.startSelect) {
+
+			if (mouseWasReleased(0)) {
+	
+				const minX = min(GLOBAL.startSelect.x, mousePos.x);
+				const minY = min(GLOBAL.startSelect.y, mousePos.y);
+				const maxX = max(GLOBAL.startSelect.x, mousePos.x);
+				const maxY = max(GLOBAL.startSelect.y, mousePos.y);
+			
+				// do selection
+				for (let i = 0; i < GLOBAL.units.length; i++) {
+					const unit = GLOBAL.units[i];
+
+					unit.selected = unit.pos.x > minX && unit.pos.y > minY && unit.pos.x < maxX && unit.pos.y < maxY;
+				}
+
+				// end select mode
+				delete GLOBAL.startSelect;
+			}
+			else {
+				// draw select box
+				const size = mousePos.subtract(GLOBAL.startSelect);
+				const pos = mousePos.subtract(size.multiply(vec2(0.5)));
+				drawRect(pos, size, new Color(1, 1, 1, 0.2));
+			}
+		}
+
 	}
+
 };
