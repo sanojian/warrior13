@@ -52,14 +52,14 @@ class PlayerUnit extends Unit {
 		GLOBAL.state = 0;
 
 		const possibleSpeak = {
-			chop: ['k', 'choppa', 'yep?'],
-			mine: ['k', 'yep?'],
-			build: ['k', 'hamma?', 'yep?'],
-			store: ['hoard', 'stow', 'store'],
-			shelter: ['shellta', 'safety'],
-			move: ['goin', 'yep?', 'k'],
-			farm: ['fooda', 'grub', 'k'],
-			pray: ['pray', 'holy']
+			'chop': ['k', 'choppa', 'yep?'],
+			'mine': ['k', 'yep?'],
+			'build': ['k', 'hamma?', 'yep?'],
+			'store': ['hoard', 'stow', 'store'],
+			'shelter': ['shellta', 'safety'],
+			'move': ['goin', 'yep?', 'k'],
+			'farm': ['fooda', 'grub', 'k'],
+			'pray': ['pray', 'holy']
 		};
 
 		if (order && possibleSpeak[order]) {
