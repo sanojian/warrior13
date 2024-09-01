@@ -95,7 +95,7 @@ GLOBAL.vfxMan = {
 
 	addParticles (pos, array) {
 		
-		const drops = randInt(1, 4);
+		const drops = randInt(1, 5);
 
 		for (let i = 0; i < drops; i++) {
 			const angle = rand() * PI;

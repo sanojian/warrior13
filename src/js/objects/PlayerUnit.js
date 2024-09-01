@@ -63,7 +63,7 @@ class PlayerUnit extends Unit {
 		};
 
 		if (order && possibleSpeak[order]) {
-			GLOBAL.speak(possibleSpeak[order][randInt(0, possibleSpeak[order].length-1)]);
+			GLOBAL.speak(possibleSpeak[order][randInt(0, possibleSpeak[order].length)]);
 		}
 
 		if (order == 'pray') {

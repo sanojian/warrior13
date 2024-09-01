@@ -204,7 +204,7 @@ function gameUpdate() {
 		// spawn enemies
 		for (let i = 0; i < def.enemies.length; i += 2) {
 
-			let tileInfo = tile(94 + randInt(0, 3) * 8);
+			let tileInfo = tile(94 + randInt(0, 4) * 8);
 			let size = vec2(1);
 			let hitPoints = 3;
 

@@ -20,7 +20,7 @@ class MapManager {
 
 				// grass
 				let tileIndex = 0;
-				let rotation = randInt(0, 4);
+				let rotation = randInt(0, 5);
 
 				const gridValue = GLOBAL.mapGrid[y][x];
 				if (gridValue == 'w') {

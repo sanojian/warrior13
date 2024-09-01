@@ -76,7 +76,7 @@ const GLOBAL = {
 		// TODO: voices on mobile and safari/firefox
 		voiceIndex = voiceIndex || GLOBAL.voiceIndex || 47;
 		// check voice available, choose random if not
-		voiceIndex = voiceIndex > GLOBAL.voices.length - 1 ? randInt(0, GLOBAL.voices.length - 1) : voiceIndex;
+		voiceIndex = voiceIndex > GLOBAL.voices.length - 1 ? randInt(0, GLOBAL.voices.length) : voiceIndex;
 
 		const voices = T2S.getVoices();
 		if (!voices.length) {
