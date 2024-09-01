@@ -30,7 +30,7 @@ class Button {
 				+ (this.requiresWorker ? this.requiresWorker + ' worker\n' : '')
 				+ (this.requiresMana ? this.requiresMana + ' mana\n' : '')
 				+ (this.requiresPop ? this.requiresPop + ' living space' : ''));
-			return;
+			return isOver;
 		}
 
 		isOver && this.clicked();
