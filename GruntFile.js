@@ -74,6 +74,7 @@ module.exports = function (grunt) {
 					compilation_level: "ADVANCED_OPTIMIZATIONS",
 					language_out: "ECMASCRIPT_2019",
 					jscomp_off: "checkVars",
+					hide_warnings_for: "strictCheckTypes",
 					assume_function_wrapper: true,
 				},
 			},

@@ -109,8 +109,5 @@ const DEFS = {
 		
 	]
 
-},
-	DEFS_COLORS_RED = new Color(172 / 255, 50 / 255, 50 / 255),
-	DEFS_COLORS_GREEN = new Color(106 / 255, 190 / 255, 48 / 255),
-	round = Math.round;
+};
 

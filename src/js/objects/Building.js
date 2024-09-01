@@ -64,7 +64,7 @@ class Building extends EngineObject {
 		if (index != -1) {
 			GLOBAL.buildings.splice(index, 1);
 		}
-		GLOBAL.mapGrid[round(this.pos.y)][round(this.pos.x)] = 0;
+		GLOBAL.mapGrid[Math.round(this.pos.y)][Math.round(this.pos.x)] = 0;
 
 		super.destroy();
 	}

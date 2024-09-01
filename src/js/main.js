@@ -42,7 +42,7 @@ function gameInit() {
 			}
 		}),
 	);
-	const dx = min(128, round(128 * innerWidth / 800));
+	const dx = min(128, Math.round(128 * innerWidth / 800));
 
 	GLOBAL.buildMenu.push(
 		new Button_Build(dx, 96, tile(50), 6, 4, 0, () => {
@@ -167,8 +167,8 @@ function gameUpdate() {
 
 			if (!GLOBAL.mapMan.getTileAt(mousePos)) {
 				// legal position
-				const x = round(mousePos.x);
-				const y = round(mousePos.y);
+				const x = Math.round(mousePos.x);
+				const y = Math.round(mousePos.y);
 
 				if (GLOBAL.state == DEFS.STATES.BUILD_BARRACKS) {
 					GLOBAL.buildings.push(new Building_Barracks(vec2(x, y)));
@@ -204,7 +204,7 @@ function gameUpdate() {
 		// spawn enemies
 		for (let i = 0; i < def.enemies.length; i += 2) {
 
-			let tileInfo = tile(randInt(94, 97) * 8);
+			let tileInfo = tile(94 + randInt(0, 3) * 8);
 			let size = vec2(1);
 			let hitPoints = 3;
 

@@ -30,7 +30,7 @@ class Tree extends EngineObject {
 
 		if (this.wood <= 0) {
 
-			GLOBAL.mapGrid[this.pos.y][this.pos.x] = 0;
+			GLOBAL.mapGrid[Math.round(this.pos.y)][this.pos.x] = 0;
 			GLOBAL.trees.splice(GLOBAL.trees.indexOf(this), 1);
 			this.destroy();
 		}
