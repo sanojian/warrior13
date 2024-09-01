@@ -135,7 +135,7 @@ const musicDef = [
 		]
 	],
 	[0, 0, 1, 1],
-	120
+	116
 ];
 
 // make second song
@@ -143,5 +143,5 @@ GLOBAL.music = new Music(musicDef);
 musicDef[0].reverse();
 musicDef[1][0].splice(1);
 musicDef[1][1].splice(1);
-musicDef[3] = 140;
+musicDef[3] = 160;
 GLOBAL.music2 = new Music(musicDef);
