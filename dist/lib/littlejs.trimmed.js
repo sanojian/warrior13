@@ -700,30 +700,8 @@ class EngineObject
         this.mirror = false;
 
         // physical properties
-        /** @property {Number} [mass=objectDefaultMass]                 - How heavy the object is, static if 0 */
-        this.mass         = 1;
-        /** @property {Number} [damping=1]           - How much to slow down velocity each frame (0-1) */
-        this.damping      = 1;
-        /** @property {Number} [angleDamping=1] - How much to slow down rotation each frame (0-1) */
-        this.angleDamping = 1;
-        /** @property {Number} [elasticity=objectDefaultElasticity]     - How bouncy the object is when colliding (0-1) */
-        this.elasticity   = 1;
-        /** @property {Number} [friction=1]         - How much friction to apply when sliding (0-1) */
-        this.friction     = 1;
-        /** @property {Number}  - How much to scale gravity by for this object */
-        this.gravityScale = 1;
         /** @property {Number}  - Objects are sorted by render order */
         this.renderOrder = renderOrder;
-        /** @property {Vector2} - Velocity of the object */
-        this.velocity = vec2();
-        /** @property {Number}  - Angular velocity of the object */
-        this.angleVelocity = 0;
-        /** @property {Number}  - Track when object was created  */
-        this.spawnTime = time;
-
-        // parent child system
-        /** @property {EngineObject} - Parent of object if in local space  */
-        this.parent = undefined;
 
         // add to list of objects
         engineObjects.push(this);
@@ -2749,7 +2727,7 @@ function engineObjectsUpdate()
         }
     }
     for (const o of engineObjects)
-        o.parent || updateObject(o);
+        updateObject(o);
 
     // remove destroyed objects
     engineObjects = engineObjects.filter(o=>!o.destroyed);
