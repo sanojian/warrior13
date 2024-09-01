@@ -93,13 +93,7 @@ class PlayerUnit extends Unit {
 			if (this.actionTimer.elapsed()) {
 				this.actionTimer.unset();
 				this.jumpHeight = 0;
-				if (this.intention == 'shoot') {
-					// TODO: check if target still exists
-					this.intentionTarget.takeDamage(1);
-					zzfx(...[,.03,405,,,0,3,.1,8,,,,,.1,27,.4,.04,.44,.01]); 
-					
-				}
-				else if (this.intention == 'chop') {
+				if (this.intention == 'chop') {
 					// TODO: check if tree still exists
 					const wood = this.intentionTarget.chop(1);
 					wood && zzfx(...[,.03,405,,,0,3,.1,8,,,,,.1,27,.4,.04,.44,.01]); 

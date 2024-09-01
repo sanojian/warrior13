@@ -7,19 +7,18 @@ GLOBAL.vfxMan = {
 	sparks: [],
 	heartPlusses: [],
 
-	showArrow (origin, destination, timer) {
+	showArrow (origin, target) {
 
 		const arrow = new EngineObject(
 			origin,
 			vec2(1),
 			tile(9),
-			destination.subtract(origin).angle()
+			target.pos.subtract(origin).angle()
 		);
 		GLOBAL.vfxMan.arrows.push({
 			object: arrow,
 			origin: origin,
-			destination: destination,
-			timer: timer
+			target: target
 		});
 	},
 
@@ -28,11 +27,14 @@ GLOBAL.vfxMan = {
 		for (let i = 0; i < GLOBAL.vfxMan.arrows.length; i++) {
 			const arrow = GLOBAL.vfxMan.arrows[i];
 
-			const vec = arrow.destination.subtract(arrow.origin);
+			// travel vector
+			const vec = arrow.target.pos.subtract(arrow.origin);
 
-			arrow.object.pos = arrow.origin.add(vec.clampLength(vec.length() * arrow.timer.getPercent()));
+			arrow.object.pos = arrow.object.pos.add(vec.clampLength(0.1));
 
-			if (arrow.timer.elapsed()) {
+			if (arrow.object.pos.subtract(arrow.target.pos).length() < 0.1) {
+				arrow.target.takeDamage(1);
+				zzfx(...[,.03,405,,,0,3,.1,8,,,,,.1,27,.4,.04,.44,.01]);
 				arrow.object.destroy();
 				GLOBAL.vfxMan.arrows.splice(GLOBAL.vfxMan.arrows.indexOf(arrow), 1);
 			}
