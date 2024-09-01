@@ -130,26 +130,12 @@ class Unit_Enemy extends Unit {
 		// post render
 
 		if (this.weapon == 'axe') {
-			// axe
-			drawTile(
-				this.pos.add(vec2(0, -2/12)),
-				vec2(2),
-				tile(vec2(24), 24),
-				undefined,
-				(this.mirror ? 1 : -1) * this.actionFrame / (PI*12),
-				this.mirror
-			);
+			this.drawTool(tile(vec2(24), 24));
+			
 		}
-		else if (this.weapon == 'sword') {
-			// axe
-			drawTile(
-				this.pos.add(vec2(0, -2/12)),
-				vec2(2),
-				tile(vec2(72, 48), 24),
-				undefined,
-				(this.mirror ? 1 : -1) * this.actionFrame / (PI*12),
-				this.mirror
-			);
+		else {
+			// sword
+			this.drawTool(tile(vec2(72, 48), 24));
 		}
 
 	}

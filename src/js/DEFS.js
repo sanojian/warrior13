@@ -99,14 +99,14 @@ const DEFS = {
 		{
 			number: 'twelfth',
 			name: 'Eben Fadlan',
-			heroTile: 126,
+			heroTile: 108,
 			from: 'south',
 			enemies: [18, 3, 17, 4, 19, 4]
 		},
 		{
 			number: 'thirteenth',
 			name: 'Beowulf the king',
-			heroTile: 124,
+			heroTile: 116,
 			from: 'southwest',
 			enemies: [3, 3, 4, 4, 5, 4]
 		},
