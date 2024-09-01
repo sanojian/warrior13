@@ -59,7 +59,7 @@ class PlayerUnit extends Unit {
 			shelter: ['shellta', 'safety'],
 			move: ['goin', 'yep?', 'k'],
 			farm: ['fooda', 'grub', 'k'],
-			pray: ['woah low, low', 'ooh gah']
+			pray: ['pray', 'holy']
 		};
 
 		if (order && possibleSpeak[order]) {
@@ -105,6 +105,7 @@ class PlayerUnit extends Unit {
 					if (Math.random() < chance) {
 						zzfx(...[.5, , 600, , , 0, , 3.9, , -1, 650, .05, .04, , , , .08, .84, .18]);
 						GLOBAL.mana++;
+						GLOBAL.vfxMan.addParticles(this.pos, GLOBAL.vfxMan.manaBalls);
 					}
 				}
 				else if (this.intention == 'farm') {

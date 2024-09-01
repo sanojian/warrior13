@@ -6,6 +6,7 @@ GLOBAL.vfxMan = {
 	gasPlumes: [],
 	sparks: [],
 	heartPlusses: [],
+	manaBalls: [],
 
 	showArrow (origin, target) {
 
@@ -33,6 +34,7 @@ GLOBAL.vfxMan = {
 			arrow.object.pos = arrow.object.pos.add(vec.clampLength(0.1));
 
 			if (arrow.object.pos.subtract(arrow.target.pos).length() < 0.1) {
+				// arrived
 				arrow.target.takeDamage(1);
 				zzfx(...[,.03,405,,,0,3,.1,8,,,,,.1,27,.4,.04,.44,.01]);
 				arrow.object.destroy();
@@ -67,6 +69,11 @@ GLOBAL.vfxMan = {
 		// sparks
 		GLOBAL.vfxMan.updateParticles(GLOBAL.vfxMan.sparks, function (drop) {
 			drawRect(drop.pos, vec2(1 / 12), new Color(251 / 255, 242 / 255, 54 / 255));
+		});
+
+		// manaballs
+		GLOBAL.vfxMan.updateParticles(GLOBAL.vfxMan.manaBalls, function (drop) {
+			drawRect(drop.pos, vec2(2 / 12), new Color(99 / 255, 155 / 255, 1));
 		});
 
 	},
