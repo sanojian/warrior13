@@ -91,7 +91,7 @@ class MapManager {
 			return 1;
 		}
 
-		return GLOBAL.mapGrid[Math.round(pos.y)][Math.round(pos.x)];
+		return GLOBAL.mapGrid[round(pos.y)][round(pos.x)];
 
 	}
 

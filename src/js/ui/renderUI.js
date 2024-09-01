@@ -37,8 +37,8 @@ function gameRenderPost() {
 	) {
 		// draw temp house
 
-		const x = Math.round(mousePos.x);
-		const y = Math.round(mousePos.y);
+		const x = round(mousePos.x);
+		const y = round(mousePos.y);
 
 		let color = new Color(1, 1, 1, 0.5);
 		if (GLOBAL.mapMan.getTileAt(mousePos)) {
@@ -70,7 +70,7 @@ function gameRenderPost() {
 
 	}
 
-	const dx = min(128, Math.round(128 * innerWidth / 800));
+	const dx = min(128, round(128 * innerWidth / 800));
 
 	// wood
 	let uiPos = screenToWorld(vec2(dx, 64));
