@@ -10,7 +10,8 @@ GLOBAL.miniMap = {
 		const dy = y - (uiPos.y - 18 / 12);
 
 		if (dx > 0 && dx <= 3 && dy > 0 && dy <= 3) {
-			cameraPos = vec2(dx * 12, dy * 12);		
+			cameraPos = vec2(dx * 12, dy * 12);
+			return true;
 		}
 	},
 
