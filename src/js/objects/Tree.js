@@ -24,11 +24,9 @@ class Tree extends EngineObject {
 		}
 	}
 
-	chop(amt) {
+	chop() {
 
-		const amount = min(amt, this.wood);
-
-		this.wood -= amt;
+		this.wood -= 1;
 
 		if (this.wood <= 0) {
 
@@ -36,9 +34,6 @@ class Tree extends EngineObject {
 			GLOBAL.trees.splice(GLOBAL.trees.indexOf(this), 1);
 			this.destroy();
 		}
-
-
-		return amount;
 	}
 
 }

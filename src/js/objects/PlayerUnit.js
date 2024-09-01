@@ -95,9 +95,9 @@ class PlayerUnit extends Unit {
 				this.jumpHeight = 0;
 				if (this.intention == 'chop') {
 					// TODO: check if tree still exists
-					const wood = this.intentionTarget.chop(1);
-					wood && zzfx(...[,.03,405,,,0,3,.1,8,,,,,.1,27,.4,.04,.44,.01]); 
-					this.wood += wood;
+					this.intentionTarget.chop();
+					zzfx(...[,.03,405,,,0,3,.1,8,,,,,.1,27,.4,.04,.44,.01]); 
+					this.wood += 1;
 				}
 				else if (this.intention == 'pray') {
 					// TODO: check if temple still exists
@@ -110,15 +110,15 @@ class PlayerUnit extends Unit {
 				}
 				else if (this.intention == 'farm') {
 					// TODO: check if tree still exists
-					const food = this.intentionTarget.farm(1);
-					food && zzfx(...[,.03,405,,,0,3,.1,8,,,,,.1,27,.4,.04,.44,.01]); 
-					this.food += food;
+					this.intentionTarget.farm();
+					zzfx(...[,.03,405,,,0,3,.1,8,,,,,.1,27,.4,.04,.44,.01]); 
+					this.food += 1;
 				}
 				else if (this.intention == 'mine') {
 					// TODO: check if stone still exists
-					const stone = this.intentionTarget.mine(1);
-					stone && zzfx(...[.5,0,1793,,.05,.02,3,.7,,-1,,,,.1,,,,.63,.02,,-1400]);
-					this.stone += stone;
+					this.intentionTarget.mine();
+					zzfx(...[.5,0,1793,,.05,.02,3,.7,,-1,,,,.1,,,,.63,.02,,-1400]);
+					this.stone += 1;
 				}
 				else if (this.intention == 'build') {
 					// TODO: check if building still exists

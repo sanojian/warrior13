@@ -126,11 +126,6 @@ function lerpAngle(percent, angleA, angleB) { return lerpWrap(percent, angleA, a
  *  @memberof Utilities */
 function smoothStep(percent) { return percent * percent * (3 - 2 * percent); }
 
-/** Returns the nearest power of two not less then the value
- *  @param {Number} value
- *  @return {Number}
- *  @memberof Utilities */
-function nearestPowerOfTwo(value) { return 2**Math.ceil(Math.log2(value)); }
 
 /** Returns true if two axis aligned bounding boxes are overlapping 
  *  @param {Vector2} posA          - Center of box A
@@ -143,47 +138,6 @@ function isOverlapping(posA, sizeA, posB, sizeB=vec2())
 { 
     return abs(posA.x - posB.x)*2 < sizeA.x + sizeB.x 
         && abs(posA.y - posB.y)*2 < sizeA.y + sizeB.y;
-}
-
-/** Returns true if a line segment is intersecting an axis aligned box
- *  @param {Vector2} start - Start of raycast
- *  @param {Vector2} end   - End of raycast
- *  @param {Vector2} pos   - Center of box
- *  @param {Vector2} size  - Size of box
- *  @return {Boolean}      - True if intersecting
- *  @memberof Utilities */
-function isIntersecting(start, end, pos, size)
-{
-    // Liang-Barsky algorithm
-    const boxMin = pos.subtract(size.scale(.5));
-    const boxMax = boxMin.add(size);
-    const delta = end.subtract(start);
-    const a = start.subtract(boxMin);
-    const b = start.subtract(boxMax);
-    const p = [-delta.x, delta.x, -delta.y, delta.y];
-    const q = [a.x, -b.x, a.y, -b.y];
-    let tMin = 0, tMax = 1;
-    for (let i = 4; i--;)
-    {
-        if (p[i])
-        {
-            const t = q[i] / p[i];
-            if (p[i] < 0)
-            {
-                if (t > tMax) return false;
-                tMin = max(t, tMin);
-            }
-            else
-            {
-                if (t < tMin) return false;
-                tMax = min(t, tMax);
-            }
-        }
-        else if (q[i] < 0)
-            return false;
-    }
-
-    return true;
 }
 
 /** Returns an oscillating wave between 0 and amplitude with frequency of 1 Hz by default
@@ -233,63 +187,6 @@ function randVector(length=1) { return new Vector2().setAngle(rand(2*PI), length
 function randInCircle(radius=1, minRadius=0)
 { return radius > 0 ? randVector(radius * rand(minRadius / radius, 1)**.5) : new Vector2; }
 
-/** Returns a random color between the two passed in colors, combine components if linear
- *  @param {Color}   [colorA=(1,1,1,1)]
- *  @param {Color}   [colorB=(0,0,0,1)]
- *  @param {Boolean} [linear]
- *  @return {Color}
- *  @memberof Random */
-function randColor(colorA=new Color, colorB=new Color(0,0,0,1), linear=false)
-{
-    return linear ? colorA.lerp(colorB, rand()) : 
-        new Color(rand(colorA.r,colorB.r), rand(colorA.g,colorB.g), rand(colorA.b,colorB.b), rand(colorA.a,colorB.a));
-}
-
-///////////////////////////////////////////////////////////////////////////////
-
-/** 
- * Seeded random number generator
- * - Can be used to create a deterministic random number sequence
- * @example
- * let r = new RandomGenerator(123); // random number generator with seed 123
- * let a = r.float();                // random value between 0 and 1
- * let b = r.int(10);                // random integer between 0 and 9
- * r.seed = 123;                     // reset the seed
- * let c = r.float();                // the same value as a
- */
-class RandomGenerator
-{
-    /** Create a random number generator with the seed passed in
-     *  @param {Number} seed - Starting seed */
-    constructor(seed)
-    {
-        /** @property {Number} - random seed */
-        this.seed = seed;
-    }
-
-    /** Returns a seeded random value between the two values passed in
-    *  @param {Number} [valueA]
-    *  @param {Number} [valueB]
-    *  @return {Number} */
-    float(valueA=1, valueB=0)
-    {
-        // xorshift algorithm
-        this.seed ^= this.seed << 13; 
-        this.seed ^= this.seed >>> 17; 
-        this.seed ^= this.seed << 5;
-        return valueB + (valueA - valueB) * abs(this.seed % 1e9) / 1e9;
-    }
-
-    /** Returns a floored seeded random value the two values passed in
-    *  @param {Number} valueA
-    *  @param {Number} [valueB]
-    *  @return {Number} */
-    int(valueA, valueB=0) { return Math.floor(this.float(valueA, valueB)); }
-
-    /** Randomly returns either -1 or 1 deterministically
-    *  @return {Number} */
-    sign() { return this.int(2) * 2 - 1; }
-}
 
 ///////////////////////////////////////////////////////////////////////////////
 
@@ -619,20 +516,7 @@ class Color
         return this.add(c.subtract(this).scale(clamp(percent)));
     }
 
-
-    /** Set this color from a hex code
-     * @param {String} hex - html hex code
-     * @return {Color} */
-    setHex(hex)
-    {
-        const fromHex = (c)=> clamp(parseInt(hex.slice(c,c+2),16)/255);
-        this.r = fromHex(1);
-        this.g = fromHex(3),
-        this.b = fromHex(5);
-        this.a = hex.length > 7 ? fromHex(7) : 1;
-        return this;
-    }
-    
+  
     /** Returns this color expressed as 32 bit RGBA value
      * @return {Number} */
     rgbaInt()  
@@ -990,11 +874,7 @@ class EngineObject
         // disconnect from parent and destroy chidren
         this.destroyed = 1;
     }
-    
-    /** How long since the object was created
-     *  @return {Number} */
-    getAliveTime()                    { return time - this.spawnTime; }
-   
+     
     /** Get the direction of the mirror
      *  @return {Number} -1 if this.mirror is true, or 1 if not mirrored */
     getMirrorSign() { return this.mirror ? -1 : 1; }
@@ -1186,11 +1066,6 @@ function worldToScreen(worldPos)
     );
 }
 
-/** Get the camera's visible area in world space
- *  @return {Vector2}
- *  @memberof Draw */
-function getCameraSize() { return mainCanvasSize.scale(1/cameraScale); }
-
 /** Draw textured tile centered in world space, with color applied if using WebGL
  *  @param {Vector2} pos                        - Center of the tile in world space
  *  @param {Vector2} [size=(1,1)]               - Size of the tile in world space
@@ -1276,21 +1151,6 @@ function drawRect(pos, size, color, angle, useWebGL, screenSpace, context)
     drawTile(pos, size, undefined, color, angle, false, undefined, useWebGL, screenSpace, context); 
 }
 
-/** Draw colored line between two points
- *  @param {Vector2} posA
- *  @param {Vector2} posB
- *  @param {Number}  [thickness]
- *  @param {Color}   [color=(1,1,1,1)]
- *  @param {Boolean} [useWebGL=glEnable]
- *  @param {Boolean} [screenSpace=false]
- *  @param {CanvasRenderingContext2D} [context]
- *  @memberof Draw */
-function drawLine(posA, posB, thickness=.1, color, useWebGL, screenSpace, context)
-{
-    const halfDelta = vec2((posB.x - posA.x)/2, (posB.y - posA.y)/2);
-    const size = vec2(thickness, halfDelta.length()*2);
-    drawRect(posA.add(halfDelta), size, color, halfDelta.angle(), useWebGL, screenSpace, context);
-}
 
 /** Draw directly to a 2d canvas context in world space
  *  @param {Vector2}  pos
@@ -1315,71 +1175,6 @@ function drawCanvas2D(pos, size, angle, mirror, drawFunction, screenSpace, conte
     context.scale(mirror ? -size.x : size.x, size.y);
     drawFunction(context);
     context.restore();
-}
-
-/** Enable normal or additive blend mode
- *  @param {Boolean} [additive]
- *  @param {Boolean} [useWebGL=glEnable]
- *  @param {CanvasRenderingContext2D} [context=mainContext]
- *  @memberof Draw */
-function setBlendMode(additive, useWebGL=glEnable, context)
-{
-    if (useWebGL)
-        glAdditive = additive;
-    else
-    {
-        if (!context)
-            context = mainContext;
-        context.globalCompositeOperation = additive ? 'lighter' : 'source-over';
-    }
-}
-
-/** Draw text on overlay canvas in world space
- *  Automatically splits new lines into rows
- *  @param {String}  text
- *  @param {Vector2} pos
- *  @param {Number}  [size]
- *  @param {Color}   [color=(1,1,1,1)]
- *  @param {Number}  [lineWidth]
- *  @param {Color}   [lineColor=(0,0,0,1)]
- *  @param {CanvasTextAlign}  [textAlign='center']
- *  @param {String}  [font=fontDefault]
- *  @param {CanvasRenderingContext2D} [context=overlayContext]
- *  @memberof Draw */
-function drawText(text, pos, size=1, color, lineWidth=0, lineColor, textAlign, font, context)
-{
-    drawTextScreen(text, worldToScreen(pos), size*cameraScale, color, lineWidth*cameraScale, lineColor, textAlign, font, context);
-}
-
-/** Draw text on overlay canvas in screen space
- *  Automatically splits new lines into rows
- *  @param {String}  text
- *  @param {Vector2} pos
- *  @param {Number}  [size]
- *  @param {Color}   [color=(1,1,1,1)]
- *  @param {Number}  [lineWidth]
- *  @param {Color}   [lineColor=(0,0,0,1)]
- *  @param {CanvasTextAlign}  [textAlign]
- *  @param {String}  [font=fontDefault]
- *  @param {CanvasRenderingContext2D} [context=overlayContext]
- *  @memberof Draw */
-function drawTextScreen(text, pos, size=1, color=new Color, lineWidth=0, lineColor=new Color(0,0,0), textAlign='center', font=fontDefault, context=overlayContext)
-{
-    context.fillStyle = color.toString();
-    context.lineWidth = lineWidth;
-    context.strokeStyle = lineColor.toString();
-    context.textAlign = textAlign;
-    context.font = size + 'px '+ font;
-    context.textBaseline = 'middle';
-    context.lineJoin = 'round';
-
-    pos = pos.copy();
-    (text+'').split('\n').forEach(line=>
-    {
-        lineWidth && context.strokeText(line, pos.x, pos.y);
-        context.fillText(line, pos.x, pos.y);
-        pos.y += size;
-    });
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -1466,27 +1261,6 @@ class FontImage
 
         context.restore();
     }
-}
-
-///////////////////////////////////////////////////////////////////////////////
-// Fullscreen mode
-
-/** Returns true if fullscreen mode is active
- *  @return {Boolean}
- *  @memberof Draw */
-function isFullscreen() { return !!document.fullscreenElement; }
-
-/** Toggle fullsceen mode
- *  @memberof Draw */
-function toggleFullscreen()
-{
-    if (isFullscreen())
-    {
-        if (document.exitFullscreen)
-            document.exitFullscreen();
-    }
-    else if (document.body.requestFullscreen)
-            document.body.requestFullscreen();
 }
 
 

@@ -29,11 +29,9 @@ class Building_Farm extends Building {
 		return true;
 	}
 
-	farm(amt) {
+	farm() {
 
-		const amount = min(amt, this.food);
-
-		this.food -= amt;
+		this.food -= 1;
 
 		if (this.food <= 0) {
 
@@ -41,9 +39,6 @@ class Building_Farm extends Building {
 			GLOBAL.buildings.splice(GLOBAL.buildings.indexOf(this), 1);
 			this.destroy();
 		}
-
-
-		return amount;
 	}
 
 }

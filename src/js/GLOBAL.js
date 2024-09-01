@@ -108,9 +108,9 @@ const GLOBAL = {
 			const pos = center.subtract(vec2(maxHitPoints / 24, 0));
 
 			drawRect(center, vec2((maxHitPoints + 2) / 12, 3 / 12), new Color(0, 0, 0));
-			drawRect(center, vec2(maxHitPoints  / 12, 1 / 12), DEFS.COLORS.red);
+			drawRect(center, vec2(maxHitPoints  / 12, 1 / 12), DEFS_COLORS_RED);
 			for (let i = 0; i < hitPoints; i++) {
-				drawRect(pos, vec2(1 / 12), new Color(106 / 255, 190 / 255, 48 / 255));
+				drawRect(pos, vec2(1 / 12), DEFS_COLORS_GREEN);
 				pos.x += 1 / 12;
 			}
 		}

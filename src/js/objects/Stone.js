@@ -22,11 +22,9 @@ class Stone extends EngineObject {
 		}
 	}
 
-	mine(amt) {
+	mine() {
 
-		const amount = min(amt, this.stone);
-
-		this.stone -= amt;
+		this.stone -= 1;
 
 		if (this.stone <= 0) {
 
@@ -34,9 +32,6 @@ class Stone extends EngineObject {
 			GLOBAL.stones.splice(GLOBAL.stones.indexOf(this), 1);
 			this.destroy();
 		}
-
-
-		return amount;
 	}
 
 }

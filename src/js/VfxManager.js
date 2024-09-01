@@ -48,21 +48,21 @@ GLOBAL.vfxMan = {
 		
 		// blood
 		GLOBAL.vfxMan.updateParticles(GLOBAL.vfxMan.bloodDrops, function (drop) {
-			drawRect(drop.pos, vec2(1 / 12), DEFS.COLORS.red);
+			drawRect(drop.pos, vec2(1 / 12), DEFS_COLORS_RED);
 			// gravity
 			drop.dy -= 0.002;
 		});
 
 		// gas
 		GLOBAL.vfxMan.updateParticles(GLOBAL.vfxMan.gasPlumes, function (drop) {
-			drawRect(drop.pos, vec2(3 / 12), new Color(106 / 255, 190 / 255, 48 / 255, 0.4));
+			drawRect(drop.pos, vec2(3 / 12), DEFS_COLORS_GREEN.scale(1, 0.4));
 			drop.pos.y -= drop.dy / 2;
 		});
 
 		// health
 		GLOBAL.vfxMan.updateParticles(GLOBAL.vfxMan.heartPlusses, function (drop) {
-			drawRect(drop.pos, vec2(3 / 12, 1 / 12), new Color(106 / 255, 190 / 255, 48 / 255));
-			drawRect(drop.pos, vec2(1 / 12, 3 / 12), new Color(106 / 255, 190 / 255, 48 / 255));
+			drawRect(drop.pos, vec2(3 / 12, 1 / 12), DEFS_COLORS_GREEN);
+			drawRect(drop.pos, vec2(1 / 12, 3 / 12), DEFS_COLORS_GREEN);
 		});
 
 

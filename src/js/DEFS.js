@@ -20,10 +20,6 @@ const DEFS = {
 		GAME_WON: 9
 	},
 
-	COLORS: {
-		red: new Color(172 / 255, 50 / 255, 50 / 255)
-	},
-
 	WARRIORS: [
 		{
 			number: 'first',
@@ -113,6 +109,8 @@ const DEFS = {
 		
 	]
 
-};
+},
+	DEFS_COLORS_RED = new Color(172 / 255, 50 / 255, 50 / 255),
+	DEFS_COLORS_GREEN = new Color(106 / 255, 190 / 255, 48 / 255),
+	round = Math.round;
 
-function round(num) { return Math.round(num) }
