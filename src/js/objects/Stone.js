@@ -24,7 +24,7 @@ class Stone extends EngineObject {
 
 	mine(amt) {
 
-		const amount = Math.min(amt, this.stone);
+		const amount = min(amt, this.stone);
 
 		this.stone -= amt;
 

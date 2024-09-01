@@ -6,7 +6,7 @@ class Tree extends EngineObject {
 		super(pos.add(vec2(0, 0.45)), vec2(1, 2), tile(vec2(24, 0), vec2(12, 24)));
 
 		this.renderOrder = -pos.y;
-		this.mirror = Math.random() > 0.5;
+		this.mirror = rand() > 0.5;
 
 		GLOBAL.mapGrid[pos.y][pos.x] = this;
 
@@ -26,7 +26,7 @@ class Tree extends EngineObject {
 
 	chop(amt) {
 
-		const amount = Math.min(amt, this.wood);
+		const amount = min(amt, this.wood);
 
 		this.wood -= amt;
 

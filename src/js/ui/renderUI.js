@@ -70,7 +70,7 @@ function gameRenderPost() {
 
 	}
 
-	const dx = Math.min(128, Math.round(128 * innerWidth / 800));
+	const dx = min(128, Math.round(128 * innerWidth / 800));
 
 	// wood
 	let uiPos = screenToWorld(vec2(dx, 64));

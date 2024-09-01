@@ -42,7 +42,7 @@ function gameInit() {
 			}
 		}),
 	);
-	const dx = Math.min(128, Math.round(128 * innerWidth / 800));
+	const dx = min(128, Math.round(128 * innerWidth / 800));
 
 	GLOBAL.buildMenu.push(
 		new Button_Build(dx, 96, tile(50), 6, 4, 0, () => {
@@ -65,7 +65,7 @@ function gameInit() {
 	GLOBAL.townHallMenu.push(
 		new Button_CreateWorker(128, 96, tile(4), () => {
 			GLOBAL.food -= 5 * GLOBAL.units.length;
-			GLOBAL.units.push(new Unit_Worker(DEFS.HOME.add(vec2(- 1 + Math.random() * 2, - 1))));
+			GLOBAL.units.push(new Unit_Worker(DEFS.HOME.add(vec2(rand(-1, 1), - 1))));
 		})
 	);
 
@@ -112,7 +112,7 @@ function gameInit() {
 	);
 
 	cameraPos = DEFS.HOME;
-	cameraScale = Math.min(60, 60 * innerWidth / 900);
+	cameraScale = min(60, 60 * innerWidth / 900);
 
 	GLOBAL.warriorIndex = 0;
 	//GLOBAL.warriorTimer = new Timer(5);
@@ -204,7 +204,7 @@ function gameUpdate() {
 		// spawn enemies
 		for (let i = 0; i < def.enemies.length; i += 2) {
 
-			let tileInfo = tile(94 + Math.floor(Math.random() * 4) * 8);
+			let tileInfo = tile(randInt(94, 97) * 8);
 			let size = vec2(1);
 			let hitPoints = 3;
 
@@ -267,12 +267,10 @@ function separateUnits(unitArray) {
 			if (dist < 0.8) {
 				const angle = unit2.pos.subtract(unit1.pos).angle();
 				if (!unit1.shelter) {
-					unit1.pos.x += Math.random() * 0.01 * Math.cos(angle);
-					unit1.pos.y += Math.random() * 0.01 * Math.sin(angle);
+					unit1.pos = unit1.pos.add(randVector(0.01).multiply(vec2().setAngle(angle)));
 				}
 				if (!unit2.shelter) {
-					unit2.pos.x += Math.random() * 0.01 * Math.cos(angle + PI);
-					unit2.pos.y += Math.random() * 0.01 * Math.sin(angle + PI);
+					unit2.pos = unit2.pos.add(randVector(0.01).multiply(vec2().setAngle(angle + PI)));
 				}
 				
 			}

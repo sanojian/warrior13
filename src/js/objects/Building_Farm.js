@@ -31,7 +31,7 @@ class Building_Farm extends Building {
 
 	farm(amt) {
 
-		const amount = Math.min(amt, this.food);
+		const amount = min(amt, this.food);
 
 		this.food -= amt;
 

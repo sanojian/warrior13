@@ -61,8 +61,8 @@ GLOBAL.inputMan = {
 			}
 
 			// get clicked tile
-			let x = Math.max(0, Math.min(35, Math.round(mousePos.x)));
-			let y = Math.max(0, Math.min(35, Math.round(mousePos.y)));
+			let x = max(0, min(35, Math.round(mousePos.x)));
+			let y = max(0, min(35, Math.round(mousePos.y)));
 			const tile = GLOBAL.mapGrid[y][x];
 			
 			if (tile) {
@@ -92,16 +92,15 @@ GLOBAL.inputMan = {
 
 			if (mouseWasReleased(0)) {
 	
-				const minX = min(GLOBAL.startSelect.x, mousePos.x);
-				const minY = min(GLOBAL.startSelect.y, mousePos.y);
-				const maxX = max(GLOBAL.startSelect.x, mousePos.x);
-				const maxY = max(GLOBAL.startSelect.y, mousePos.y);
-			
 				// do selection
 				for (let i = 0; i < GLOBAL.units.length; i++) {
 					const unit = GLOBAL.units[i];
 
-					unit.selected = unit.pos.x > minX && unit.pos.y > minY && unit.pos.x < maxX && unit.pos.y < maxY;
+					unit.selected =
+						unit.pos.x > min(GLOBAL.startSelect.x, mousePos.x)
+						&& unit.pos.y > min(GLOBAL.startSelect.y, mousePos.y)
+						&& unit.pos.x < max(GLOBAL.startSelect.x, mousePos.x)
+						&& unit.pos.y < max(GLOBAL.startSelect.y, mousePos.y);
 				}
 
 				// end select mode
@@ -110,8 +109,11 @@ GLOBAL.inputMan = {
 			else {
 				// draw select box
 				const size = mousePos.subtract(GLOBAL.startSelect);
-				const pos = mousePos.subtract(size.multiply(vec2(0.5)));
-				drawRect(pos, size, new Color(1, 1, 1, 0.2));
+				drawRect(
+					mousePos.subtract(size.multiply(vec2(0.5))),
+					size,
+					new Color(1, 1, 1, 0.2)
+				);
 			}
 		}
 

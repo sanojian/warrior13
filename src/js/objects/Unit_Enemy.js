@@ -5,7 +5,7 @@ class Unit_Enemy extends Unit {
 
 		super(pos, size, tileInfo);
 
-		this.weapon = Math.random() > 0.5 ? 'axe' : 'sword';
+		this.weapon = rand() > 0.5 ? 'axe' : 'sword';
 
 		this.speed = 1 / 96;
 

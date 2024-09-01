@@ -28,7 +28,7 @@ class Building extends EngineObject {
 	}
 
 	build(amt) {
-		this.needsBuilt = Math.max(0, this.needsBuilt - amt);
+		this.needsBuilt = max(0, this.needsBuilt - amt);
 
 		if (this.needsBuilt <= 0) {
 			this.tileInfo = this.builtTileInfo;

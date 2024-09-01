@@ -26,7 +26,7 @@ class PlayerUnit extends Unit {
 			else if (this instanceof Unit_Worker) {
 				GLOBAL.state = DEFS.STATES.BUILD_MENU;
 			}
-			const chance = Math.random();
+			const chance = rand();
 			GLOBAL.speak(chance < 0.3 ? 'what' : chance < 0.6 ? 'huh?' : 'ready');
 		}
 
@@ -63,7 +63,7 @@ class PlayerUnit extends Unit {
 		};
 
 		if (order && possibleSpeak[order]) {
-			GLOBAL.speak(possibleSpeak[order][Math.floor(Math.random() * possibleSpeak[order].length)]);
+			GLOBAL.speak(possibleSpeak[order][randInt(0, possibleSpeak[order].length-1)]);
 		}
 
 		if (order == 'pray') {
@@ -102,7 +102,7 @@ class PlayerUnit extends Unit {
 				else if (this.intention == 'pray') {
 					// TODO: check if temple still exists
 					const chance = (25 - GLOBAL.mana) / 25;
-					if (Math.random() < chance) {
+					if (rand() < chance) {
 						zzfx(...[.5, , 600, , , 0, , 3.9, , -1, 650, .05, .04, , , , .08, .84, .18]);
 						GLOBAL.mana++;
 						GLOBAL.vfxMan.addParticles(this.pos, GLOBAL.vfxMan.manaBalls);

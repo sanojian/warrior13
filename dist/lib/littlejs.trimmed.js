@@ -195,12 +195,6 @@ function isIntersecting(start, end, pos, size)
 function wave(frequency=1, amplitude=1, t=time)
 { return amplitude/2 * (1 - Math.cos(t*frequency*2*PI)); }
 
-/** Formats seconds to mm:ss style for display purposes 
- *  @param {Number} t - time in seconds
- *  @return {String}
- *  @memberof Utilities */
-function formatTime(t) { return (t/60|0) + ':' + (t%60<10?'0':'') + (t%60|0); }
-
 ///////////////////////////////////////////////////////////////////////////////
 
 /** Random global functions
