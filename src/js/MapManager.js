@@ -24,7 +24,7 @@ class MapManager {
 
 				const gridValue = GLOBAL.mapGrid[y][x];
 				if (gridValue == 'w') {
-					tileIndex = 80;
+					tileIndex = 11;
 				}
 				else if (gridValue == 't') {
 					GLOBAL.trees.push(new Tree(vec2(x, y)));
@@ -68,7 +68,7 @@ class MapManager {
 			new Unit_Worker(vec2(14, 12))
 		);
 
-		GLOBAL.boat = new EngineObject(vec2(33), vec2(2), tile(vec2(48, 120), 24));
+		GLOBAL.boat = new EngineObject(vec2(33), vec2(2), tile(vec2(60, 120), 24));
 
 		/*let enemy = new Unit_Enemy(vec2(16, 10), vec2(1), tile(6));
 		enemy.destination = GLOBAL.buildings[0].pos;

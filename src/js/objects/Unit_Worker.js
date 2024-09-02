@@ -5,31 +5,23 @@ class Unit_Worker extends PlayerUnit {
 
 		super(pos, vec2(1), tile(4));
 
-		this.selected = false;
-
 	}
 
 	render() {
 
 		super.render();
 
-		if (this.intention == 'chop') {
-			// axe
-			this.drawTool(tile(vec2(24), 24));
-		}
-		else if (this.intention == 'mine') {
-			// pick
-			this.drawTool(tile(vec2(48, 24), 24));
+		let tilePos;
+		if (this.intention == 'chop') 
+			tilePos = vec2(24);
+		if (this.intention == 'mine') 
+			tilePos = vec2(48, 24);
+		if (this.intention == 'build') 
+			tilePos = vec2(72, 24);
+		if (this.intention == 'farm') 
+			tilePos = vec2(48, 72);
 
-		}
-		else if (this.intention == 'build') {
-			// hammer
-			this.drawTool(tile(vec2(72, 24), 24));
-		}
-		else if (this.intention == 'farm') {
-			// hoe
-			this.drawTool(tile(vec2(48, 72), 24));
-		}
+		tilePos && this.drawTool(tilePos);
 
 	}
 

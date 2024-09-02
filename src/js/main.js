@@ -9,7 +9,7 @@ function doEngineInit() {
 function gameInit() {
 	
 
-	GLOBAL.uiFont = new FontImage();
+	GLOBAL.uiFont = new FontImage(GLOBAL.fontImage);
 
 	GLOBAL.mapMan = new MapManager();
 
@@ -288,11 +288,11 @@ function loadMapData(callback) {
 
 		const img = new Image(); 
 		img.onload = function() {
-			const canvas = document.createElement("canvas");
+			let canvas = document.createElement("canvas");
 			canvas.height = img.height;
-			const body = document.getElementsByTagName("body")[0];
-			body.appendChild(canvas);
-			const ctx = canvas.getContext("2d");
+			//const body = document.getElementsByTagName("body")[0];
+			//body.appendChild(canvas);
+			let ctx = canvas.getContext("2d");
 
 			ctx.drawImage(img, 0, 0);
 
@@ -319,7 +319,16 @@ function loadMapData(callback) {
 				}
 			}
 
-			body.removeChild(canvas);
+			// font
+			const fontData = ctx.getImageData(0, 120, 96, 10);
+			canvas = document.createElement("canvas");
+			canvas.height = 10;
+			canvas.width = 96;
+			ctx = canvas.getContext("2d");
+			ctx.putImageData(fontData, 0, 0);
+			GLOBAL.fontImage = document.createElement('img');
+			GLOBAL.fontImage.src = canvas.toDataURL("image/png");
+			//body.removeChild(canvas);
 
 			callback();
 		}

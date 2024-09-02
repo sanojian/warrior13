@@ -82,12 +82,14 @@ class Unit extends EngineObject {
 		GLOBAL.drawHealthBar(this.pos.subtract(vec2(0, 8/12)), this.hitPoints, this.maxHitPoints);
 	}
 
-	drawTool(tileInfo) {
+	drawTool(tilePos) {
+
+		const step = Math.floor(this.walkFrame / 10) % 2;
 
 		drawTile(
-			this.pos.add(vec2(0, -2/12)),
+			this.pos.add(vec2(0, step  ? -3/12 : -2/12 + this.jumpHeight)),
 			vec2(2),
-			tileInfo,
+			tile(tilePos, 24),
 			undefined,
 			(this.mirror ? 1 : -1) * this.actionFrame / (PI*12),
 			this.mirror

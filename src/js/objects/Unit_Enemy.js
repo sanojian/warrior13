@@ -129,14 +129,7 @@ class Unit_Enemy extends Unit {
 
 		// post render
 
-		if (this.weapon == 'axe') {
-			this.drawTool(tile(vec2(24), 24));
-			
-		}
-		else {
-			// sword
-			this.drawTool(tile(vec2(72, 48), 24));
-		}
+		this.drawTool(this.weapon == 'axe' ? vec2(24) : vec2(72, 48));
 
 	}
 }
