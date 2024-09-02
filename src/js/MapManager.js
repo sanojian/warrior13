@@ -27,14 +27,10 @@ class MapManager {
 					tileIndex = 80;
 				}
 				else if (gridValue == 't') {
-					const tree = new Tree(vec2(x, y));
-					GLOBAL.mapGrid[y][x] = tree;
-					GLOBAL.trees.push(tree);
+					GLOBAL.trees.push(new Tree(vec2(x, y)));
 				}
 				else if (gridValue == 's') {
-					const stone = new Stone(vec2(x, y));
-					GLOBAL.mapGrid[y][x] = stone;
-					GLOBAL.stones.push(stone);
+					GLOBAL.stones.push(new Stone(vec2(x, y)));
 				}
 				// water tiles
 				/*if (x == 0 && y == 0) {
@@ -55,7 +51,6 @@ class MapManager {
 
 
 				let info = new TileLayerData(tileIndex, rotation);
-				//GLOBAL.mapGrid[y][x] = tileValue || 0;
 
 				tileLayer.setData(vec2(x, y), info);
 			

@@ -5,8 +5,6 @@ class Building_Temple extends Building {
 
 		super(pos, vec2(2), tile(vec2(48, 96), vec2(24)));
 
-		GLOBAL.mapGrid[pos.y][pos.x] = this;
-
 		this.hitPoints = 18;
 		this.maxHitPoints = 18;
 	}

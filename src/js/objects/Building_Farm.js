@@ -5,10 +5,6 @@ class Building_Farm extends Building {
 
 		super(pos, vec2(2), tile(vec2(24, 96), vec2(24)));
 
-		this.renderOrder = -10000;
-
-		GLOBAL.mapGrid[pos.y][pos.x] = this;
-
 		GLOBAL.wood -= 6;
 		GLOBAL.stone -= 4;
 

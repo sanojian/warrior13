@@ -6,7 +6,7 @@ class Building extends EngineObject {
 		// starts as building site
 		super(pos, vec2(1), tile(58));
 
-		this.renderOrder = -pos.y;
+		this.renderOrder = -10000;
 
 		this.popSupport = 0;
 		this.hitPoints = 6;
@@ -33,6 +33,7 @@ class Building extends EngineObject {
 		if (this.needsBuilt <= 0) {
 			this.tileInfo = this.builtTileInfo;
 			this.size = this.builtSize;
+			this.renderOrder = -this.pos.y;
 			return true;
 		}
 

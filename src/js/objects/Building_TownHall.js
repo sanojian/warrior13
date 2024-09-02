@@ -9,8 +9,6 @@ class Building_TownHall extends Building {
 		this.hitPoints = 18;
 		this.maxHitPoints = 18;
 
-		GLOBAL.mapGrid[pos.y][pos.x] = this;
-
 		this.build(10);
 	}
 

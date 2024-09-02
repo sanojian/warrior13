@@ -177,10 +177,15 @@ function gameUpdate() {
 					GLOBAL.buildings.push(new Building_Farm(vec2(x, y)));
 				}
 				else if (GLOBAL.state == DEFS.STATES.BUILD_WALL) {
-					GLOBAL.buildings.push(new Building_Wall(vec2(x, y)));
+					GLOBAL.wood -= 2;
+					GLOBAL.stone -= 1;
+					GLOBAL.buildings.push(new Building(vec2(x, y), vec2(1), tile(51)));
 				}
 				else {
-					GLOBAL.buildings.push(new Building_House(vec2(x, y)));
+					const building = new Building(vec2(x, y), vec2(1), tile(50));
+					building.popSupport = 2;
+					GLOBAL.wood -= 6;
+					GLOBAL.stone -= 4;
 				}
 				
 			}
