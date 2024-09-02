@@ -27,6 +27,10 @@ class Building_Barracks extends Building {
 			selectedUnits[u].intentionTarget = this;
 		}
 
+		if (!selectedUnits.length) {
+			GLOBAL.showMessage('Put a worker inside\nto upgrade');
+		}
+
 
 		return true;
 	}
