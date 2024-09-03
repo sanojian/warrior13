@@ -34,7 +34,7 @@ class Unit_Enemy extends Unit {
 				// attack
 				zzfx(...[, .03, 405, , , 0, 3, .1, 8, , , , , .1, 27, .4, .04, .44, .01]); 
 				
-				this.intentionTarget.takeDamage(1);
+				this.intentionTarget.takeDamage(Math.floor(Math.sqrt(this.maxHitPoints)));
 
 			}
 			else {
