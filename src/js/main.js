@@ -308,7 +308,9 @@ function loadMapData(callback) {
 				for (let x = 0; x < 36; x++) {
 					const index = 4 * (y * 36 + x);
 					let val = 0;
-					if (data[index] == 91 && data[index + 1] == 110 && data[index + 2] == 225) {
+					if (data[index + 3] == 0
+						|| (data[index] == 91 && data[index + 1] == 110 && data[index + 2] == 225)
+						|| (data[index] == 34 && data[index + 1] == 32 && data[index + 2] == 52)) {
 						val = 'w';
 					}
 					else if (data[index] == 75 && data[index + 1] == 105 && data[index + 2] == 47) {
