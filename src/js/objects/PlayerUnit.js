@@ -48,8 +48,10 @@ class PlayerUnit extends Unit {
 		this.destination = target ? target.pos : this.pos;
 		this.actionFrame = 0;
 
-		this.selected = false;
-		GLOBAL.state = 0;
+		if (order != 'move') {
+			this.selected = false;
+			GLOBAL.state = 0;
+		}
 
 		const possibleSpeak = {
 			'chop': ['k', 'choppa', 'yep?'],

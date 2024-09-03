@@ -3,6 +3,15 @@ GLOBAL.inputMan = {
 
 	update() {
 
+		if (mouseWasPressed(2)) {
+			// right click, cancel all
+			GLOBAL.state = 0;
+			for (let i = 0; i < GLOBAL.units.length; i++) {
+				GLOBAL.units[i].selected = false;
+			}
+			clearInput();
+		}
+
 		if (mouseWasPressed(0)) {
 
 			clearInput();
@@ -83,6 +92,7 @@ GLOBAL.inputMan = {
 
 				// move command
 				unit.takeOrder('move', { pos: mousePos });
+				unit.selected = true;
 				unit.intention = undefined;
 			}
 		}
