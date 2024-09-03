@@ -33,4 +33,10 @@ class Building_TownHall extends Building {
 		super.destroy();
 	}
 
+	update() {
+		if (Math.random() < 0.05) {
+			GLOBAL.vfxMan.addParticles(this.pos.subtract(vec2(0.3, -0.8)), GLOBAL.vfxMan.smoke, 1);
+		}
+	}
+
 }

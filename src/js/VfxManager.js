@@ -7,6 +7,7 @@ GLOBAL.vfxMan = {
 	sparks: [],
 	heartPlusses: [],
 	manaBalls: [],
+	smoke: [],
 
 	showArrow (origin, target) {
 
@@ -76,6 +77,13 @@ GLOBAL.vfxMan = {
 			drawRect(drop.pos, vec2(2 / 12), new Color(99 / 255, 155 / 255, 1));
 		});
 
+		// smoke
+		GLOBAL.vfxMan.updateParticles(GLOBAL.vfxMan.smoke, function (drop) {
+			drawRect(drop.pos, vec2(2 / 12), new Color(155 / 255, 173 / 255, 183 / 255, 1 - drop.lifetime / 40));
+			drop.pos.x -= drop.dx / 2;
+			drop.pos.y -= 3 * drop.dy / 4;
+		});
+
 	},
 
 	updateParticles(array, funcDraw) {
@@ -93,9 +101,9 @@ GLOBAL.vfxMan = {
 		}
 	},
 
-	addParticles (pos, array) {
+	addParticles (pos, array, max=5) {
 		
-		const drops = randInt(1, 5);
+		const drops = randInt(1, max);
 
 		for (let i = 0; i < drops; i++) {
 			const angle = rand() * PI;
