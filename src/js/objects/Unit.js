@@ -58,20 +58,15 @@ class Unit extends EngineObject {
 
 		// pre render
 
-		if (this.shelter) {
+		let pos = this.pos.add(vec2(0, this.step ? 1 / 12 : this.jumpHeight));
 
-			drawTile(
-				this.pos.add(vec2(0,  8 / 12)),
-				vec2(0.8),
-				this.tileInfo
-			);
-			return;
-		}
+		if (this.shelter) 
+			pos = this.pos.add(vec2(0, 8 / 12));
 
 		this.step = Math.floor(this.walkFrame / 10) % 2;
 		// render
 		drawTile(
-			this.pos.add(vec2(0, this.step ? 1 / 12 : this.jumpHeight)),
+			pos,
 			this.size,
 			this.step ? this.walkTile : this.tileInfo,
 			undefined,
@@ -99,13 +94,17 @@ class Unit extends EngineObject {
 		tilePos && this.drawTool(tilePos);
 
 
-		GLOBAL.drawHealthBar(this.pos.subtract(vec2(0, 8/12)), this.hitPoints, this.maxHitPoints);
+		!this.shelter && GLOBAL.drawHealthBar(this.pos.subtract(vec2(0, 8/12)), this.hitPoints, this.maxHitPoints);
 	}
 
 	drawTool(tilePos) {
 
+		let pos = this.pos.add(vec2(0, this.step ? -3 / 12 : -2 / 12 + this.jumpHeight))
+		if (this.shelter)
+			pos = this.pos.add(vec2(0, 6 / 12));
+
 		drawTile(
-			this.pos.add(vec2(0, this.step  ? -3/12 : -2/12 + this.jumpHeight)),
+			pos,
 			vec2(2),
 			tile(tilePos, 24),
 			undefined,
