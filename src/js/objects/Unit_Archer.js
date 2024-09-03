@@ -26,7 +26,6 @@ class Unit_Archer extends PlayerUnit {
 				const dist = this.pos.distance(enemy.pos);
 
 				if (dist <= 3) {
-					//this.actionTimer.set(1 * dist / 3);
 					this.actionTimer.unset()
 					this.actionFrame = 0;
 					this.walkFrame = 0;
@@ -44,7 +43,7 @@ class Unit_Archer extends PlayerUnit {
 		super.update();
 	}
 
-	render() {
+	/*render() {
 
 		super.render();
 
@@ -66,6 +65,6 @@ class Unit_Archer extends PlayerUnit {
 			this.mirror
 		);
 	
-	}
+	}*/
 
 }

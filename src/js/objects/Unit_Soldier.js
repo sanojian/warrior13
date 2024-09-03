@@ -6,8 +6,8 @@ class Unit_Soldier extends PlayerUnit {
 		super(pos, vec2(1), tile(14));
 
 		this.weapon = 'spear';
-		this.hitPoints = 4;
-		this.maxHitPoints = 4;
+		this.hitPoints = 6;
+		this.maxHitPoints = 6;
 
 		GLOBAL.wood -= 4;
 		GLOBAL.stone -= 2;
@@ -27,7 +27,7 @@ class Unit_Soldier extends PlayerUnit {
 				this.intentionTarget.takeDamage(1);
 			}
 		}
-		else {
+		else if (!this.shelter) {
 
 			// look for targets
 			let closest = Infinity;
@@ -35,7 +35,6 @@ class Unit_Soldier extends PlayerUnit {
 				const unit = GLOBAL.enemies[i];
 				const dist = this.pos.distance(unit.pos);
 				if (dist < 0.8) {
-					// can attack from shelter
 					this.actionTimer.set(1);
 					this.actionFrame = 0;
 					this.intentionTarget = unit;
@@ -52,7 +51,7 @@ class Unit_Soldier extends PlayerUnit {
 
 	}
 		
-	render() {
+	/*render() {
 
 		// pre render
 
@@ -81,5 +80,5 @@ class Unit_Soldier extends PlayerUnit {
 		);
 	
 
-	}
+	}*/
 }

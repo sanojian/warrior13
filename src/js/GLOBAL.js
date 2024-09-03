@@ -45,7 +45,7 @@ const GLOBAL = {
 
 		let count = 0;
 		for (let i = 0; i < GLOBAL.units.length; i++) {
-			if (GLOBAL.units[i] instanceof Unit_Worker) {
+			if (!GLOBAL.units[i].weapon) {
 				count++;
 			}
 		}

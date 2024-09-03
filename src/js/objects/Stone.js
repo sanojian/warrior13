@@ -16,7 +16,7 @@ class Stone extends EngineObject {
 
 		for (let u = 0; u < selectedUnits.length; u++) {
 			const unit = selectedUnits[u];
-			if (unit instanceof Unit_Worker) {
+			if (!unit.weapon) {
 				unit.takeOrder('mine', this);
 			}
 		}

@@ -79,6 +79,26 @@ class Unit extends EngineObject {
 			this.mirror
 		);
 
+		// item in hand
+		let tilePos;
+		if (this.intention == 'chop' || this.weapon == 'axe')
+			tilePos = vec2(24);
+		else if (this.intention == 'mine')
+			tilePos = vec2(48, 24);
+		else if (this.intention == 'build')
+			tilePos = vec2(72, 24);
+		else if (this.intention == 'farm')
+			tilePos = vec2(48, 72);
+		else if (this.weapon == 'sword')
+			tilePos = vec2(72, 48);
+		else if (this.weapon == 'spear')
+			tilePos = vec2(72, 96);
+		else if (this.weapon == 'bow')
+			tilePos = vec2(72);
+
+		tilePos && this.drawTool(tilePos);
+
+
 		GLOBAL.drawHealthBar(this.pos.subtract(vec2(0, 8/12)), this.hitPoints, this.maxHitPoints);
 	}
 

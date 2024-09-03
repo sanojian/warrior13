@@ -64,9 +64,7 @@ class MapManager {
 		GLOBAL.buildings.push(new Building_Temple(vec2(17, 22)));
 		GLOBAL.buildings[GLOBAL.buildings.length - 1].build(10);
 
-		GLOBAL.units.push(
-			new Unit_Worker(vec2(14, 12))
-		);
+		GLOBAL.units.push(new PlayerUnit(vec2(14, 12)));
 
 		GLOBAL.boat = new EngineObject(vec2(33), vec2(2), tile(vec2(48, 132), 24));
 

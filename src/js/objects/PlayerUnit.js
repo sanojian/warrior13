@@ -1,7 +1,7 @@
 
 class PlayerUnit extends Unit {
 
-	constructor(pos, size, tileInfo) {
+	constructor(pos, size, tileInfo = tile(4)) {
 
 		super(pos, size, tileInfo);
 
@@ -20,10 +20,10 @@ class PlayerUnit extends Unit {
 
 		if (select && !this.selected) {
 			
-			if (this.shelter && this.shelter instanceof Building_Barracks && this instanceof Unit_Worker) {
+			if (this.shelter && this.shelter instanceof Building_Barracks && !this.weapon) {
 				GLOBAL.state = DEFS.STATES.TRAIN_MENU;
 			}
-			else if (this instanceof Unit_Worker) {
+			else if (!this.weapon) {
 				GLOBAL.state = DEFS.STATES.BUILD_MENU;
 			}
 			const chance = rand();
@@ -284,11 +284,6 @@ class PlayerUnit extends Unit {
 	render() {
 
 		// pre render
-
-		// render
-		super.render();
-
-		// post render
 		if (this.selected) {
 			// select ring
 			drawTile(
@@ -297,6 +292,11 @@ class PlayerUnit extends Unit {
 				tile(1),
 			);
 		}
+
+		// render
+		super.render();
+
+		// post render
 		
 	}
 }
