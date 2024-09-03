@@ -274,21 +274,27 @@ function separateUnits(unitArray) {
 
 	if (unitArray.length > 1) {
 		const index = frame % unitArray.length;
-		const unit1 = unitArray[index];
+		let unit1 = unitArray[index];
 		
 		for (let i = 0; i < unitArray.length; i++) {
 			if (i == index) {
 				continue;
 			}
-			const unit2 = unitArray[i];
-			const dist = unit2.pos.subtract(unit1.pos).length();
-			if (dist < 0.8) {
-				const angle = unit2.pos.subtract(unit1.pos).angle();
+			let unit2 = unitArray[i];
+			if (i < index) {
+				// swap places
+				const temp = unit1;
+				unit1 = unit2;
+				unit2 = temp;
+			}
+			const diff = unit2.pos.subtract(unit1.pos);
+			if (diff.length() < 0.8) {
+				// push units away from each other
 				if (!unit1.shelter) {
-					unit1.pos = unit1.pos.add(randVector(0.01).multiply(vec2().setAngle(angle)));
+					unit1.pos = unit1.pos.subtract(diff.clampLength(0.002));
 				}
 				if (!unit2.shelter) {
-					unit2.pos = unit2.pos.add(randVector(0.01).multiply(vec2().setAngle(angle + PI)));
+					unit2.pos = unit2.pos.add(diff.clampLength(0.002));
 				}
 				
 			}

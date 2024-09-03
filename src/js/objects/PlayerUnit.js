@@ -162,6 +162,7 @@ class PlayerUnit extends Unit {
 			if (dist < this.speed) {
 				// arrived
 				this.pos = this.destination;
+				this.destination = undefined;
 				if (this.intention == 'chop') {
 					// look for new target
 					let closest = Infinity;
