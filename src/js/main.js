@@ -58,7 +58,7 @@ function gameInit() {
 			GLOBAL.state = DEFS.STATES.BUILD_WALL;
 		}),
 		new Button_Build(dx*4, 96, tile(vec2(0, 96), vec2(24)), 6, 10, 0, () => {
-			//GLOBAL.showMessage('the quick brown\nfox jumped over\nthe lazy dog');
+			//GLOBAL.showMessage('the quick brown\nfox jumps over\nthe lazy dog');
 			GLOBAL.showMessage('Put your men in\nBarracks to train');
 			GLOBAL.state = DEFS.STATES.BUILD_BARRACKS;
 		}),
@@ -183,10 +183,12 @@ function gameUpdate() {
 					GLOBAL.buildings.push(new Building(vec2(x, y), vec2(1), tile(51)));
 				}
 				else {
+					// house
 					const building = new Building(vec2(x, y), vec2(1), tile(50));
 					building.popSupport = 2;
 					GLOBAL.wood -= 6;
 					GLOBAL.stone -= 4;
+					GLOBAL.buildings.push(building);
 				}
 				
 			}
