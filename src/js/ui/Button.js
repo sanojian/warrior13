@@ -44,7 +44,7 @@ class Button {
 			&& GLOBAL.food >= this.requiresFood
 			&& GLOBAL.mana >= this.requiresMana
 			&& GLOBAL.countWorkers() >= this.requiresWorker
-			&& GLOBAL.getSupportedPop() - GLOBAL.units.length >= this.requiresPop;
+			&& GLOBAL.getSupportedPop() - GLOBAL.units.length >= (this.requiresPop ? this.requiresPop : -1000);
 	}
 
 
