@@ -68,12 +68,12 @@ class Unit extends EngineObject {
 			return;
 		}
 
-		const step = Math.floor(this.walkFrame / 10) % 2;
+		this.step = Math.floor(this.walkFrame / 10) % 2;
 		// render
 		drawTile(
-			this.pos.add(vec2(0, step ? 1 / 12 : this.jumpHeight)),
+			this.pos.add(vec2(0, this.step ? 1 / 12 : this.jumpHeight)),
 			this.size,
-			step ? this.walkTile : this.tileInfo,
+			this.step ? this.walkTile : this.tileInfo,
 			undefined,
 			undefined,
 			this.mirror
@@ -84,10 +84,8 @@ class Unit extends EngineObject {
 
 	drawTool(tilePos) {
 
-		const step = Math.floor(this.walkFrame / 10) % 2;
-
 		drawTile(
-			this.pos.add(vec2(0, step  ? -3/12 : -2/12 + this.jumpHeight)),
+			this.pos.add(vec2(0, this.step  ? -3/12 : -2/12 + this.jumpHeight)),
 			vec2(2),
 			tile(tilePos, 24),
 			undefined,

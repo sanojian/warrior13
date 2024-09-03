@@ -50,7 +50,7 @@ class Unit_Archer extends PlayerUnit {
 
 		// bow
 		let size = vec2(2);
-		let pos = this.pos.add(vec2(0, -2/12))
+		let pos = this.pos.add(vec2(0, this.step  ? -1/12 : -2 / 12))
 		if (this.shelter) {
 
 			pos = pos.add(vec2(0, 8 / 12));

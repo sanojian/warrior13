@@ -169,7 +169,7 @@ function drawUiBox(uiPos, tileInfo, text) {
 
 	GLOBAL.uiFont.drawText(
 		text,
-		uiPos.add(vec2(0.7, 0.2)),
+		uiPos.add(vec2(0.5, 0.2)),
 		0.08,
 		true
 	);
