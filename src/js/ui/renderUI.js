@@ -160,11 +160,15 @@ function drawUiBox(uiPos, tileInfo, text) {
 		vec2(4, 2),
 		tile(vec2(0, 48), vec2(48, 24))
 	);
+	drawRect(
+		uiPos.subtract(vec2(0.9, .03)),
+		vec2(1.2),
+		new Color(48 / 255, 96 / 255, 130 / 255)
+	);
 	drawTile(
-		uiPos.subtract(vec2(0.8, 0)),
+		uiPos.subtract(vec2(0.9, 0)),
 		vec2(1),
-		tileInfo,
-		new Color(1, 1, 1, 0.7)
+		tileInfo
 	);
 
 	GLOBAL.uiFont.drawText(
