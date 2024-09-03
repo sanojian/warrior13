@@ -51,34 +51,4 @@ class Unit_Soldier extends PlayerUnit {
 
 	}
 		
-	/*render() {
-
-		// pre render
-
-		// render
-		super.render();
-
-		// post render
-
-		// spear
-		let size = vec2(2);
-		const moveAmt = this.actionFrame / 240;
-		let pos = this.pos.add(vec2((this.mirror ? 1 : -1) * moveAmt, this.step ? -1 / 12 : -2 / 12));
-		if (this.shelter) {
-
-			pos = pos.add(vec2(0, 8 / 12));
-			size = vec2(1.6);
-		}
-
-		drawTile(
-			pos,
-			size,
-			tile(vec2(72, 96), 24),
-			undefined,
-			this.shelter ? PI : 0,
-			this.mirror
-		);
-	
-
-	}*/
 }
