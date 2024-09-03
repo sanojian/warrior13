@@ -186,6 +186,7 @@ function gameUpdate() {
 					// house
 					const building = new Building(vec2(x, y), vec2(1), tile(50));
 					building.popSupport = 2;
+					building.smokePos = building.pos.add(vec2(0.3, 0.5));
 					GLOBAL.wood -= 6;
 					GLOBAL.stone -= 4;
 					GLOBAL.buildings.push(building);

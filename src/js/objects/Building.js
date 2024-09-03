@@ -20,6 +20,8 @@ class Building extends EngineObject {
 
 		this.needsBuilt = 10;
 
+		this.smokePos = 0;
+
 		for (let i = 0; i < GLOBAL.units.length; i++) {
 			const unit = GLOBAL.units[i];
 			unit.selected && unit.takeOrder('build', this);
@@ -76,4 +78,14 @@ class Building extends EngineObject {
 		GLOBAL.drawHealthBar(this.pos.subtract(vec2(0, 1)), this.hitPoints, this.maxHitPoints);
 
 	}
+
+	update() {
+		if (!this.needsBuilt && this.smokePos) {
+			// show smoke from chimney
+			if (Math.random() < 0.05) {
+				GLOBAL.vfxMan.addParticles(this.smokePos, GLOBAL.vfxMan.smoke, 1);
+			}
+		}
+	}
+
 }
