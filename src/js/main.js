@@ -320,9 +320,9 @@ function loadMapData(callback) {
 			}
 
 			// font
-			const fontData = ctx.getImageData(0, 120, 96, 10);
+			const fontData = ctx.getImageData(0, 180, 96, 24);
 			canvas = document.createElement("canvas");
-			canvas.height = 10;
+			canvas.height = 24;
 			canvas.width = 96;
 			ctx = canvas.getContext("2d");
 			ctx.putImageData(fontData, 0, 0);

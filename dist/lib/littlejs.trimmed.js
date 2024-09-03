@@ -1053,7 +1053,7 @@ class FontImage
      *  @param {Vector2} [paddingSize=(0,1)] - How much extra space to add between characters
      *  @param {CanvasRenderingContext2D} [context=overlayContext] - context to draw to
      */
-    constructor(image, tileSize=vec2(3, 5), paddingSize=vec2(1), context=overlayContext)
+    constructor(image, tileSize=vec2(6), paddingSize=vec2(1), context=overlayContext)
     {
        this.image = image;
         this.tileSize = tileSize;

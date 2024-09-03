@@ -7,7 +7,7 @@ function gameRenderPost() {
 		GLOBAL.uiFont.drawText(
 			'You Have Lost\nClick to retry',
 			screenToWorld(vec2(innerWidth / 2, innerHeight / 2)),
-			0.12,
+			0.08,
 			true
 		);
 
@@ -23,7 +23,7 @@ function gameRenderPost() {
 		GLOBAL.uiFont.drawText(
 			'You Have Defeated\nthe "heroes"!',
 			screenToWorld(vec2(innerWidth / 2, innerHeight / 2)),
-			0.12,
+			0.08,
 			true
 		);
 
@@ -132,7 +132,7 @@ function gameRenderPost() {
 
 		// display message
 		GLOBAL.uiFont.drawText(
-			GLOBAL.message,
+			GLOBAL.message.toUpperCase(),
 			cameraPos,
 			0.08,
 			true
@@ -145,7 +145,7 @@ function gameRenderPost() {
 
 	if (GLOBAL.warriorIndex < 12 && countdown < 31) {
 		GLOBAL.uiFont.drawText(
-			DEFS.WARRIORS[GLOBAL.warriorIndex].number + ' ' + countdown + '\n' + DEFS.WARRIORS[GLOBAL.warriorIndex].from,
+			(DEFS.WARRIORS[GLOBAL.warriorIndex].number + ' ' + countdown + '\n' + DEFS.WARRIORS[GLOBAL.warriorIndex].from).toUpperCase(),
 			screenToWorld(vec2(innerWidth / 2, 24)),
 			0.08,
 			true
@@ -169,7 +169,7 @@ function drawUiBox(uiPos, tileInfo, text) {
 
 	GLOBAL.uiFont.drawText(
 		text,
-		uiPos.add(vec2(0.8, 0.2)),
+		uiPos.add(vec2(0.7, 0.2)),
 		0.08,
 		true
 	);

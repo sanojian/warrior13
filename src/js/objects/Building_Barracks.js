@@ -28,7 +28,7 @@ class Building_Barracks extends Building {
 		}
 
 		if (!selectedUnits.length) {
-			GLOBAL.showMessage('Put a worker inside\nto upgrade');
+			GLOBAL.showMessage('Put a worker\ninside to upgrade');
 		}
 
 
