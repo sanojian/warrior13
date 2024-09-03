@@ -58,6 +58,7 @@ function gameInit() {
 			GLOBAL.state = DEFS.STATES.BUILD_WALL;
 		}),
 		new Button_Build(dx*4, 96, tile(vec2(0, 96), vec2(24)), 6, 10, 0, () => {
+			//GLOBAL.showMessage('the quick brown\nfox jumped over\nthe lazy dog');
 			GLOBAL.showMessage('Put your men in\nBarracks to train');
 			GLOBAL.state = DEFS.STATES.BUILD_BARRACKS;
 		}),
