@@ -11,7 +11,7 @@ class Building_TownHall extends Building {
 
 		this.build(10);
 
-		this.smokePos = pos.subtract(vec2(0.3, -0.8));
+		this.smokePos = pos.subtract(vec2(0.3, -0.75));
 	}
 
 	handleClick(selectedUnits) {
