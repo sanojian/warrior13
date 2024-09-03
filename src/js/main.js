@@ -309,8 +309,6 @@ function loadMapData(callback) {
 		img.onload = function() {
 			let canvas = document.createElement("canvas");
 			canvas.height = img.height;
-			//const body = document.getElementsByTagName("body")[0];
-			//body.appendChild(canvas);
 			let ctx = canvas.getContext("2d");
 
 			ctx.drawImage(img, 0, 0);
@@ -349,7 +347,6 @@ function loadMapData(callback) {
 			ctx.putImageData(fontData, 0, 0);
 			GLOBAL.fontImage = document.createElement('img');
 			GLOBAL.fontImage.src = canvas.toDataURL("image/png");
-			//body.removeChild(canvas);
 
 			callback();
 		}
@@ -363,7 +360,7 @@ tileSizeDefault = vec2(12);
 speechSynthesis.onvoiceschanged = function() {
 	GLOBAL.voices = speechSynthesis.getVoices();
 
-	GLOBAL.voicesLoaded = true;
+	//GLOBAL.voicesLoaded = true;
 };
 
 loadMapData(doEngineInit);
