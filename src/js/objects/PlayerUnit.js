@@ -69,7 +69,7 @@ class PlayerUnit extends Unit {
 		}
 
 		if (order == 'pray') {
-			GLOBAL.showMessage('Pray to me!');
+			GLOBAL.showMessage('PRAY TO ME!');
 		}
 	}
 

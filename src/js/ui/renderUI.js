@@ -5,7 +5,7 @@ function gameRenderPost() {
 	if (GLOBAL.state == DEFS.STATES.GAME_LOST) {
 
 		GLOBAL.uiFont.drawText(
-			'You Have Lost\nClick to retry',
+			'YOU HAVE LOST\nCLICK TO RETRY?',
 			screenToWorld(vec2(innerWidth / 2, innerHeight / 2)),
 			0.08,
 			true
@@ -21,7 +21,7 @@ function gameRenderPost() {
 		}
 
 		GLOBAL.uiFont.drawText(
-			'You Have Defeated\nthe "heroes"!',
+			'YOU HAVE DEFEATED\nTHE HEROES!',
 			screenToWorld(vec2(innerWidth / 2, innerHeight / 2)),
 			0.08,
 			true
@@ -132,7 +132,7 @@ function gameRenderPost() {
 
 		// display message
 		GLOBAL.uiFont.drawText(
-			GLOBAL.message.toUpperCase(),
+			GLOBAL.message,
 			cameraPos,
 			0.08,
 			true
@@ -145,7 +145,7 @@ function gameRenderPost() {
 
 	if (GLOBAL.warriorIndex < 12 && countdown < 31) {
 		GLOBAL.uiFont.drawText(
-			(DEFS.WARRIORS[GLOBAL.warriorIndex].number + ' ' + countdown + '\n' + DEFS.WARRIORS[GLOBAL.warriorIndex].from).toUpperCase(),
+			(DEFS.WARRIORS[GLOBAL.warriorIndex].number + ' ' + countdown + '\n' + DEFS.WARRIORS[GLOBAL.warriorIndex].from),
 			screenToWorld(vec2(innerWidth / 2, 24)),
 			0.08,
 			true

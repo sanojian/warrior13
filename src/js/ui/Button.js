@@ -23,13 +23,13 @@ class Button {
 		
 		if (isOver && !this.enoughMaterial()) {
 			// tell user what they need
-			GLOBAL.showMessage('Need\n'
-				+ (this.requiresWood ? this.requiresWood + ' wood\n' : '')
-				+ (this.requiresStone ? this.requiresStone + ' stone\n' : '')
-				+ (this.requiresFood ? this.requiresFood + ' food\n' : '')
-				+ (this.requiresWorker ? this.requiresWorker + ' worker\n' : '')
-				+ (this.requiresMana ? this.requiresMana + ' mana\n' : '')
-				+ (this.requiresPop ? this.requiresPop + ' living space' : ''));
+			GLOBAL.showMessage('NEED\n'
+				+ (this.requiresWood ? this.requiresWood + ' WOOD\n' : '')
+				+ (this.requiresStone ? this.requiresStone + ' STONE\n' : '')
+				+ (this.requiresFood ? this.requiresFood + ' FOOD\n' : '')
+				+ (this.requiresWorker ? this.requiresWorker + ' WORKER\n' : '')
+				+ (this.requiresMana ? this.requiresMana + ' MANA\n' : '')
+				+ (this.requiresPop ? this.requiresPop + ' LIVING SPACE' : ''));
 			return isOver;
 		}
 

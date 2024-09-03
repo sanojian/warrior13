@@ -46,20 +46,20 @@ function gameInit() {
 
 	GLOBAL.buildMenu.push(
 		new Button_Build(dx, 96, tile(50), 6, 4, 0, () => {
-			GLOBAL.showMessage('House is living space');
+			GLOBAL.showMessage('HOUSE IS LIVING SPACE');
 			GLOBAL.state = DEFS.STATES.BUILD_HOUSE;
 		}),
 		new Button_Build(dx*2, 96, tile(vec2(24, 96), vec2(24)), 6, 4, 0, () => {
-			GLOBAL.showMessage('Farm is for food');
+			GLOBAL.showMessage('FARM IS FOR FOOD');
 			GLOBAL.state = DEFS.STATES.BUILD_FARM;
 		}),
 		new Button_Build(dx*3, 96, tile(51), 2, 1, 0, () => {
-			GLOBAL.showMessage('Wall is for protection');
+			GLOBAL.showMessage('WALL IS FOR PROTECTION');
 			GLOBAL.state = DEFS.STATES.BUILD_WALL;
 		}),
 		new Button_Build(dx*4, 96, tile(vec2(0, 96), vec2(24)), 6, 10, 0, () => {
 			//GLOBAL.showMessage('the quick brown\nfox! jumps over\nthe lazy dog?');
-			GLOBAL.showMessage('Put your men in\nBarracks to train');
+			GLOBAL.showMessage('PUT WORKERS INTO\nBARRACKS TO TRAIN');
 			GLOBAL.state = DEFS.STATES.BUILD_BARRACKS;
 		}),
 	);
@@ -208,7 +208,7 @@ function gameUpdate() {
 		const def = DEFS.WARRIORS[GLOBAL.warriorIndex];
 
 		GLOBAL.speak('The' + def.number + ' warrior, ' + def.name + ' approaches', 2, 1, 1);
-		GLOBAL.showMessage(def.name + '\napproaches from the\n' + def.from);
+		GLOBAL.showMessage(def.name + '\nHAS LANDED IN THE \n' + def.from);
 		
 		// spawn enemies
 		for (let i = 0; i < def.enemies.length; i += 2) {
