@@ -112,7 +112,7 @@ function gameInit() {
 		})
 	);
 
-	cameraPos = DEFS.HOME;
+	GLOBAL.desiredCameraPos = cameraPos = DEFS.HOME;
 	cameraScale = min(60, 60 * innerWidth / 900);
 
 	GLOBAL.warriorIndex = 0;
@@ -245,6 +245,15 @@ function gameUpdate() {
 		}
 
 		GLOBAL.warriorIndex++;
+	}
+
+	// lerp camera
+	if (cameraPos != GLOBAL.desiredCameraPos) {
+		const diff = GLOBAL.desiredCameraPos.subtract(cameraPos);
+		if (diff.length() < 0.2) {
+			GLOBAL.desiredCameraPos = cameraPos;
+		}
+		cameraPos = cameraPos.add(diff.clampLength(diff.length() / 10));
 	}
 
 }

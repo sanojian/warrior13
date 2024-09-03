@@ -36,6 +36,7 @@ const GLOBAL = {
 	maxCameraScale: 0,
 	minCameraScale: 0,
 	dScale: 0,
+	desiredCameraPos: cameraPos,
 
 	// for selection box
 	startSelect: undefined,
