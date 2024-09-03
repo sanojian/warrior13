@@ -67,6 +67,9 @@ const GLOBAL = {
 		/*if (!GLOBAL.voicesLoaded) {
 			return;
 		}*/
+
+		phrase = phrase.toLowerCase();
+
 		const T2S = window.speechSynthesis || speechSynthesis; 
 		var utter = GLOBAL.phrases[phrase] || new SpeechSynthesisUtterance(phrase);
 		GLOBAL.phrases[phrase] = utter;
