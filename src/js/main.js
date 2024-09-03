@@ -66,7 +66,7 @@ function gameInit() {
 	GLOBAL.townHallMenu.push(
 		new Button_CreateWorker(128, 96, tile(4), () => {
 			GLOBAL.food -= 5 * GLOBAL.units.length;
-			GLOBAL.units.push(new Unit_Worker(DEFS.HOME.add(vec2(rand(-1, 1), - 1))));
+			GLOBAL.units.push(new PlayerUnit(DEFS.HOME.add(vec2(rand(-1, 1), - 1))));
 		})
 	);
 
@@ -222,7 +222,7 @@ function gameUpdate() {
 				tileInfo = tile(def.heroTile || 6);
 				size = vec2(def.heroSize || 1.2);
 				// king gets double bonus
-				hitPoints += GLOBAL.warriorIndex == 12 ? 24 : GLOBAL.warriorIndex;
+				hitPoints += GLOBAL.warriorIndex == 12 ? 12 : Math.floor(GLOBAL.warriorIndex / 2);
 			}
 			let enemy = new Unit_Enemy(vec2(def.enemies[i], def.enemies[i+1]), size, tileInfo, hitPoints);
 			enemy.destination = DEFS.HOME;
