@@ -3,7 +3,7 @@ class Building_TownHall extends Building {
 
 	constructor(pos) {
 
-		super(pos, vec2(2), tile(vec2(0, 24), 24));
+		super(pos, vec2(2), tile(vec2(72, 96), 24));
 
 		this.popSupport = 3;
 		this.hitPoints = 18;

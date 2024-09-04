@@ -87,7 +87,7 @@ class Unit extends EngineObject {
 		else if (this.weapon == 'sword')
 			tilePos = vec2(72, 48);
 		else if (this.weapon == 'spear')
-			tilePos = vec2(72, 96);
+			tilePos = vec2(0, 24);
 		else if (this.weapon == 'bow')
 			tilePos = vec2(72);
 
