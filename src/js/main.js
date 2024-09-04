@@ -72,20 +72,15 @@ function gameInit() {
 
 	GLOBAL.spellMenu.push(
 		new Button_Spell(innerWidth - dx, innerHeight - 192, tile(90), 5, () => {
+			// create food
 			GLOBAL.mana -= 5;
 			GLOBAL.food += 10;
-			zzfx(...[.9,,588,,.03,.14,,3.9,,-1,650,.05,.04,,,,.08,.84,.3]);
+			zzfx(...[.9, , 588, , .03, .14, , 3.9, , -1, 650, .05, .04, , , , .08, .84, .3]);
+			GLOBAL.showMessage('FOOD CREATED');
 		}),
-		new Button_Spell(innerWidth - dx, innerHeight - (192 + dx), tile(89), 10, () => {
-			GLOBAL.mana -= 10;
-			for (let i = 0; i < GLOBAL.enemies.length; i++) {
-				GLOBAL.vfxMan.addParticles(GLOBAL.enemies[i].pos, GLOBAL.vfxMan.gasPlumes);
-				GLOBAL.enemies[i].takeDamage(1);
-			}
-			zzfx(...[.7,,530,.01,.14,.13,,.3,-10,,,,,,32,,.03,.3,.1,,346]);
-		}),
-		new Button_Spell(innerWidth - dx, innerHeight - (192 + dx * 2), tile(91), 10, () => {
-			GLOBAL.mana -= 10;
+		new Button_Spell(innerWidth - dx, innerHeight - (192 + dx), tile(91), 8, () => {
+			// healing
+			GLOBAL.mana -= 8;
 			for (let i = 0; i < GLOBAL.units.length; i++) {
 				const unit = GLOBAL.units[i];
 				if (unit.hitPoints < unit.maxHitPoints) {
@@ -100,15 +95,28 @@ function gameInit() {
 					unit.hitPoints++;
 				}
 			}
-			zzfx(...[,,244,,.05,.32,,1.7,-2,,421,.09,.02,,,,,.8,.15]);
+			zzfx(...[, , 244, , .05, .32, , 1.7, -2, , 421, .09, .02, , , , , .8, .15]);
+			GLOBAL.showMessage('FRIENDS ARE HEALED');
+		}),
+		new Button_Spell(innerWidth - dx, innerHeight - (192 + dx * 2), tile(89), 10, () => {
+			// poison
+			GLOBAL.mana -= 10;
+			for (let i = 0; i < GLOBAL.enemies.length; i++) {
+				GLOBAL.vfxMan.addParticles(GLOBAL.enemies[i].pos, GLOBAL.vfxMan.gasPlumes);
+				GLOBAL.enemies[i].takeDamage(1);
+			}
+			zzfx(...[.7,,530,.01,.14,.13,,.3,-10,,,,,,32,,.03,.3,.1,,346]);
+			GLOBAL.showMessage('ENEMIES ARE SICKENED');
 		}),
 		new Button_Spell(innerWidth - dx, innerHeight - (192 + dx * 3), tile(88), 20, () => {
+			// lightning
 			GLOBAL.mana -= 20;
 			for (let i = 0; i < GLOBAL.enemies.length; i++) {
 				GLOBAL.vfxMan.addParticles(GLOBAL.enemies[i].pos, GLOBAL.vfxMan.sparks);
-				GLOBAL.enemies[i].takeDamage(GLOBAL.enemies.length < 2 ? 3 : GLOBAL.enemies.length < 5 ? 2 : 1);
+				GLOBAL.enemies[i].takeDamage(GLOBAL.enemies.length < 2 ? 4 : 2);
 			}
-			zzfx(...[2.8,,48,,.23,.73,4,1.9,,-4,,,.21,.2,,.5,.41,.36,.07,.29]);
+			zzfx(...[2.8, , 48, , .23, .73, 4, 1.9, , -4, , , .21, .2, , .5, .41, .36, .07, .29]);
+			GLOBAL.showMessage('ENEMIES ARE SMITED');
 		})
 	);
 

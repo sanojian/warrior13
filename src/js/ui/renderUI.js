@@ -133,7 +133,7 @@ function gameRenderPost() {
 		// display message
 		GLOBAL.uiFont.drawText(
 			GLOBAL.message,
-			cameraPos,
+			cameraPos.subtract(vec2(0, 5)),
 			0.08,
 			true
 		);
@@ -161,12 +161,12 @@ function drawUiBox(uiPos, tileInfo, text) {
 		tile(vec2(0, 48), vec2(48, 24))
 	);
 	drawRect(
-		uiPos.subtract(vec2(0.9, .03)),
+		uiPos.subtract(vec2(0.85, 0)),
 		vec2(1.2),
 		new Color(48 / 255, 96 / 255, 130 / 255)
 	);
 	drawTile(
-		uiPos.subtract(vec2(0.9, 0)),
+		uiPos.subtract(vec2(0.85, 0)),
 		vec2(1),
 		tileInfo
 	);
