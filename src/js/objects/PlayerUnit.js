@@ -19,13 +19,6 @@ class PlayerUnit extends Unit {
 		const select = x > this.pos.x - this.size.x / 2 && x < this.pos.x + this.size.x / 2 && y > this.pos.y - this.size.y / 2 && y < this.pos.y + this.size.y / 2;
 
 		if (select && !this.selected) {
-			
-			if (this.shelter && this.shelter instanceof Building_Barracks && !this.weapon) {
-				GLOBAL.state = DEFS.STATES.TRAIN_MENU;
-			}
-			else if (!this.weapon) {
-				GLOBAL.state = DEFS.STATES.BUILD_MENU;
-			}
 			const chance = rand();
 			GLOBAL.speak(chance < 0.3 ? 'what' : chance < 0.6 ? 'huh?' : 'ready');
 		}

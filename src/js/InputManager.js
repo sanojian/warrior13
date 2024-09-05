@@ -66,6 +66,16 @@ GLOBAL.inputMan = {
 				else if (selected) {
 					// select unit
 					unit.selected = true;
+
+					if (unit.weapon)
+						// soldier
+						GLOBAL.state = 0;
+					else if (unit.shelter && unit.shelter instanceof Building_Barracks) 
+						// worker in barracks
+						GLOBAL.state = DEFS.STATES.TRAIN_MENU;
+					else 
+						// worker
+						GLOBAL.state = DEFS.STATES.BUILD_MENU;
 				}
 			});
 			if (unitClicked) {
