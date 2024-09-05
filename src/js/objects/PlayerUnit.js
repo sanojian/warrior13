@@ -30,8 +30,7 @@ class PlayerUnit extends Unit {
 			GLOBAL.speak(chance < 0.3 ? 'what' : chance < 0.6 ? 'huh?' : 'ready');
 		}
 
-		this.selected = select;
-		return this.selected;
+		return select;
 	}
 
 	takeOrder(order, target) {

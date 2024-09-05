@@ -6,9 +6,9 @@ GLOBAL.inputMan = {
 		if (mouseWasPressed(2)) {
 			// right click, cancel all
 			GLOBAL.state = 0;
-			for (let i = 0; i < GLOBAL.units.length; i++) {
-				GLOBAL.units[i].selected = false;
-			}
+			GLOBAL.units.forEach((unit) => {
+				unit.selected = false;
+			});
 			clearInput();
 		}
 
@@ -49,24 +49,29 @@ GLOBAL.inputMan = {
 			}
 
 			const wereSelected = [];
-			for (let i = 0; i < GLOBAL.units.length; i++) {
-				const unit = GLOBAL.units[i];
+			let unitClicked = false;
+			GLOBAL.units.forEach((unit) => {
 				
 				unit.selected && wereSelected.push(unit);
 				const wasSelected = unit.selected;
-				unit.isOver(mousePos.x, mousePos.y);
+				const selected = unit.isOver(mousePos.x, mousePos.y);
+				unitClicked = selected || unitClicked;
 
-				if (unit.selected && wasSelected) {
+				if (selected && wasSelected) {
 					// de-select unit
 					unit.selected = false;
 					GLOBAL.state = 0;
 					return;
 				}
-				if (unit.selected) {
-					// done here
-					return;
+				else if (selected) {
+					// select unit
+					unit.selected = true;
 				}
-					
+			});
+			if (unitClicked) {
+				// de-select all previously selected units
+				wereSelected.forEach((unit) => { unit.selected = false; });
+				return;
 			}
 
 			// get clicked tile
@@ -76,6 +81,7 @@ GLOBAL.inputMan = {
 			
 			if (tile) {
 
+				// order selected units to do task
 				tile.handleClick && tile.handleClick(wereSelected);
 				return;
 			}
@@ -86,15 +92,14 @@ GLOBAL.inputMan = {
 			}
 
 
-			// this was an order to selected units
-			for (let i = 0; i < wereSelected.length; i++) {
-				const unit = wereSelected[i];
+			// this was a move order to selected units
+			wereSelected.forEach((unit) => {
 
 				// move command
 				unit.takeOrder('move', { pos: mousePos });
 				unit.selected = true;
 				unit.intention = undefined;
-			}
+			});
 		}
 
 		// select box
@@ -103,15 +108,14 @@ GLOBAL.inputMan = {
 			if (mouseWasReleased(0)) {
 	
 				// do selection
-				for (let i = 0; i < GLOBAL.units.length; i++) {
-					const unit = GLOBAL.units[i];
+				GLOBAL.units.forEach((unit) => {
 
 					unit.selected =
 						unit.pos.x > min(GLOBAL.startSelect.x, mousePos.x)
 						&& unit.pos.y > min(GLOBAL.startSelect.y, mousePos.y)
 						&& unit.pos.x < max(GLOBAL.startSelect.x, mousePos.x)
 						&& unit.pos.y < max(GLOBAL.startSelect.y, mousePos.y);
-				}
+				});
 
 				// end select mode
 				delete GLOBAL.startSelect;
