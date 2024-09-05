@@ -28,7 +28,7 @@ function gameInit() {
 				}
 			}
 		}),
-		new Button_Train(256, 96, tile(14), tile(vec2(72, 96), 24), () => {
+		new Button_Train(256, 96, tile(14), tile(vec2(0, 24), 24), () => {
 			for (let i = 0; i < GLOBAL.units.length; i++) {
 				const unit = GLOBAL.units[i];
 				if (unit.selected) {
