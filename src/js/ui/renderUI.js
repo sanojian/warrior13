@@ -163,7 +163,7 @@ function drawUiBox(uiPos, tileInfo, text) {
 	drawRect(
 		uiPos.subtract(vec2(0.85, 0)),
 		vec2(1.2),
-		new Color(48 / 255, 96 / 255, 130 / 255)
+		new Color(.2, .4, .5)
 	);
 	drawTile(
 		uiPos.subtract(vec2(0.85, 0)),

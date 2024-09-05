@@ -49,37 +49,37 @@ GLOBAL.vfxMan = {
 		
 		// blood
 		GLOBAL.vfxMan.updateParticles(GLOBAL.vfxMan.bloodDrops, function (drop) {
-			drawRect(drop.pos, vec2(1 / 12), new Color(172 / 255, 50 / 255, 50 / 255));
+			drawRect(drop.pos, vec2(1 / 12), new Color(.7, .2, .2));
 			// gravity
 			drop.dy -= 0.002;
 		});
 
 		// gas
 		GLOBAL.vfxMan.updateParticles(GLOBAL.vfxMan.gasPlumes, function (drop) {
-			drawRect(drop.pos, vec2(3 / 12), new Color(106 / 255, 190 / 255, 48 / 255, 0.4));
+			drawRect(drop.pos, vec2(3 / 12), new Color(.4, .7, .2, 0.4));
 			drop.pos.y -= drop.dy / 2;
 		});
 
 		// health
 		GLOBAL.vfxMan.updateParticles(GLOBAL.vfxMan.heartPlusses, function (drop) {
-			drawRect(drop.pos, vec2(3 / 12, 1 / 12), new Color(106 / 255, 190 / 255, 48 / 255));
-			drawRect(drop.pos, vec2(1 / 12, 3 / 12), new Color(106 / 255, 190 / 255, 48 / 255));
+			drawRect(drop.pos, vec2(3 / 12, 1 / 12), new Color(.4, .7, .2));
+			drawRect(drop.pos, vec2(1 / 12, 3 / 12), new Color(.4, .7, .2));
 		});
 
 
 		// sparks
 		GLOBAL.vfxMan.updateParticles(GLOBAL.vfxMan.sparks, function (drop) {
-			drawRect(drop.pos, vec2(1 / 12), new Color(251 / 255, 242 / 255, 54 / 255));
+			drawRect(drop.pos, vec2(1 / 12), new Color(1, .9, .2));
 		});
 
 		// manaballs
 		GLOBAL.vfxMan.updateParticles(GLOBAL.vfxMan.manaBalls, function (drop) {
-			drawRect(drop.pos, vec2(2 / 12), new Color(99 / 255, 155 / 255, 1));
+			drawRect(drop.pos, vec2(2 / 12), new Color(.4, .6, 1));
 		});
 
 		// smoke
 		GLOBAL.vfxMan.updateParticles(GLOBAL.vfxMan.smoke, function (drop) {
-			drawRect(drop.pos, vec2(2 / 12), new Color(155 / 255, 173 / 255, 183 / 255, 1 - drop.lifetime / 40));
+			drawRect(drop.pos, vec2(2 / 12), new Color(.6, .7, .7, 1 - drop.lifetime / 40));
 			drop.pos.x -= drop.dx / 2;
 			drop.pos.y -= 3 * drop.dy / 4;
 		});

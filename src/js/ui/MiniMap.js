@@ -26,19 +26,19 @@ GLOBAL.miniMap = {
 			vec2(3),
 			tile(vec2(0, 144), vec2(36, 36))
 		);
-		drawRect(uiPos, vec2(28 / 12), new Color(55 / 255, 148 / 255, 110 / 255));
+		drawRect(uiPos, vec2(28 / 12), new Color(.2, 0.6, .4));
 
-		let color = new Color(75 / 255, 105 / 255, 47 / 255);
+		let color = new Color(.3, .4, .2);
 		GLOBAL.miniMap.drawObjects(uiPos, GLOBAL.trees, color);
 
-		color = new Color(155 / 255, 173 / 255, 183 / 255);
+		color = new Color(.61, .68, .72);
 		GLOBAL.miniMap.drawObjects(uiPos, GLOBAL.stones, color);
 
-		color = new Color(153 / 255, 229 / 255, 80 / 255);
+		color = new Color(.6, 1, .3);
 		GLOBAL.miniMap.drawObjects(uiPos, GLOBAL.buildings, color);
 		GLOBAL.miniMap.drawObjects(uiPos, GLOBAL.units, color);
 
-		color = new Color(217 / 255, 87 / 255, 99 / 255);
+		color = new Color(.9, .3, .4);
 		GLOBAL.miniMap.drawObjects(uiPos, GLOBAL.enemies, color);
 	},
 
