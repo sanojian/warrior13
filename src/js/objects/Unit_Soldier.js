@@ -17,7 +17,7 @@ class Unit_Soldier extends PlayerUnit {
 
 		if (this.actionTimer.isSet()) {
 
-			if (this.actionTimer.elapsed()) {
+			if (this.actionTimer.elapsed() && this.intentionTarget instanceof Unit_Enemy) {
 				this.actionTimer.unset();
 				this.jumpHeight = 0;
 
