@@ -70,6 +70,9 @@ class PlayerUnit extends Unit {
 		if (order == 'pray') {
 			GLOBAL.showMessage('PRAY TO ME!');
 		}
+
+		// reset archer timer
+		this.readyFireTimer && this.readyFireTimer.set(5);
 	}
 
 	update() {
