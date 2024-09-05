@@ -14,12 +14,11 @@ class Stone extends EngineObject {
 
 	handleClick(selectedUnits) {
 
-		for (let u = 0; u < selectedUnits.length; u++) {
-			const unit = selectedUnits[u];
+		selectedUnits.forEach((unit) => {
 			if (!unit.weapon) {
 				unit.takeOrder('mine', this);
 			}
-		}
+		});
 	}
 
 	mine() {

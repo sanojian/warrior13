@@ -113,4 +113,15 @@ class Unit extends EngineObject {
 		);
 	}
 
+	searchAndDestroy(array, range, callback) {
+
+		for (let i = 0; i < array.length; i++) {
+			const unit = array[i];
+			const dist = this.pos.distance(unit.pos);
+			if (dist < range && !unit.shelter) {
+				return callback(unit);
+			}
+		}
+	}
+
 }

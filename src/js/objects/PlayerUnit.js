@@ -284,14 +284,13 @@ class PlayerUnit extends Unit {
 	render() {
 
 		// pre render
-		if (this.selected) {
-			// select ring
-			drawTile(
-				this.pos,
-				vec2(16 / 12),
-				tile(1),
-			);
-		}
+
+		// select ring
+		this.selected && drawTile(
+			this.pos,
+			vec2(16 / 12),
+			tile(1),
+		);
 
 		// render
 		super.render();

@@ -63,22 +63,15 @@ class Unit_Enemy extends Unit {
 			else {
 
 				// look for targets
-				let closest = Infinity;
-				for (let i = 0; i < GLOBAL.units.length; i++) {
-					const unit = GLOBAL.units[i];
-					const dist = this.pos.distance(unit.pos);
-					if (dist < 0.8 && !unit.shelter) {
-						this.actionTimer.set(1);
-						this.actionFrame = 0;
-						this.intentionTarget = unit;
-						return;
-					}
-					else if (dist < 3 && dist < closest) {
-						this.destination = unit.pos;
-						closest = dist;
-					}
-				}
-
+				this.searchAndDestroy(GLOBAL.units, 0.8, (enemy) => {
+					this.actionTimer.set(1);
+					this.actionFrame = 0;
+					this.intentionTarget = enemy;
+				});
+				this.searchAndDestroy(GLOBAL.units, 3, (enemy) => {
+					this.destination = enemy.pos;
+				});
+				
 				// travelling
 				const movement = vec2().setAngle(angle, this.speed);
 				const newPos = this.pos.add(movement);
@@ -93,8 +86,6 @@ class Unit_Enemy extends Unit {
 						this.intentionTarget = tileAtPos;
 					}
 					else {
-						// TODO: go around?
-
 						// walk thru for now at half speed
 						this.pos = this.pos.add(vec2().setAngle(angle, this.speed / 4));
 						this.mirror = movement.x < 0;
