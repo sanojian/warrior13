@@ -219,7 +219,7 @@ function gameUpdate() {
 
 			let tileInfo = tile(94 + randInt(0, 4) * 8);
 			let size = vec2(1);
-			let hitPoints = 3;
+			let hitPoints = GLOBAL.warriorIndex > 10 ? 5 : GLOBAL.warriorIndex > 5 ? 4 : 3;
 
 			if (i == 0) {
 				// hero
