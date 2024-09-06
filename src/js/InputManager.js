@@ -3,12 +3,21 @@ GLOBAL.inputMan = {
 
 	update() {
 
+		const cursorPos = worldToScreen(mousePos);
+		GLOBAL.desiredCameraPos = GLOBAL.desiredCameraPos.add(
+			vec2(
+				cursorPos.x < 50 ? -0.25 : cursorPos.x > innerWidth - 50 ? 0.25 : 0,
+				cursorPos.y < 50 ? 0.25 : cursorPos.y > innerHeight - 50 ? -0.25 : 0,
+			)
+		);
+
 		if (mouseWasPressed(2)) {
 			// right click, cancel all
 			GLOBAL.state = 0;
 			GLOBAL.units.forEach((unit) => {
 				unit.selected = false;
 			});
+			GLOBAL.desiredCameraPos = mousePos.copy();
 			clearInput();
 		}
 
