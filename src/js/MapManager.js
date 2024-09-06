@@ -67,7 +67,7 @@ class MapManager {
 
 		GLOBAL.units.push(new PlayerUnit(vec2(14, 12)));
 
-		GLOBAL.boat = new EngineObject(vec2(33), vec2(2), tile(vec2(48, 132), 24));
+		GLOBAL.boat = new EngineObject(vec2(33), vec2(3), tile(vec2(48, 132), 24));
 
 		/*let enemy = new Unit_Enemy(vec2(16, 10), vec2(1), tile(6));
 		enemy.destination = GLOBAL.buildings[0].pos;

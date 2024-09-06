@@ -16,13 +16,13 @@ class Building_TownHall extends Building {
 
 	handleClick(selectedUnits) {
 
-		if (!selectedUnits.length) {
-			GLOBAL.state = DEFS.STATES.TOWNHALL_MENU;
+		for (let u = 0; u < selectedUnits.length; u++) {
+			// deselect
+			selectedUnits[u].selected = false;
 		}
 
-		for (let u = 0; u < selectedUnits.length; u++) {
-			selectedUnits[u].takeOrder('store', this);
-		}
+		GLOBAL.state = DEFS.STATES.TOWNHALL_MENU;
+
 
 		return true;
 	}
