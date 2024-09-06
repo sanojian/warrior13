@@ -24,10 +24,6 @@ class Unit extends EngineObject {
 		this.weapon = undefined;
 	}
 
-	takeOrder() {
-		this.shelter = undefined;
-	}
-
 	takeDamage(amt) {
 
 		this.hitPoints -= amt;

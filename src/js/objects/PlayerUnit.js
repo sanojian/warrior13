@@ -28,7 +28,8 @@ class PlayerUnit extends Unit {
 
 	takeOrder(order, target) {
 
-		super.takeOrder();
+		// leave shelter
+		this.shelter = undefined;
 
 		this.actionTimer.unset();
 		this.prayTimer.unset();
@@ -124,12 +125,23 @@ class PlayerUnit extends Unit {
 					// TODO: check if building still exists
 					const built = this.intentionTarget.build(1);
 					zzfx(...[, .03, 405, , , 0, 3, .1, 8, , , , , .1, 27, .4, .04, .44, .01]);
-					if (this.intentionTarget.needsBuilt == 0 && this.intentionTarget instanceof Building_Farm) {
+					if (built && this.intentionTarget instanceof Building_Farm) {
 						this.takeOrder('farm', this.intentionTarget);
 					}
-					else {
-						built && this.takeOrder();
+					else if (built) {
+						// look for work that needs to be done
+						for (let i = 0; i < GLOBAL.buildings.length; i++) {
+							const building = GLOBAL.buildings[i];
+							if (building.needsBuilt) {
+								this.takeOrder('build', building);
+								return;
+							}
+						}
+			
+						// nothing to do
+						this.takeOrder();
 					}
+
 				}
 
 				if (this.wood + this.stone + this.food>= 3) {
