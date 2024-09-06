@@ -57,8 +57,8 @@ module.exports = function (grunt) {
 			prod: {
 				options: {
 					optipng: ["-o 7", "-zc 7"],
-					//pngquant: ['-s1', '--quality=40-60'],
-					pngquant: ["-s1"],
+					pngquant: ['-s1', '--quality=40-60'],
+					//pngquant: ["-s1"],
 					zopflipng: ["-m"],
 				},
 				files: {
