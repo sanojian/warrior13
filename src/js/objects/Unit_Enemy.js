@@ -7,7 +7,7 @@ class Unit_Enemy extends Unit {
 
 		this.weapon = rand() > 0.5 ? 'axe' : 'sword';
 
-		this.speed = 1 / 96;
+		this.speed = 1 / 128;
 
 		if (hitPoints) {
 			this.hitPoints = hitPoints;
@@ -64,6 +64,7 @@ class Unit_Enemy extends Unit {
 
 				// look for targets
 				this.searchAndDestroy(GLOBAL.units, 0.8, (enemy) => {
+					if (enemy.shelter) return;
 					this.actionTimer.set(1);
 					this.actionFrame = 0;
 					this.intentionTarget = enemy;

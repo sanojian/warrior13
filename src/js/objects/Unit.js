@@ -115,13 +115,17 @@ class Unit extends EngineObject {
 
 	searchAndDestroy(array, range, callback) {
 
+		let closest = Infinity;
+		let target;
 		for (let i = 0; i < array.length; i++) {
 			const unit = array[i];
 			const dist = this.pos.distance(unit.pos);
-			if (dist < range && !unit.shelter) {
-				return callback(unit);
+			if (dist < range  && dist < closest) {
+				target = unit;
+				closest = dist;
 			}
 		}
+		target && callback(target);
 	}
 
 }
