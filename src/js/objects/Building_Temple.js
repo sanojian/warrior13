@@ -13,13 +13,14 @@ class Building_Temple extends Building {
 
 	handleClick(selectedUnits) {
 
-		if (super.handleClick(selectedUnits)) {
+		if (super.handleClick(selectedUnits)) 
 			return;
-		}
+		
+		!selectedUnits.length && GLOBAL.showMessage('HOLY SHRINE');
 
-		for (let u = 0; u < selectedUnits.length; u++) {
+		for (let u = 0; u < selectedUnits.length; u++) 
 			selectedUnits[u].takeOrder('pray', this);
-		}
+		
 
 
 		return true;

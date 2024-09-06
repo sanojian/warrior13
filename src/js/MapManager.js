@@ -9,12 +9,9 @@ class MapManager {
 		this.mapWidth = w;
 		this.mapHeight = h;
 
-		//GLOBAL.mapGrid = [];
-
 		const tileLayer = new TileLayer(vec2(-.5), vec2(w, h));
 
-		for (let y = 0; y < h; y++) {
-			//GLOBAL.mapGrid[y] = [];
+		for (let y = 0; y < h; y++) 
 
 			for (let x = 0; x < w; x++) {
 
@@ -23,45 +20,28 @@ class MapManager {
 				let rotation = randInt(0, 5);
 
 				const gridValue = GLOBAL.mapGrid[y][x];
-				if (gridValue == 'w') {
+				if (gridValue == 'w') 
 					tileIndex = 11;
-				}
-				else if (gridValue == 't') {
-					GLOBAL.trees.push(new Tree(vec2(x, y)));
-				}
-				else if (gridValue == 's') {
-					GLOBAL.stones.push(new Stone(vec2(x, y)));
-				}
-				// water tiles
-				/*if (x == 0 && y == 0) {
-					tileIndex = 82;
-					rotation = 1;
-				}
-				else if (x == w - 1 && y == 0) {
-					tileIndex = 82;
-					rotation = 0;
-				}
-				else if (y == 0) {
-					tileIndex = 81
-					rotation = 0;
-				}
-				else {
-					tileValue = 0;
-				}*/
 
+				else if (gridValue == 't') 
+					GLOBAL.trees.push(new Tree(vec2(x, y)));
+
+				else if (gridValue == 's') 
+					GLOBAL.stones.push(new Stone(vec2(x, y)));
 
 				let info = new TileLayerData(tileIndex, rotation);
 
 				tileLayer.setData(vec2(x, y), info);
 			
 			}
-		}
+		
 
 		tileLayer.redraw();
 
-		GLOBAL.buildings.push(new Building_TownHall(DEFS.HOME));
-	
-		GLOBAL.buildings.push(new Building_Temple(vec2(17, 22)));
+		GLOBAL.buildings.push(
+			new Building_TownHall(DEFS.HOME),
+			new Building_Temple(vec2(17, 22))
+		);
 
 		buildHouse(DEFS.HOME.subtract(vec2(3, 1))).build(10);
 
@@ -81,9 +61,8 @@ class MapManager {
 	getTileAt(pos) {
 
 		// handle out of bounds
-		if (pos.x < 0 || pos.y < 0) {
+		if (pos.x < 0 || pos.y < 0)
 			return 1;
-		}
 
 		return GLOBAL.mapGrid[Math.round(pos.y)][Math.round(pos.x)];
 

@@ -86,69 +86,6 @@ function percent(value, valueA, valueB)
  *  @memberof Utilities */
 function lerp(percent, valueA, valueB) { return valueA + clamp(percent) * (valueB-valueA); }
 
-/** Returns signed wrapped distance between the two values passed in
- *  @param {Number} valueA
- *  @param {Number} valueB
- *  @param {Number} [wrapSize]
- *  @returns {Number}
- *  @memberof Utilities */
-function distanceWrap(valueA, valueB, wrapSize=1)
-{ const d = (valueA - valueB) % wrapSize; return d*2 % wrapSize - d; }
-
-/** Linearly interpolates between values passed in with wrapping
- *  @param {Number} percent
- *  @param {Number} valueA
- *  @param {Number} valueB
- *  @param {Number} [wrapSize]
- *  @returns {Number}
- *  @memberof Utilities */
-function lerpWrap(percent, valueA, valueB, wrapSize=1)
-{ return valueB + clamp(percent) * distanceWrap(valueA, valueB, wrapSize); }
-
-/** Returns signed wrapped distance between the two angles passed in
- *  @param {Number} angleA
- *  @param {Number} angleB
- *  @returns {Number}
- *  @memberof Utilities */
-function distanceAngle(angleA, angleB) { return distanceWrap(angleA, angleB, 2*PI); }
-
-/** Linearly interpolates between the angles passed in with wrapping
- *  @param {Number} percent
- *  @param {Number} angleA
- *  @param {Number} angleB
- *  @returns {Number}
- *  @memberof Utilities */
-function lerpAngle(percent, angleA, angleB) { return lerpWrap(percent, angleA, angleB, 2*PI); }
-
-/** Applies smoothstep function to the percentage value
- *  @param {Number} percent
- *  @return {Number}
- *  @memberof Utilities */
-function smoothStep(percent) { return percent * percent * (3 - 2 * percent); }
-
-
-/** Returns true if two axis aligned bounding boxes are overlapping 
- *  @param {Vector2} posA          - Center of box A
- *  @param {Vector2} sizeA         - Size of box A
- *  @param {Vector2} posB          - Center of box B
- *  @param {Vector2} [sizeB=(0,0)] - Size of box B, a point if undefined
- *  @return {Boolean}              - True if overlapping
- *  @memberof Utilities */
-function isOverlapping(posA, sizeA, posB, sizeB=vec2())
-{ 
-    return abs(posA.x - posB.x)*2 < sizeA.x + sizeB.x 
-        && abs(posA.y - posB.y)*2 < sizeA.y + sizeB.y;
-}
-
-/** Returns an oscillating wave between 0 and amplitude with frequency of 1 Hz by default
- *  @param {Number} [frequency] - Frequency of the wave in Hz
- *  @param {Number} [amplitude] - Amplitude (max height) of the wave
- *  @param {Number} [t=time]    - Value to use for time of the wave
- *  @return {Number}            - Value waving between 0 and amplitude
- *  @memberof Utilities */
-function wave(frequency=1, amplitude=1, t=time)
-{ return amplitude/2 * (1 - Math.cos(t*frequency*2*PI)); }
-
 ///////////////////////////////////////////////////////////////////////////////
 
 /** Random global functions
@@ -167,26 +104,6 @@ function rand(valueA=1, valueB=0) { return valueB + Math.random() * (valueA-valu
  *  @return {Number}
  *  @memberof Random */
 function randInt(valueA, valueB=0) { return Math.floor(rand(valueA,valueB)); }
-
-/** Randomly returns either -1 or 1
- *  @return {Number}
- *  @memberof Random */
-function randSign() { return randInt(2) * 2 - 1; }
-
-/** Returns a random Vector2 with the passed in length
- *  @param {Number} [length]
- *  @return {Vector2}
- *  @memberof Random */
-function randVector(length=1) { return new Vector2().setAngle(rand(2*PI), length); }
-
-/** Returns a random Vector2 within a circular shape
- *  @param {Number} [radius]
- *  @param {Number} [minRadius]
- *  @return {Vector2}
- *  @memberof Random */
-function randInCircle(radius=1, minRadius=0)
-{ return radius > 0 ? randVector(radius * rand(minRadius / radius, 1)**.5) : new Vector2; }
-
 
 ///////////////////////////////////////////////////////////////////////////////
 
@@ -208,14 +125,6 @@ function vec2(x=0, y)
         new Vector2(x, y == undefined? x : y) : 
         new Vector2(x.x, x.y);
 }
-
-/** 
- * Check if object is a valid Vector2
- * @param {any} v
- * @return {Boolean}
- * @memberof Utilities
- */
-function isVector2(v) { return v instanceof Vector2; }
 
 /** 
  * 2D Vector object with vector math library
@@ -400,28 +309,6 @@ class Vector2
     }
 
 }
-
-///////////////////////////////////////////////////////////////////////////////
-
-/** 
- * Create a color object with RGBA values, white by default
- * @param {Number} [r=1] - red
- * @param {Number} [g=1] - green
- * @param {Number} [b=1] - blue
- * @param {Number} [a=1] - alpha
- * @return {Color}
- * @memberof Utilities
- */
-function rgb(r, g, b, a) { return new Color(r, g, b, a); }
-
-
-/** 
- * Check if object is a valid Color
- * @param {any} c
- * @return {Boolean}
- * @memberof Utilities
- */
-function isColor(c) { return c instanceof Color; }
 
 /** 
  * Color object (red, green, blue, alpha) with some helpful functions
@@ -2333,98 +2220,6 @@ function glDraw(x, y, sizeX, sizeY, angle, uv0X, uv0Y, uv1X, uv1Y, rgba, rgbaAdd
 }
 
 ///////////////////////////////////////////////////////////////////////////////
-// post processing - can be enabled to pass other canvases through a final shader
-
-let glPostShader, glPostTexture, glPostIncludeOverlay;
-
-/** Set up a post processing shader
- *  @param {String} shaderCode
- *  @param {Boolean} includeOverlay
- *  @memberof WebGL */
-function glInitPostProcess(shaderCode, includeOverlay=false)
-{
-    if (!shaderCode) // default shader pass through
-        shaderCode = 'void mainImage(out vec4 c,vec2 p){c=texture(iChannel0,p/iResolution.xy);}';
-
-    // create the shader
-    glPostShader = glCreateProgram(
-        '#version 300 es\n' +            // specify GLSL ES version
-        'precision highp float;'+        // use highp for better accuracy
-        'in vec2 p;'+                    // position
-        'void main(){'+                  // shader entry point
-        'gl_Position=vec4(p+p-1.,1,1);'+ // set position
-        '}'                              // end of shader
-        ,
-        '#version 300 es\n' +            // specify GLSL ES version
-        'precision highp float;'+        // use highp for better accuracy
-        'uniform sampler2D iChannel0;'+  // input texture
-        'uniform vec3 iResolution;'+     // size of output texture
-        'uniform float iTime;'+          // time
-        'out vec4 c;'+                   // out color
-        '\n' + shaderCode + '\n'+        // insert custom shader code
-        'void main(){'+                  // shader entry point
-        'mainImage(c,gl_FragCoord.xy);'+ // call post process function
-        'c.a=1.;'+                       // always use full alpha
-        '}'                              // end of shader
-    );
-
-    // create buffer and texture
-    glPostTexture = glCreateTexture(undefined);
-    glPostIncludeOverlay = includeOverlay;
-
-    // hide the original 2d canvas
-    mainCanvas.style.visibility = 'hidden';
-    if (glPostIncludeOverlay)
-        overlayCanvas.style.visibility = 'hidden';
-}
-
-// Render the post processing shader, called automatically by the engine
-function glRenderPostProcess()
-{
-    if (!glPostShader)
-        return;
-    
-    // prepare to render post process shader
-    if (glEnable)
-    {
-        glFlush(); // clear out the buffer
-        mainContext.drawImage(glCanvas, 0, 0); // copy to the main canvas
-    }
-    else
-    {
-        // set the viewport
-        glContext.viewport(0, 0, glCanvas.width = mainCanvas.width, glCanvas.height = mainCanvas.height);
-    }
-
-    // copy overlay canvas so it will be included in post processing
-    glPostIncludeOverlay && mainContext.drawImage(overlayCanvas, 0, 0);
-
-    // setup shader program to draw one triangle
-    glContext.useProgram(glPostShader);
-    glContext.bindBuffer(gl_ARRAY_BUFFER, glGeometryBuffer);
-    glContext.pixelStorei(gl_UNPACK_FLIP_Y_WEBGL, 1);
-    glContext.disable(gl_BLEND);
-
-    // set textures, pass in the 2d canvas and gl canvas in separate texture channels
-    glContext.activeTexture(gl_TEXTURE0);
-    glContext.bindTexture(gl_TEXTURE_2D, glPostTexture);
-    glContext.texImage2D(gl_TEXTURE_2D, 0, gl_RGBA, gl_RGBA, gl_UNSIGNED_BYTE, mainCanvas);
-
-    // set vertex position attribute
-    const vertexByteStride = 8;
-    const pLocation = glContext.getAttribLocation(glPostShader, 'p');
-    glContext.enableVertexAttribArray(pLocation);
-    glContext.vertexAttribPointer(pLocation, 2, gl_FLOAT, false, vertexByteStride, 0);
-
-    // set uniforms and draw
-    const uniformLocation = (name)=>glContext.getUniformLocation(glPostShader, name);
-    glContext.uniform1i(uniformLocation('iChannel0'), 0);
-    glContext.uniform1f(uniformLocation('iTime'), time);
-    glContext.uniform3f(uniformLocation('iResolution'), mainCanvas.width, mainCanvas.height, 1);
-    glContext.drawArrays(gl_TRIANGLE_STRIP, 0, 4);
-}
-
-///////////////////////////////////////////////////////////////////////////////
 // store gl constants as integers so their name doesn't use space in minifed
 const
 gl_ONE = 1,
@@ -2611,7 +2406,7 @@ function engineInit(gameInit, gameUpdate, gameUpdatePost, gameRender, gameRender
         for (const o of engineObjects)
             o.destroyed || o.render();
         gameRenderPost();
-        glRenderPostProcess();
+        //glRenderPostProcess();
         glEnable && glCopyToContext(mainContext);
 
         requestAnimationFrame(engineUpdate);
