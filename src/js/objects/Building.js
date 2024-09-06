@@ -82,7 +82,7 @@ class Building extends EngineObject {
 	update() {
 		if (!this.needsBuilt && this.smokePos) {
 			// show smoke from chimney
-			if (Math.random() < 0.05) {
+			if (Math.random() < .05) {
 				GLOBAL.vfxMan.addParticles(this.smokePos, GLOBAL.vfxMan.smoke, 1);
 			}
 		}

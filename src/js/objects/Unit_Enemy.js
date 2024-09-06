@@ -5,7 +5,7 @@ class Unit_Enemy extends Unit {
 
 		super(pos, size, tileInfo);
 
-		this.weapon = rand() > 0.5 ? 'axe' : 'sword';
+		this.weapon = rand() > .5 ? 'axe' : 'sword';
 
 		this.speed = 1 / 96;
 
@@ -39,9 +39,9 @@ class Unit_Enemy extends Unit {
 			}
 			else {
 				const percent = this.actionTimer.getPercent();
-				if (percent > 0.9) {
+				if (percent > .9) {
 					this.actionFrame -= 10;
-					this.jumpHeight += percent > 0.95 ? -1 / 32 : 1 / 32;
+					this.jumpHeight += percent > .95 ? -1 / 32 : 1 / 32;
 				}
 				else {
 					this.actionFrame++;
@@ -63,7 +63,7 @@ class Unit_Enemy extends Unit {
 			else {
 
 				// look for targets
-				this.searchAndDestroy(GLOBAL.units, 0.8, (enemy) => {
+				this.searchAndDestroy(GLOBAL.units, .8, (enemy) => {
 					if (enemy.shelter) return;
 					this.actionTimer.set(1);
 					this.actionFrame = 0;

@@ -67,7 +67,7 @@ function gameInit() {
 		new Button_CreateWorker(128, 96, tile(4), () => {
 			GLOBAL.food -= 5 * GLOBAL.units.length;
 			GLOBAL.units.push(new PlayerUnit(DEFS.HOME.add(vec2(rand(-1, 1), - 1))));
-			GLOBAL.speak(rand() > 0.5 ? 'hi' : 'hello?');
+			GLOBAL.speak(rand() > .5 ? 'hi' : 'hello?');
 		})
 	);
 
@@ -163,7 +163,7 @@ function gameUpdate() {
 
 		GLOBAL.origCameraScale = cameraScale;
 		GLOBAL.maxCameraScale = cameraScale * 2;
-		GLOBAL.minCameraScale = cameraScale * 0.5;
+		GLOBAL.minCameraScale = cameraScale / 2;
 		GLOBAL.dScale = -cameraScale / 100;
 
 		return;
@@ -212,7 +212,7 @@ function gameUpdate() {
 		const def = DEFS.WARRIORS[GLOBAL.warriorIndex];
 
 		GLOBAL.speak('The' + def.number + ' warrior, ' + def.name + ' approaches', 2, 1, 1);
-		GLOBAL.showMessage(def.name + '\nHAS LANDED IN THE \n' + def.from);
+		//GLOBAL.showMessage(def.name + '\nHAS LANDED IN THE \n' + def.from);
 		
 		// spawn enemies
 		for (let i = 0; i < def.enemies.length; i += 2) {
@@ -254,7 +254,7 @@ function gameUpdate() {
 	// lerp camera
 	if (cameraPos != GLOBAL.desiredCameraPos) {
 		const diff = GLOBAL.desiredCameraPos.subtract(cameraPos);
-		if (diff.length() < 0.2) {
+		if (diff.length() < .2) {
 			GLOBAL.desiredCameraPos = cameraPos;
 		}
 		cameraPos = cameraPos.add(diff.clampLength(diff.length() / 10));
@@ -265,7 +265,7 @@ function gameUpdate() {
 function buildHouse(pos) {
 	const building = new Building(pos, vec2(1), tile(50));
 	building.popSupport = 2;
-	building.smokePos = building.pos.add(vec2(0.3, 0.5));
+	building.smokePos = building.pos.add(vec2(.3, .5));
 	GLOBAL.wood -= 6;
 	GLOBAL.stone -= 4;
 	GLOBAL.buildings.push(building);
@@ -302,13 +302,13 @@ function separateUnits(unitArray) {
 				unit2 = temp;
 			}
 			const diff = unit2.pos.subtract(unit1.pos);
-			if (diff.length() < 0.8) {
+			if (diff.length() < .8) {
 				// push units away from each other
 				if (!unit1.shelter) {
-					unit1.pos = unit1.pos.subtract(diff.clampLength(0.002));
+					unit1.pos = unit1.pos.subtract(diff.clampLength(.002));
 				}
 				if (!unit2.shelter) {
-					unit2.pos = unit2.pos.add(diff.clampLength(0.002));
+					unit2.pos = unit2.pos.add(diff.clampLength(.002));
 				}
 				
 			}

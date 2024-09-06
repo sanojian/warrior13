@@ -31,7 +31,7 @@ class Unit_Soldier extends PlayerUnit {
 
 			// look for targets
 
-			this.searchAndDestroy(GLOBAL.enemies, 0.8, (enemy) => {
+			this.searchAndDestroy(GLOBAL.enemies, .8, (enemy) => {
 				this.actionTimer.set(1);
 				this.actionFrame = 0;
 				this.intentionTarget = enemy;

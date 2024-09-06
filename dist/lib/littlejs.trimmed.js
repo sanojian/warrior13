@@ -1177,16 +1177,6 @@ let mousePos = vec2();
  *  @memberof Input */
 let mousePosScreen = vec2();
 
-/** Mouse wheel delta this frame
- *  @type {Number}
- *  @memberof Input */
-let mouseWheel = 0;
-
-/** Returns true if user is using gamepad (has more recently pressed a gamepad button)
- *  @type {Boolean}
- *  @memberof Input */
-let isUsingGamepad = false;
-
 /** Prevents input continuing to the default browser handling (false by default)
  *  @type {Boolean}
  *  @memberof Input */
@@ -1218,7 +1208,6 @@ function inputUpdatePost()
     for (const deviceInputData of inputData)
     for (const i in deviceInputData)
         deviceInputData[i] &= 1;
-    mouseWheel = 0;
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -1260,10 +1249,9 @@ function inputUpdatePost()
 ///////////////////////////////////////////////////////////////////////////////
 // Mouse event handlers
 
-onmousedown = (e)=> {isUsingGamepad = false; inputData[0][e.button] = 3; mousePosScreen = mouseToScreen(e); e.button && e.preventDefault();}
+onmousedown = (e)=> {inputData[0][e.button] = 3; mousePosScreen = mouseToScreen(e); e.button && e.preventDefault();}
 onmouseup   = (e)=> inputData[0][e.button] = inputData[0][e.button] & 2 | 4;
 onmousemove = (e)=> mousePosScreen = mouseToScreen(e);
-onwheel     = (e)=> mouseWheel = e.ctrlKey ? 0 : sign(e.deltaY);
 oncontextmenu = (e)=> false; // prevent right click menu
 
 // convert a mouse or touch event position to screen space
@@ -1307,7 +1295,7 @@ if (isTouchDevice)
             // set event pos and pass it along
             const p = vec2(e.touches[0].clientX, e.touches[0].clientY);
             mousePosScreen = mouseToScreen(p);
-            wasTouching ? isUsingGamepad = false : inputData[0][button] = 3;
+            if (!wasTouching) inputData[0][button] = 3;
         }
         else if (wasTouching)
             inputData[0][button] = inputData[0][button] & 2 | 4;

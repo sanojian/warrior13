@@ -20,7 +20,7 @@ class PlayerUnit extends Unit {
 
 		if (select && !this.selected) {
 			const chance = rand();
-			GLOBAL.speak(chance < 0.3 ? 'what' : chance < 0.6 ? 'huh?' : 'ready');
+			GLOBAL.speak(chance < .3 ? 'what' : chance < .6 ? 'huh?' : 'ready');
 		}
 
 		return select;
@@ -47,7 +47,7 @@ class PlayerUnit extends Unit {
 		}
 		if (order == 'build')
 			// move a tiny bit so build starts same tile
-			 this.pos = this.pos.add(vec2(0.1));
+			 this.pos = this.pos.add(vec2(.1));
 
 		const possibleSpeak = {
 			'chop': ['k', 'choppa', 'yep?'],
@@ -154,9 +154,9 @@ class PlayerUnit extends Unit {
 			}
 			else {
 				const percent = this.actionTimer.getPercent();
-				if (percent > 0.9) {
+				if (percent > .9) {
 					this.actionFrame -= 10;
-					this.jumpHeight += percent > 0.95 ? -1 / 32 : 1 / 32;
+					this.jumpHeight += percent > .95 ? -1 / 32 : 1 / 32;
 				}
 				else {
 					this.actionFrame++;
@@ -215,7 +215,7 @@ class PlayerUnit extends Unit {
 					else if (tileAtPos instanceof Building_Temple && this.intention == 'pray') {
 						
 						this.actionTimer.set(3);
-						this.prayTimer.set(0.8);
+						this.prayTimer.set(.8);
 						this.oldTileInfo = this.tileInfo;
 						this.tileInfo = tile(3);
 						this.actionFrame = 0;

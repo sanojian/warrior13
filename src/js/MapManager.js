@@ -11,7 +11,7 @@ class MapManager {
 
 		//GLOBAL.mapGrid = [];
 
-		const tileLayer = new TileLayer(vec2(-0.5), vec2(w, h));
+		const tileLayer = new TileLayer(vec2(-.5), vec2(w, h));
 
 		for (let y = 0; y < h; y++) {
 			//GLOBAL.mapGrid[y] = [];

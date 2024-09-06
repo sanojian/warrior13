@@ -94,7 +94,7 @@ const GLOBAL = {
 		}
 		// will use default voice first time
 		utter.pitch = pitch || 1.5;
-		utter.volume = 0.5;
+		utter.volume = .5;
 		utter.rate = rate || 2;
 		T2S.cancel();
 		T2S.speak(utter);
@@ -128,7 +128,7 @@ const GLOBAL = {
 const musicDef = [
 	[
 		// instruments
-		[.3, 0, 400], [0.1, 0, 220, , .33, , 2]
+		[.3, 0, 400], [.1, 0, 220, , .33, , 2]
 	],
 	[
 		// patterns
@@ -144,6 +144,9 @@ const musicDef = [
 	[0, 0, 1, 1],
 	116
 ];
+
+// finish the song
+//musicDef[1][1].unshift(musicDef[1][0][0]);
 
 // make second song
 GLOBAL.music = new Music(musicDef);

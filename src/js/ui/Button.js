@@ -50,7 +50,7 @@ class Button {
 
 	draw() {
 
-		const color = new Color(1, 1, 1, this.enoughMaterial() ? 1 : 0.5);
+		const color = new Color(1, 1, 1, this.enoughMaterial() ? 1 : .5);
 
 		this.pos = screenToWorld(vec2(this.x, innerHeight - this.y));
 

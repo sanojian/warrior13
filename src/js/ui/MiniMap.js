@@ -26,7 +26,7 @@ GLOBAL.miniMap = {
 			vec2(3),
 			tile(vec2(0, 144), vec2(36, 36))
 		);
-		drawRect(uiPos, vec2(28 / 12), new Color(.2, 0.6, .4));
+		drawRect(uiPos, vec2(28 / 12), new Color(.2, .6, .4));
 
 		let color = new Color(.3, .4, .2);
 		GLOBAL.miniMap.drawObjects(uiPos, GLOBAL.trees, color);

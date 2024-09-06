@@ -32,9 +32,9 @@ GLOBAL.vfxMan = {
 			// travel vector
 			const vec = arrow.target.pos.subtract(arrow.origin);
 
-			arrow.object.pos = arrow.object.pos.add(vec.clampLength(0.1));
+			arrow.object.pos = arrow.object.pos.add(vec.clampLength(.1));
 
-			if (arrow.object.pos.subtract(arrow.target.pos).length() < 0.1) {
+			if (arrow.object.pos.subtract(arrow.target.pos).length() < .1) {
 				// arrived
 				arrow.target.takeDamage(1);
 				zzfx(...[,.03,405,,,0,3,.1,8,,,,,.1,27,.4,.04,.44,.01]);
@@ -51,12 +51,12 @@ GLOBAL.vfxMan = {
 		GLOBAL.vfxMan.updateParticles(GLOBAL.vfxMan.bloodDrops, function (drop) {
 			drawRect(drop.pos, vec2(1 / 12), new Color(.7, .2, .2));
 			// gravity
-			drop.dy -= 0.002;
+			drop.dy -= .002;
 		});
 
 		// gas
 		GLOBAL.vfxMan.updateParticles(GLOBAL.vfxMan.gasPlumes, function (drop) {
-			drawRect(drop.pos, vec2(3 / 12), new Color(.4, .7, .2, 0.4));
+			drawRect(drop.pos, vec2(3 / 12), new Color(.4, .7, .2, .4));
 			drop.pos.y -= drop.dy / 2;
 		});
 
@@ -109,8 +109,8 @@ GLOBAL.vfxMan = {
 			const angle = rand() * PI;
 			array.push({
 				pos: pos.copy(),
-				dx: 0.01 * Math.cos(angle),
-				dy: 0.05 * Math.sin(angle),
+				dx: .01 * Math.cos(angle),
+				dy: .05 * Math.sin(angle),
 				lifetime: 0,
 				
 			})

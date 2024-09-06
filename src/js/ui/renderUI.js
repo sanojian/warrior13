@@ -7,7 +7,7 @@ function gameRenderPost() {
 		GLOBAL.uiFont.drawText(
 			'YOU HAVE LOST\nCLICK TO RETRY?',
 			screenToWorld(vec2(innerWidth / 2, innerHeight / 2)),
-			0.08,
+			.08,
 			true
 		);
 
@@ -23,7 +23,7 @@ function gameRenderPost() {
 		GLOBAL.uiFont.drawText(
 			'YOU HAVE DEFEATED\nTHE HEROES!',
 			screenToWorld(vec2(innerWidth / 2, innerHeight / 2)),
-			0.08,
+			.08,
 			true
 		);
 
@@ -40,10 +40,10 @@ function gameRenderPost() {
 		const x = Math.round(mousePos.x);
 		const y = Math.round(mousePos.y);
 
-		let color = new Color(1, 1, 1, 0.5);
+		let color = new Color(1, 1, 1, .5);
 		if (GLOBAL.mapMan.getTileAt(mousePos)) {
 			// illegal position 
-			color = new Color(1, 0, 0, 0.5);
+			color = new Color(1, 0, 0, .5);
 		}
 
 		let size = vec2(1);
@@ -134,7 +134,7 @@ function gameRenderPost() {
 		GLOBAL.uiFont.drawText(
 			GLOBAL.message,
 			cameraPos.subtract(vec2(0, 5)),
-			0.08,
+			.08,
 			true
 		);
 
@@ -147,7 +147,7 @@ function gameRenderPost() {
 		GLOBAL.uiFont.drawText(
 			(DEFS.WARRIORS[GLOBAL.warriorIndex].number + ' ' + countdown + '\n' + DEFS.WARRIORS[GLOBAL.warriorIndex].from),
 			screenToWorld(vec2(innerWidth / 2, 24)),
-			0.08,
+			.08,
 			true
 		);
 	}
@@ -161,20 +161,20 @@ function drawUiBox(uiPos, tileInfo, text) {
 		tile(vec2(0, 48), vec2(48, 24))
 	);
 	drawRect(
-		uiPos.subtract(vec2(0.85, 0)),
+		uiPos.subtract(vec2(.85, 0)),
 		vec2(1.2),
 		new Color(.2, .4, .5)
 	);
 	drawTile(
-		uiPos.subtract(vec2(0.85, 0)),
+		uiPos.subtract(vec2(.85, 0)),
 		vec2(1),
 		tileInfo
 	);
 
 	GLOBAL.uiFont.drawText(
 		text,
-		uiPos.add(vec2(0.5, 0.2)),
-		0.08,
+		uiPos.add(vec2(.5, .2)),
+		.08,
 		true
 	);
 

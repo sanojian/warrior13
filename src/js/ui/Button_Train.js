@@ -16,7 +16,7 @@ class Button_Train extends Button {
 
 		super.draw();
 
-		const color = new Color(1, 1, 1, this.enoughMaterial() ? 1 : 0.5);
+		const color = new Color(1, 1, 1, this.enoughMaterial() ? 1 : .5);
 
 		drawTile(
 			screenToWorld(vec2(this.x, innerHeight - this.y)).add(vec2(0, -2/12)),

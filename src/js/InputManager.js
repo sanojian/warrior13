@@ -3,14 +3,6 @@ GLOBAL.inputMan = {
 
 	update() {
 
-		const cursorPos = worldToScreen(mousePos);
-		GLOBAL.desiredCameraPos = GLOBAL.desiredCameraPos.add(
-			vec2(
-				cursorPos.x < 50 ? -0.25 : cursorPos.x > innerWidth - 50 ? 0.25 : 0,
-				cursorPos.y < 50 ? 0.25 : cursorPos.y > innerHeight - 50 ? -0.25 : 0,
-			)
-		);
-
 		if (mouseWasPressed(2)) {
 			// right click, cancel all
 			GLOBAL.state = 0;
@@ -26,7 +18,7 @@ GLOBAL.inputMan = {
 			clearInput();
 
 			if (!GLOBAL.musicPlaying) {
-				GLOBAL.music.playMusic(0.6, true);
+				GLOBAL.music.playMusic(.6, true);
 				GLOBAL.musicPlaying = GLOBAL.music;
 			}
 
@@ -143,9 +135,9 @@ GLOBAL.inputMan = {
 				// draw select box
 				const size = mousePos.subtract(GLOBAL.startSelect);
 				drawRect(
-					mousePos.subtract(size.multiply(vec2(0.5))),
+					mousePos.subtract(size.multiply(vec2(.5))),
 					size,
-					new Color(1, 1, 1, 0.2)
+					new Color(1, 1, 1, .2)
 				);
 			}
 		}
