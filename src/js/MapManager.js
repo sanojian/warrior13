@@ -60,9 +60,10 @@ class MapManager {
 		tileLayer.redraw();
 
 		GLOBAL.buildings.push(new Building_TownHall(DEFS.HOME));
-		
+	
 		GLOBAL.buildings.push(new Building_Temple(vec2(17, 22)));
-		GLOBAL.buildings[GLOBAL.buildings.length - 1].build(10);
+
+		buildHouse(DEFS.HOME.subtract(vec2(3, 1))).build(10);
 
 		GLOBAL.units.push(new PlayerUnit(vec2(14, 12)));
 

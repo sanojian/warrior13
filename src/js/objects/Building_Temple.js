@@ -7,6 +7,8 @@ class Building_Temple extends Building {
 
 		this.hitPoints = 18;
 		this.maxHitPoints = 18;
+		
+		this.build(10);
 	}
 
 	handleClick(selectedUnits) {

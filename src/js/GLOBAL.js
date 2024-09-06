@@ -19,8 +19,8 @@ const GLOBAL = {
 
 	state: 0,
 
-	wood: 12,
-	stone: 10,
+	wood: 24,
+	stone: 16,
 	food: 5,
 	mana: 5,
 

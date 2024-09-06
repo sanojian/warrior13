@@ -20,7 +20,7 @@ class Unit_Archer extends PlayerUnit {
 		if (!this.actionTimer.isSet() && this.readyFireTimer.elapsed()) {
 			// look for enemies
 
-			this.searchAndDestroy(GLOBAL.enemies, 3, (enemy) => {
+			this.searchAndDestroy(GLOBAL.enemies, this.shelter ? 4 : 3, (enemy) => {
 				this.actionTimer.unset()
 				this.actionFrame = 0;
 				this.walkFrame = 0;

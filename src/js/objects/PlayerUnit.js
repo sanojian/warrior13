@@ -44,6 +44,9 @@ class PlayerUnit extends Unit {
 			this.selected = false;
 			GLOBAL.state = 0;
 		}
+		if (order == 'build')
+			// move a tiny bit so build starts same tile
+			 this.pos = this.pos.add(vec2(0.1));
 
 		const possibleSpeak = {
 			'chop': ['k', 'choppa', 'yep?'],

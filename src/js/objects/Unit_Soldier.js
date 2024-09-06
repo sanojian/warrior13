@@ -44,5 +44,10 @@ class Unit_Soldier extends PlayerUnit {
 		super.update();
 
 	}
+
+	takeDamage(amt) {
+		// armor
+		super.takeDamage(amt / 2);
+	}
 		
 }

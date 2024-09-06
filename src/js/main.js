@@ -67,6 +67,7 @@ function gameInit() {
 		new Button_CreateWorker(128, 96, tile(4), () => {
 			GLOBAL.food -= 5 * GLOBAL.units.length;
 			GLOBAL.units.push(new PlayerUnit(DEFS.HOME.add(vec2(rand(-1, 1), - 1))));
+			GLOBAL.speak(rand() > 0.5 ? 'hi' : 'hello?');
 		})
 	);
 
@@ -85,14 +86,14 @@ function gameInit() {
 				const unit = GLOBAL.units[i];
 				if (unit.hitPoints < unit.maxHitPoints) {
 					GLOBAL.vfxMan.addParticles(unit.pos, GLOBAL.vfxMan.heartPlusses);
-					unit.hitPoints++;
+					unit.hitPoints = min(unit.maxHitPoints, unit.hitPoints + 2);
 				}
 			}
 			for (let i = 0; i < GLOBAL.buildings.length; i++) {
 				const unit = GLOBAL.buildings[i];
 				if (unit.hitPoints < unit.maxHitPoints) {
 					GLOBAL.vfxMan.addParticles(unit.pos, GLOBAL.vfxMan.heartPlusses);
-					unit.hitPoints++;
+					unit.hitPoints = min(unit.maxHitPoints, unit.hitPoints + 2);
 				}
 			}
 			zzfx(...[, , 244, , .05, .32, , 1.7, -2, , 421, .09, .02, , , , , .8, .15]);
@@ -192,12 +193,7 @@ function gameUpdate() {
 				}
 				else {
 					// house
-					const building = new Building(vec2(x, y), vec2(1), tile(50));
-					building.popSupport = 2;
-					building.smokePos = building.pos.add(vec2(0.3, 0.5));
-					GLOBAL.wood -= 6;
-					GLOBAL.stone -= 4;
-					GLOBAL.buildings.push(building);
+					buildHouse(vec2(x, y));
 				}
 				
 			}
@@ -264,6 +260,16 @@ function gameUpdate() {
 		cameraPos = cameraPos.add(diff.clampLength(diff.length() / 10));
 	}
 
+}
+
+function buildHouse(pos) {
+	const building = new Building(pos, vec2(1), tile(50));
+	building.popSupport = 2;
+	building.smokePos = building.pos.add(vec2(0.3, 0.5));
+	GLOBAL.wood -= 6;
+	GLOBAL.stone -= 4;
+	GLOBAL.buildings.push(building);
+	return building;
 }
 
 function gameUpdatePost() {
