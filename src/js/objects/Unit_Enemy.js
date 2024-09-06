@@ -7,7 +7,7 @@ class Unit_Enemy extends Unit {
 
 		this.weapon = rand() > 0.5 ? 'axe' : 'sword';
 
-		this.speed = 1 / 128;
+		this.speed = 1 / 96;
 
 		if (hitPoints) {
 			this.hitPoints = hitPoints;
