@@ -27,7 +27,7 @@ class Unit_Archer extends PlayerUnit {
 				this.intentionTarget = enemy;
 				this.intention = 'shoot';
 				zzfx(...[.7, , 334, .13, , .2, 4, 3, , , , , , , , , , .77, .03, , 103]);
-				this.readyFireTimer.set(3);
+				this.readyFireTimer.set(4);
 				GLOBAL.vfxMan.showArrow(this.pos.copy(), enemy);
 
 			});
