@@ -42,7 +42,7 @@ function gameInit() {
 			}
 		}),
 	);
-	const dx = min(128, Math.round(128 * innerWidth / 800));
+	const dx = min(128, Math.round(128 * innerWidth / 900));
 
 	GLOBAL.buildMenu.push(
 		new Button_Build(dx, 96, tile(50), 6, 4, 0, () => {
@@ -122,7 +122,7 @@ function gameInit() {
 	);
 
 	GLOBAL.desiredCameraPos = cameraPos = DEFS.HOME;
-	cameraScale = min(60, 60 * innerWidth / 900);
+	cameraScale = min(60, 60 * innerWidth / 700);
 
 	GLOBAL.warriorIndex = 0;
 	//GLOBAL.warriorTimer = new Timer(5);
