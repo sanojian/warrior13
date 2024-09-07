@@ -16,6 +16,7 @@ GLOBAL.inputMan = {
 		if (mouseWasPressed(0)) {
 
 			clearInput();
+			screenClicked = true;
 
 			if (!GLOBAL.musicPlaying) {
 				GLOBAL.music.playMusic(.6, true);

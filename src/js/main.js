@@ -359,7 +359,6 @@ function loadMapData(callback) {
 		img.src = "t.png";
 }
 	
-
 tileSizeDefault = vec2(12);
 
 // wait for voices to load 

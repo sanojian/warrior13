@@ -146,7 +146,7 @@ var musicDef = [
 	],
 
 // finish the song
-//musicDef[1][1].unshift(musicDef[1][0][0]);
+	screenClicked,
 	musicPat0 = musicDef[1][0],
 	musicPat1 = musicDef[1][1];
 musicPat1[0] = musicPat0[0];

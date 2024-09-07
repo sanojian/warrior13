@@ -151,6 +151,15 @@ function gameRenderPost() {
 			true
 		);
 	}
+
+	// title
+	if (!screenClicked)
+		GLOBAL.uiFont.drawText(
+			'WENDOL\nVILLAGE',
+			screenToWorld(vec2(innerWidth / 2, innerHeight / 2)),
+			min(.24, .24 * innerWidth / 700),
+			true
+		);
 }
 
 function drawUiBox(uiPos, tileInfo, text) {
