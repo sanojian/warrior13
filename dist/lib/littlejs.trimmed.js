@@ -2335,7 +2335,7 @@ let frameTimeLastMS = 0, frameTimeBufferMS = 0, averageFPS = 0;
  *  @param {Function} gameRenderPost - Called after objects are rendered, draw effects or hud that appear above all objects
  *  @param {Array} [imageSources=['tiles.png']] - Image to load
  *  @memberof Engine */
-function engineInit(gameInit, gameUpdate, gameUpdatePost, gameRender, gameRenderPost, imageSources)
+function engineInit(gameInit, gameUpdate, gameRenderPost)
 {
     // Called automatically by engine to setup render system
     function enginePreRender()
@@ -2365,7 +2365,7 @@ function engineInit(gameInit, gameUpdate, gameUpdatePost, gameRender, gameRender
         {
             // do post update even when paused
             inputUpdate();
-            gameUpdatePost();
+            //gameUpdatePost();
             inputUpdatePost();
         }
         else
@@ -2391,7 +2391,7 @@ function engineInit(gameInit, gameUpdate, gameUpdatePost, gameRender, gameRender
                 engineObjectsUpdate();
 
                 // do post update
-                gameUpdatePost();
+                //gameUpdatePost();
                 inputUpdatePost();
             }
 
@@ -2401,7 +2401,7 @@ function engineInit(gameInit, gameUpdate, gameUpdatePost, gameRender, gameRender
         
         // render sort then render while removing destroyed objects
         enginePreRender();
-        gameRender();
+        //gameRender();
         engineObjects.sort((a,b)=> a.renderOrder - b.renderOrder);
         for (const o of engineObjects)
             o.destroyed || o.render();
@@ -2467,21 +2467,17 @@ function engineInit(gameInit, gameUpdate, gameUpdatePost, gameRender, gameRender
     updateCanvas();
     
     // create promises for loading images
-    const promises = imageSources.map((src, textureIndex)=>
-        new Promise(resolve => 
-        {
-            const image = new Image;
-            image.onerror = image.onload = ()=> 
-            {
-                textureInfos[textureIndex] = new TextureInfo(image);
-                resolve();
-            }
-            image.src = src;
-        })
-    );
+    const imageLoad = new Promise(resolve => {
+        const image = new Image;
+        image.onerror = image.onload = () => {
+            textureInfos[0] = new TextureInfo(image);
+            resolve();
+        }
+        image.src = 't.png';
+    });
 
     // load all of the images
-    Promise.all(promises).then(()=> 
+    imageLoad.then(()=> 
     {
         // start the engine
         gameInit();

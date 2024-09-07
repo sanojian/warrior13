@@ -2,7 +2,7 @@
 
 function doEngineInit() {
 	// startup LittleJS with your game functions after the tile image is loaded
-	engineInit(gameInit, gameUpdate, gameUpdatePost, gameRender, gameRenderPost, ["t.png"]);
+	engineInit(gameInit, gameUpdate, gameRenderPost);
 }
 
 
@@ -251,6 +251,10 @@ function gameUpdate() {
 		GLOBAL.warriorIndex++;
 	}
 
+	// occasionally push units apart
+	separateUnits(GLOBAL.units);
+	separateUnits(GLOBAL.enemies);
+
 	// lerp camera
 	if (cameraPos != GLOBAL.desiredCameraPos) {
 		const diff = GLOBAL.desiredCameraPos.subtract(cameraPos);
@@ -272,17 +276,6 @@ function buildHouse(pos) {
 	return building;
 }
 
-function gameUpdatePost() {
-	
-	// occasionally push units apart
-	separateUnits(GLOBAL.units);
-	separateUnits(GLOBAL.enemies);
-
-}
-
-function gameRender() {
-	
-}
 
 function separateUnits(unitArray) {
 
