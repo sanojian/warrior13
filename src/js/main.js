@@ -311,7 +311,7 @@ function separateUnits(unitArray) {
 
 function loadMapData(callback) {
 
-		const img = new Image(); 
+		const img = new Image; 
 		img.onload = function() {
 			let canvas = document.createElement("canvas");
 			canvas.height = img.height;
@@ -359,8 +359,6 @@ function loadMapData(callback) {
 		img.src = "t.png";
 }
 	
-tileSizeDefault = vec2(12);
-
 // wait for voices to load 
 speechSynthesis.onvoiceschanged = function() {
 	GLOBAL.voices = speechSynthesis.getVoices();

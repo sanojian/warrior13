@@ -469,12 +469,6 @@ let fontDefault = 'arial';
 ///////////////////////////////////////////////////////////////////////////////
 // WebGL settings
 
-/** Enable webgl rendering, webgl can be disabled and removed from build (with some features disabled)
- *  @type {Boolean}
- *  @default
- *  @memberof Settings */
-let glEnable = true;
-
 /** Fixes slow rendering in some browsers by not compositing the WebGL canvas
  *  @type {Boolean}
  *  @default
@@ -774,7 +768,7 @@ class TextureInfo
         /** @property {Vector2} - size of the image */
         this.size = vec2(image.width, image.height);
         /** @property {WebGLTexture} - webgl texture */
-        this.glTexture = glEnable && glCreateTexture(image);
+        this.glTexture = glCreateTexture(image);
         /** @property {Vector2} - size to adjust tile to fix bleeding */
         this.fixBleedSize = vec2(tileFixBleedScale).divide(this.size);
     }
@@ -821,62 +815,36 @@ function worldToScreen(worldPos)
  *  @param {CanvasRenderingContext2D} [context] - Canvas 2D context to draw to
  *  @memberof Draw */
 function drawTile(pos, size=vec2(1), tileInfo, color=new Color,
-    angle=0, mirror, additiveColor=new Color(0,0,0,0), useWebGL=glEnable, screenSpace, context)
+    angle=0, mirror, additiveColor=new Color(0,0,0,0), screenSpace, context)
 {
     const textureInfo = tileInfo && tileInfo.getTextureInfo();
-    if (useWebGL)
+    if (screenSpace)
     {
-        if (screenSpace)
-        {
-            // convert to world space
-            pos = screenToWorld(pos);
-            size = size.scale(1/cameraScale);
-        }
-        
-        if (textureInfo)
-        {
-            // calculate uvs and render
-            const x = tileInfo.pos.x / textureInfo.size.x;
-            const y = tileInfo.pos.y / textureInfo.size.y;
-            const w = tileInfo.size.x / textureInfo.size.x;
-            const h = tileInfo.size.y / textureInfo.size.y;
-            const tileImageFixBleed = textureInfo.fixBleedSize;
-            glSetTexture(textureInfo.glTexture);
-            glDraw(pos.x, pos.y, mirror ? -size.x : size.x, size.y, angle, 
-                x + tileImageFixBleed.x,     y + tileImageFixBleed.y, 
-                x - tileImageFixBleed.x + w, y - tileImageFixBleed.y + h, 
-                color.rgbaInt(), additiveColor.rgbaInt()); 
-        }
-        else
-        {
-            // if no tile info, force untextured
-            glDraw(pos.x, pos.y, size.x, size.y, angle, 0, 0, 0, 0, 0, color.rgbaInt()); 
-        }
+        // convert to world space
+        pos = screenToWorld(pos);
+        size = size.scale(1/cameraScale);
+    }
+    
+    if (textureInfo)
+    {
+        // calculate uvs and render
+        const x = tileInfo.pos.x / textureInfo.size.x;
+        const y = tileInfo.pos.y / textureInfo.size.y;
+        const w = tileInfo.size.x / textureInfo.size.x;
+        const h = tileInfo.size.y / textureInfo.size.y;
+        const tileImageFixBleed = textureInfo.fixBleedSize;
+        glSetTexture(textureInfo.glTexture);
+        glDraw(pos.x, pos.y, mirror ? -size.x : size.x, size.y, angle, 
+            x + tileImageFixBleed.x,     y + tileImageFixBleed.y, 
+            x - tileImageFixBleed.x + w, y - tileImageFixBleed.y + h, 
+            color.rgbaInt(), additiveColor.rgbaInt()); 
     }
     else
     {
-        // normal canvas 2D rendering method (slower)
-        drawCanvas2D(pos, size, angle, mirror, (context)=>
-        {
-            if (textureInfo)
-            {
-                // calculate uvs and render
-                const x = tileInfo.pos.x + tileFixBleedScale;
-                const y = tileInfo.pos.y + tileFixBleedScale;
-                const w = tileInfo.size.x - 2*tileFixBleedScale;
-                const h = tileInfo.size.y - 2*tileFixBleedScale;
-                context.globalAlpha = color.a; // only alpha is supported
-                context.drawImage(textureInfo.image, x, y, w, h, -.5, -.5, 1, 1);
-                context.globalAlpha = 1; // set back to full alpha
-            }
-            else
-            {
-                // if no tile info, force untextured
-                context.fillStyle = color;
-                context.fillRect(-.5, -.5, 1, 1);
-            }
-        }, screenSpace, context);
+        // if no tile info, force untextured
+        glDraw(pos.x, pos.y, size.x, size.y, angle, 0, 0, 0, 0, 0, color.rgbaInt()); 
     }
+ 
 }
 
 /** Draw colored rect centered on pos
@@ -888,9 +856,9 @@ function drawTile(pos, size=vec2(1), tileInfo, color=new Color,
  *  @param {Boolean} [screenSpace=false]
  *  @param {CanvasRenderingContext2D} [context]
  *  @memberof Draw */
-function drawRect(pos, size, color, angle, useWebGL, screenSpace, context)
+function drawRect(pos, size, color, angle, screenSpace, context)
 { 
-    drawTile(pos, size, undefined, color, angle, false, undefined, useWebGL, screenSpace, context); 
+    drawTile(pos, size, undefined, color, angle, false, undefined, screenSpace, context); 
 }
 
 
@@ -1815,7 +1783,7 @@ class TileLayer extends EngineObject
     render()
     {
         // flush and copy gl canvas because tile canvas does not use webgl
-        glEnable && !glOverlay && !this.isOverlay && glCopyToContext(mainContext);
+        !glOverlay && !this.isOverlay && glCopyToContext(mainContext);
         
         // draw the entire cached level onto the canvas
         const pos = worldToScreen(this.pos.add(vec2(0,this.size.y*this.scale.y)));
@@ -1865,13 +1833,13 @@ class TileLayer extends EngineObject
         this.context.imageSmoothingEnabled = !canvasPixelated;
 
         // setup gl rendering if enabled
-        glEnable && glPreRender();
+        glPreRender();
     }
 
     /** Call to end the redraw process */
     redrawEnd()
     {
-        glEnable && glCopyToContext(mainContext, true);
+        glCopyToContext(mainContext, true);
 
         // set stuff back to normal
         [mainCanvas, mainContext, mainCanvasSize, cameraPos, cameraScale] = this.savedRenderSettings;
@@ -2291,11 +2259,6 @@ const timeDelta = 1/frameRate;
  *  @memberof Engine */
 let engineObjects = [];
 
-/** Array with only objects set to collide with other objects this frame (for optimization)
- *  @type {Array}
- *  @memberof Engine */
-let engineObjectsCollide = [];
-
 /** Current update frame, used to calculate time
  *  @type {Number}
  *  @memberof Engine */
@@ -2347,7 +2310,7 @@ function engineInit(gameInit, gameUpdate, gameRenderPost)
         mainContext.imageSmoothingEnabled = !canvasPixelated;
 
         // setup gl rendering if enabled
-        glEnable && glPreRender();
+        glPreRender();
     }
 
     // internal update loop for engine
@@ -2407,7 +2370,7 @@ function engineInit(gameInit, gameUpdate, gameRenderPost)
             o.destroyed || o.render();
         gameRenderPost();
         //glRenderPostProcess();
-        glEnable && glCopyToContext(mainContext);
+        glCopyToContext(mainContext);
 
         requestAnimationFrame(engineUpdate);
     }
@@ -2454,7 +2417,7 @@ function engineInit(gameInit, gameUpdate, gameRenderPost)
     mainContext = mainCanvas.getContext('2d');
 
     // init stuff and start engine
-    glEnable && glInit();
+    glInit();
 
     // create overlay canvas for hud to appear above gl canvas
     document.body.appendChild(overlayCanvas = document.createElement('canvas'));
@@ -2467,22 +2430,14 @@ function engineInit(gameInit, gameUpdate, gameRenderPost)
     updateCanvas();
     
     // create promises for loading images
-    const imageLoad = new Promise(resolve => {
-        const image = new Image;
-        image.onerror = image.onload = () => {
-            textureInfos[0] = new TextureInfo(image);
-            resolve();
-        }
-        image.src = 't.png';
-    });
-
-    // load all of the images
-    imageLoad.then(()=> 
-    {
+    const image = new Image;
+    image.onerror = image.onload = () => {
+        textureInfos[0] = new TextureInfo(image);
         // start the engine
         gameInit();
         engineUpdate();
-    });
+    }
+    image.src = 't.png';
 }
 
 /** Update each engine object, remove destroyed objects, and update time
