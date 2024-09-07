@@ -112,7 +112,6 @@ class PlayerUnit extends Unit {
 				else if (this.intention == 'farm') {
 					// TODO: check if tree still exists
 					this.intentionTarget.farm();
-					zzfx(...[.25,.03,405,,,0,3,.1,8,,,,,.1,27,.4,.04,.44,.01]); 
 					this.food += 1;
 				}
 				else if (this.intention == 'mine') {
