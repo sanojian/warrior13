@@ -288,29 +288,28 @@ function separateUnits(unitArray) {
 
 	if (unitArray.length > 1) {
 		const index = frame % unitArray.length;
-		let unit1 = unitArray[index];
 		
 		for (let i = 0; i < unitArray.length; i++) {
-			if (i == index) {
-				continue;
-			}
-			let unit2 = unitArray[i];
-			if (i < index) {
-				// swap places
-				const temp = unit1;
-				unit1 = unit2;
-				unit2 = temp;
-			}
-			const diff = unit2.pos.subtract(unit1.pos);
-			if (diff.length() < .8) {
-				// push units away from each other
-				if (!unit1.shelter) {
-					unit1.pos = unit1.pos.subtract(diff.clampLength(.002));
+			if (i != index) {
+				let unit1 = unitArray[index];
+				let unit2 = unitArray[i];
+				if (i < index) {
+					// swap places
+					const tmp = unit1;
+					unit1 = unit2;
+					unit2 = tmp;
 				}
-				if (!unit2.shelter) {
-					unit2.pos = unit2.pos.add(diff.clampLength(.002));
+				const diff = unit2.pos.subtract(unit1.pos);
+				if (diff.length() < .8) {
+					// push units away from each other
+					if (!unit1.shelter) {
+						unit1.pos = unit1.pos.subtract(diff.clampLength(.002));
+					}
+					if (!unit2.shelter) {
+						unit2.pos = unit2.pos.add(diff.clampLength(.002));
+					}
+					
 				}
-				
 			}
 		}
 	}
