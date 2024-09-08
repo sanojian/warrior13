@@ -56,7 +56,7 @@ class Building extends EngineObject {
 
 		this.hitPoints -= amt;
 
-		if (this.hitPoints <= 0) {
+		if (this.hitPoints <= 0 || this.needsBuilt) {
 			this.destroy();
 		}
 	}

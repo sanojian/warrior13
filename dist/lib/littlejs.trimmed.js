@@ -1654,31 +1654,6 @@ function zzfxM(instruments, patterns, sequence, BPM = 125)
 
   return [leftChannelBuffer, rightChannelBuffer];
 }
-/** 
- * LittleJS Tile Layer System
- * - Caches arrays of tiles to off screen canvas for fast rendering
- * - Unlimited numbers of layers, allocates canvases as needed
- * - Interfaces with EngineObject for collision
- * - Collision layer is separate from visible layers
- * - It is recommended to have a visible layer that matches the collision
- * - Tile layers can be drawn to using their context with canvas2d
- * - Drawn directly to the main canvas without using WebGL
- * @namespace TileCollision
- */
-
-
-
-/** The tile collision layer array, use setTileCollisionData and getTileCollisionData to access
- *  @type {Array} 
- *  @memberof TileCollision */
-let tileCollision = [];
-
-/** Size of the tile collision layer
- *  @type {Vector2} 
- *  @memberof TileCollision */
-let tileCollisionSize = vec2();
-
-
 
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -1738,7 +1713,7 @@ class TileLayer extends EngineObject
     *  @param {Vector2}  [scale=(1,1)] - How much to scale this layer when rendered
     *  @param {Number}   [renderOrder] - Objects are sorted by renderOrder
     */
-    constructor(position, size=tileCollisionSize, tileInfo=tile(), scale=vec2(1), renderOrder=0)
+    constructor(position, size=vec2(), tileInfo=tile(), scale=vec2(1), renderOrder=0)
     {
         super(position, size, tileInfo, 0, undefined, renderOrder);
 
