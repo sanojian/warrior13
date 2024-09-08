@@ -52,34 +52,29 @@ GLOBAL.inputMan = {
 
 			const wereSelected = [];
 			let unitClicked = false;
-			GLOBAL.units.forEach((unit) => {
-				
+			for (let i = 0; i < GLOBAL.units.length; i++) {
+				const unit = GLOBAL.units[i];
+
 				unit.selected && wereSelected.push(unit);
-				const wasSelected = unit.selected;
-				const selected = unit.isOver(mousePos.x, mousePos.y);
-				unitClicked = selected || unitClicked;
+				if (!unitClicked) {
+					unitClicked = unit.isOver(mousePos.x, mousePos.y);
 
-				if (selected && wasSelected) {
-					// de-select unit
-					unit.selected = false;
-					GLOBAL.state = 0;
-					return;
-				}
-				else if (selected) {
-					// select unit
-					unit.selected = true;
+					if (unitClicked && !unit.selected) {
+						// select unit
+						unit.selected = true;
 
-					if (unit.weapon)
-						// soldier
-						GLOBAL.state = 0;
-					else if (unit.shelter && unit.shelter instanceof Building_Barracks) 
-						// worker in barracks
-						GLOBAL.state = DEFS.STATES.TRAIN_MENU;
-					else 
-						// worker
-						GLOBAL.state = DEFS.STATES.BUILD_MENU;
+						if (unit.weapon)
+							// soldier
+							GLOBAL.state = 0;
+						else if (unit.shelter && unit.shelter instanceof Building_Barracks)
+							// worker in barracks
+							GLOBAL.state = DEFS.STATES.TRAIN_MENU;
+						else
+							// worker
+							GLOBAL.state = DEFS.STATES.BUILD_MENU;
+					}
 				}
-			});
+			}
 			if (unitClicked) {
 				// de-select all previously selected units
 				wereSelected.forEach((unit) => { unit.selected = false; });

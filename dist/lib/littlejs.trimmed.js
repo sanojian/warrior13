@@ -482,7 +482,7 @@ let glOverlay = true;
  *  @type {Vector2}
  *  @default Vector2(16,16)
  *  @memberof Settings */
-let tileSizeDefault = vec2(16);
+let tileSizeDefault = vec2(12);
 
 /** How many pixels smaller to draw tiles to prevent bleeding from neighbors
  *  @type {Number}
