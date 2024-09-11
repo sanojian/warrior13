@@ -1,6 +1,6 @@
 {
   "include": [
-    "dist/lib/littlejs.release.js",
+    "dist/lib/littlejs.trimmed.js",
     "src/js/**/*.js",
     "src/js/**/*.ts"
   ],

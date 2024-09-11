@@ -862,32 +862,6 @@ function drawRect(pos, size, color, angle, screenSpace, context)
 }
 
 
-/** Draw directly to a 2d canvas context in world space
- *  @param {Vector2}  pos
- *  @param {Vector2}  size
- *  @param {Number}   angle
- *  @param {Boolean}  mirror
- *  @param {Function} drawFunction
- *  @param {Boolean} [screenSpace=false]
- *  @param {CanvasRenderingContext2D} [context=mainContext]
- *  @memberof Draw */
-function drawCanvas2D(pos, size, angle, mirror, drawFunction, screenSpace, context=mainContext)
-{
-    if (!screenSpace)
-    {
-        // transform from world space to screen space
-        pos = worldToScreen(pos);
-        size = size.scale(cameraScale);
-    }
-    context.save();
-    context.translate(pos.x+.5, pos.y+.5);
-    context.rotate(angle);
-    context.scale(mirror ? -size.x : size.x, size.y);
-    drawFunction(context);
-    context.restore();
-}
-
-
 /** 
  * Font Image Object - Draw text on a 2D canvas by using characters in an image
  * - 96 characters (from space to tilde) are stored in an image
@@ -904,16 +878,13 @@ class FontImage
 {
     /** Create an image font
      *  @param {HTMLImageElement} [image]    - Image for the font, if undefined default font is used
-     *  @param {Vector2} [tileSize=(8,8)]    - Size of the font source tiles
-     *  @param {Vector2} [paddingSize=(0,1)] - How much extra space to add between characters
-     *  @param {CanvasRenderingContext2D} [context=overlayContext] - context to draw to
-     */
-    constructor(image, tileSize=vec2(6), paddingSize=vec2(1), context=overlayContext)
+    */
+    constructor(image)
     {
        this.image = image;
-        this.tileSize = tileSize;
-        this.paddingSize = paddingSize;
-        this.context = context;
+        this.tileSize = vec2(6);
+        this.paddingSize = vec2(1);
+        this.context = overlayContext;
     }
 
     /** Draw text in world space using the image font
@@ -1065,41 +1036,6 @@ function inputUpdatePost()
         deviceInputData[i] &= 1;
 }
 
-///////////////////////////////////////////////////////////////////////////////
-// Keyboard event handlers
-
-/*{
-    onkeydown = (e)=>
-    {
-        if (debug && e.target != document.body) return;
-        if (!e.repeat)
-        {
-            isUsingGamepad = false;
-            inputData[0][e.code] = 3;
-            if (inputWASDEmulateDirection)
-                inputData[0][remapKey(e.code)] = 3;
-        }
-        preventDefaultInput && e.preventDefault();
-    }
-
-    onkeyup = (e)=>
-    {
-        if (debug && e.target != document.body) return;
-        inputData[0][e.code] = 4;
-        if (inputWASDEmulateDirection)
-            inputData[0][remapKey(e.code)] = 4;
-    }
-
-    // handle remapping wasd keys to directions
-    function remapKey(c)
-    {
-        return inputWASDEmulateDirection ? 
-            c == 'KeyW' ? 'ArrowUp' : 
-            c == 'KeyS' ? 'ArrowDown' : 
-            c == 'KeyA' ? 'ArrowLeft' : 
-            c == 'KeyD' ? 'ArrowRight' : c : c;
-    }
-}*/
 
 ///////////////////////////////////////////////////////////////////////////////
 // Mouse event handlers
