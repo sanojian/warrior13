@@ -28,29 +28,37 @@ GLOBAL.miniMap = {
 		);
 		drawRect(uiPos, vec2(28 / 12), new Color(.2, .6, .4));
 
-		let color = new Color(.3, .4, .2);
-		GLOBAL.miniMap.drawObjects(uiPos, GLOBAL.trees, color);
-
-		color = new Color(.61, .68, .72);
-		GLOBAL.miniMap.drawObjects(uiPos, GLOBAL.stones, color);
-
-		color = new Color(.6, 1, .3);
-		GLOBAL.miniMap.drawObjects(uiPos, GLOBAL.buildings, color);
-		GLOBAL.miniMap.drawObjects(uiPos, GLOBAL.units, color);
-
-		color = new Color(.9, .3, .4);
-		GLOBAL.miniMap.drawObjects(uiPos, GLOBAL.enemies, color);
+		GLOBAL.miniMap.drawObjects(
+			uiPos,
+			[
+				GLOBAL.trees,
+				GLOBAL.stones,
+				GLOBAL.buildings.concat(GLOBAL.units),
+				GLOBAL.enemies
+			],
+			[
+				new Color(.3, .4, .2),
+				new Color(.61, .68, .72),
+				new Color(.6, 1, .3),
+				new Color(.9, .3, .4)
+			]
+		);
 	},
 
-	drawObjects(uiPos, array, color) {
+	drawObjects(uiPos, arrays, colors) {
 
-		for (let i = 0; i < array.length; i++) {
-			const obj = array[i];
-			drawRect(
-				uiPos.add(vec2((obj.pos.x - 18) / 12, (obj.pos.y - 18) / 12)),
-				vec2((obj instanceof Building_TownHall ? 2 : 1) / 12),
-				color
-			);
+		for (let a = 0; a < arrays.length; a++) {
+			const array = arrays[a];
+			const color = colors[a];
+
+			for (let i = 0; i < array.length; i++) {
+				const obj = array[i];
+				drawRect(
+					uiPos.add(vec2((obj.pos.x - 18) / 12, (obj.pos.y - 18) / 12)),
+					vec2((obj instanceof Building_TownHall ? 2 : 1) / 12),
+					color
+				);
+			}
 		}
 	}
 }

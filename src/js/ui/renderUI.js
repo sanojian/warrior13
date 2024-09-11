@@ -30,12 +30,10 @@ function gameRenderPost() {
 		return;
 	}
 
-	if (GLOBAL.state == DEFS.STATES.BUILD_HOUSE
-		|| GLOBAL.state == DEFS.STATES.BUILD_BARRACKS
-		|| GLOBAL.state == DEFS.STATES.BUILD_FARM
-		|| GLOBAL.state == DEFS.STATES.BUILD_WALL
-	) {
-		// draw temp house
+	if (GLOBAL.state > 5) {
+		// building mode
+
+		// draw temp structure
 
 		const x = Math.round(mousePos.x);
 		const y = Math.round(mousePos.y);

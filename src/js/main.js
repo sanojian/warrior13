@@ -169,7 +169,7 @@ function gameUpdate() {
 		return;
 	}
 
-	if (GLOBAL.state == DEFS.STATES.BUILD_HOUSE || GLOBAL.state == DEFS.STATES.BUILD_BARRACKS  || GLOBAL.state == DEFS.STATES.BUILD_FARM || GLOBAL.state == DEFS.STATES.BUILD_WALL) {
+	if (GLOBAL.state > 5) {
 		// building
 
 		if (mouseIsDown(0)) {
