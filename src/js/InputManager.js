@@ -18,10 +18,11 @@ GLOBAL.inputMan = {
 			clearInput();
 			screenClicked = true;
 
-			if (!GLOBAL.musicPlaying) {
+			if (!GLOBAL.musicPlaying || !GLOBAL.music.source) {
 				GLOBAL.music.playMusic(.6, true);
 				GLOBAL.musicPlaying = GLOBAL.music;
 			}
+
 
 			// check UI
 
