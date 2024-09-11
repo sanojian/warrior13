@@ -13,7 +13,7 @@ GLOBAL.vfxMan = {
 
 		const arrow = new EngineObject(
 			origin,
-			vec2(1),
+			1,
 			tile(9),
 			target.pos.subtract(origin).angle()
 		);

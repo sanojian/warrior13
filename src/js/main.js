@@ -189,7 +189,7 @@ function gameUpdate() {
 				else if (GLOBAL.state == DEFS.STATES.BUILD_WALL) {
 					GLOBAL.wood -= 2;
 					GLOBAL.stone -= 1;
-					GLOBAL.buildings.push(new Building(vec2(x, y), vec2(1), tile(51)));
+					GLOBAL.buildings.push(new Building(vec2(x, y), 1, tile(51)));
 				}
 				else {
 					// house
@@ -218,7 +218,7 @@ function gameUpdate() {
 		for (let i = 0; i < def.enemies.length; i += 2) {
 
 			let tileInfo = tile(94 + randInt(0, 4) * 8);
-			let size = vec2(1);
+			let size;
 			let hitPoints = GLOBAL.warriorIndex > 9 ? 4 : 3;
 
 			if (i == 0) {
@@ -267,7 +267,7 @@ function gameUpdate() {
 }
 
 function buildHouse(pos) {
-	const building = new Building(pos, vec2(1), tile(50));
+	const building = new Building(pos, 1, tile(50));
 	building.popSupport = 2;
 	building.smokePos = building.pos.add(vec2(.3, .5));
 	GLOBAL.wood -= 6;

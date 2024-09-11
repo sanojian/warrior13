@@ -44,7 +44,7 @@ function gameRenderPost() {
 			color = new Color(1, 0, 0, .5);
 		}
 
-		let size = vec2(1);
+		let size;
 		let tileInfo = tile(50);
 
 		if (GLOBAL.state == DEFS.STATES.BUILD_BARRACKS) {

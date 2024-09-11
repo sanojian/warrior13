@@ -3,7 +3,7 @@ class Unit_Archer extends PlayerUnit {
 
 	constructor(pos) {
 
-		super(pos, vec2(1), tile(12));
+		super(pos, 1, tile(12));
 
 		this.selected = false;
 
