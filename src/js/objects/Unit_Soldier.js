@@ -3,7 +3,7 @@ class Unit_Soldier extends PlayerUnit {
 
 	constructor(pos) {
 
-		super(pos, 1, tile(14));
+		super(pos, vec2(1), tile(14));
 
 		this.weapon = 'spear';
 		this.hitPoints = 6;

@@ -217,9 +217,10 @@ function gameUpdate() {
 		// spawn enemies
 		for (let i = 0; i < def.enemies.length; i += 2) {
 
-			let tileInfo = tile(94 + randInt(0, 4) * 8);
-			let size;
-			let hitPoints = GLOBAL.warriorIndex > 9 ? 4 : 3;
+			let
+				tileInfo = tile(94 + randInt(0, 4) * 8),
+				size,
+				hitPoints = GLOBAL.warriorIndex > 9 ? 4 : 3;
 
 			if (i == 0) {
 				// hero
@@ -235,13 +236,14 @@ function gameUpdate() {
 		}
 
 		// place boat
-		const x = def.enemies[0];
-		const y = def.enemies[1];
+		const
+			x = def.enemies[0],
+			y = def.enemies[1];
 		GLOBAL.boat.pos = vec2(x > 20 ? 33 : x < 5 ? 2 : 18, y > 20 ? 33 : y < 5 ? 2 : 18);
 
 		
 		if (GLOBAL.warriorIndex < 12) {
-			//GLOBAL.warriorTimer.set(5);
+			//GLOBAL.warriorTimer.set(35);
 			GLOBAL.warriorTimer.set(90);
 		}
 		else {
@@ -267,7 +269,7 @@ function gameUpdate() {
 }
 
 function buildHouse(pos) {
-	const building = new Building(pos, 1, tile(50));
+	const building = new Building(pos, vec2(1), tile(50));
 	building.popSupport = 2;
 	building.smokePos = building.pos.add(vec2(.3, .5));
 	GLOBAL.wood -= 6;
@@ -284,8 +286,9 @@ function separateUnits(unitArray) {
 		
 		for (let i = 0; i < unitArray.length; i++) {
 			if (i != index) {
-				let unit1 = unitArray[index];
-				let unit2 = unitArray[i];
+				let
+					unit1 = unitArray[index],
+					unit2 = unitArray[i];
 				if (i < index) {
 					// swap places
 					const tmp = unit1;

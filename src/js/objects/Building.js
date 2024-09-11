@@ -4,7 +4,7 @@ class Building extends EngineObject {
 	constructor(pos, size, tileInfo) {
 
 		// starts as building site
-		super(pos, 1, tile(58));
+		super(pos, vec2(1), tile(58));
 
 		this.renderOrder = -10000;
 

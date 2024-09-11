@@ -35,17 +35,19 @@ function gameRenderPost() {
 
 		// draw temp structure
 
-		const x = Math.round(mousePos.x);
-		const y = Math.round(mousePos.y);
+		const
+			x = Math.round(mousePos.x),
+			y = Math.round(mousePos.y);
 
-		let color = new Color(1, 1, 1, .5);
+		let color = new Color(1, 1, 1, .5),
+			size = vec2(1),
+			tileInfo = tile(50);
+		
 		if (GLOBAL.mapMan.getTileAt(mousePos)) {
 			// illegal position 
 			color = new Color(1, 0, 0, .5);
 		}
 
-		let size;
-		let tileInfo = tile(50);
 
 		if (GLOBAL.state == DEFS.STATES.BUILD_BARRACKS) {
 			size = vec2(2);
@@ -140,22 +142,29 @@ function gameRenderPost() {
 
 	// invasion timer
 	const countdown = Math.ceil(-GLOBAL.warriorTimer.valueOf());
+	let warriorText;
 
 	if (GLOBAL.warriorIndex < 12 && countdown < 31) {
-		GLOBAL.uiFont.drawText(
-			(DEFS.WARRIORS[GLOBAL.warriorIndex].number + ' ' + countdown + '\n' + DEFS.WARRIORS[GLOBAL.warriorIndex].from),
-			screenToWorld(vec2(innerWidth / 2, 24)),
-			.08,
-			true
-		);
+		const def = DEFS.WARRIORS[GLOBAL.warriorIndex];
+		warriorText = def.number + ' ' + countdown + '\n' + def.from;
 	}
+	else if (GLOBAL.enemies.length) {
+		warriorText = DEFS.WARRIORS[GLOBAL.warriorIndex - 1].name + '  \n' + GLOBAL.warriorIndex + '/13';
+	}
+	warriorText && GLOBAL.uiFont.drawText(
+		warriorText,
+		screenToWorld(vec2(innerWidth / 2, 24)),
+		.08,
+		true
+	);
+
 
 	// title
 	if (!screenClicked)
 		GLOBAL.uiFont.drawText(
 			'WENDOL\nVILLAGE',
-			screenToWorld(vec2(innerWidth / 2, innerHeight / 2)),
-			min(.24, .24 * innerWidth / 700),
+			screenToWorld(vec2(innerWidth / 2, 1 * innerHeight / 3)),
+			min(.16, .16 * innerWidth / 700),
 			true
 		);
 }
@@ -166,11 +175,6 @@ function drawUiBox(uiPos, tileInfo, text) {
 		uiPos,
 		vec2(4, 2),
 		tile(vec2(0, 48), vec2(48, 24))
-	);
-	drawRect(
-		uiPos.subtract(vec2(.85, 0)),
-		vec2(1.2),
-		new Color(.2, .4, .5)
 	);
 	drawTile(
 		uiPos.subtract(vec2(.85, 0)),

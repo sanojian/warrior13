@@ -3,7 +3,7 @@ class Stone extends EngineObject {
 
 	constructor(pos) {
 
-		super(pos, 1, tile(8));
+		super(pos, vec2(1), tile(8));
 
 		this.renderOrder = -pos.y;
 
