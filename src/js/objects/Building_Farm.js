@@ -29,12 +29,7 @@ class Building_Farm extends Building {
 
 		this.food -= 1;
 
-		if (this.food <= 0) {
-
-			GLOBAL.mapGrid[Math.round(this.pos.y)][this.pos.x] = 0;
-			GLOBAL.buildings.splice(GLOBAL.buildings.indexOf(this), 1);
-			this.destroy();
-		}
+		this.food <= 0 && this.destroy();
 	}
 
 }
